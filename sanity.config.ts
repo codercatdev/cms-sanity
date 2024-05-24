@@ -5,7 +5,8 @@
 import { visionTool } from "@sanity/vision";
 import { PluginOptions, defineConfig } from "sanity";
 import { unsplashImageAsset } from "sanity-plugin-asset-source-unsplash";
-import {cloudinarySchemaPlugin} from 'sanity-plugin-cloudinary'
+import { cloudinarySchemaPlugin } from "sanity-plugin-cloudinary";
+import { tags } from "sanity-plugin-tags";
 
 import {
   presentationTool,
@@ -19,8 +20,14 @@ import { apiVersion, dataset, projectId, studioUrl } from "@/sanity/lib/api";
 import { pageStructure, singletonPlugin } from "@/sanity/plugins/settings";
 import { assistWithPresets } from "@/sanity/plugins/assist";
 import author from "@/sanity/schemas/documents/author";
+import course from "@/sanity/schemas/documents/course";
+import lesson from "@/sanity/schemas/documents/lesson";
+import guest from "./sanity/schemas/documents/guest";
+import podcast from "@/sanity/schemas/documents/podcast";
+import podcastType from "./sanity/schemas/documents/podcastType";
 import post from "@/sanity/schemas/documents/post";
 import settings from "@/sanity/schemas/singletons/settings";
+import sponsor from "./sanity/schemas/documents/sponsor";
 import { resolveHref } from "@/sanity/lib/utils";
 
 const homeLocation = {
@@ -37,8 +44,14 @@ export default defineConfig({
       // Singletons
       settings,
       // Documents
-      post,
       author,
+      course,
+      lesson,
+      guest,
+      podcast,
+      podcastType,
+      post,
+      sponsor,
     ],
   },
   plugins: [
@@ -86,6 +99,7 @@ export default defineConfig({
     // Vision lets you query your content with GROQ in the studio
     // https://www.sanity.io/docs/the-vision-plugin
     cloudinarySchemaPlugin(),
+    tags(),
     process.env.NODE_ENV === "development" &&
       visionTool({ defaultApiVersion: apiVersion }),
   ].filter(Boolean) as PluginOptions[],

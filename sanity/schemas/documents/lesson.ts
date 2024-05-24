@@ -1,13 +1,13 @@
-import { DocumentTextIcon } from "@sanity/icons";
+import { PiStudentBold } from "react-icons/pi";
 import { format, parseISO } from "date-fns";
 import { defineField, defineType } from "sanity";
 
 import contentType from "../partials/content";
 
 export default defineType({
-  name: "post",
-  title: "Post",
-  icon: DocumentTextIcon,
+  name: "lesson",
+  title: "Lesson",
+  icon: PiStudentBold,
   type: "document",
   fields:[...contentType.fields],
   preview: {

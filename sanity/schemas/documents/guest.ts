@@ -1,13 +1,13 @@
-import { FaCat } from "react-icons/fa";
+import { UserIcon } from "@sanity/icons";
 import { defineField, defineType } from "sanity";
 
 import baseType from "../partials/base";
 
 
 export default defineType({
-  name: "author",
-  title: "Author",
-  icon: FaCat,
+  name: "guest",
+  title: "Guest",
+  icon: UserIcon,
   type: "document",
   fields: [...baseType.fields],
 });

@@ -1,13 +1,13 @@
-import { FaCat } from "react-icons/fa";
+import { FaMicrophone } from "react-icons/fa";
 import { defineField, defineType } from "sanity";
 
 import baseType from "../partials/base";
 
 
 export default defineType({
-  name: "author",
-  title: "Author",
-  icon: FaCat,
+  name: "podcastType",
+  title: "Podcast Type",
+  icon: FaMicrophone,
   type: "document",
   fields: [...baseType.fields],
 });
