@@ -5,6 +5,8 @@
 import { visionTool } from "@sanity/vision";
 import { PluginOptions, defineConfig } from "sanity";
 import { unsplashImageAsset } from "sanity-plugin-asset-source-unsplash";
+import {cloudinarySchemaPlugin} from 'sanity-plugin-cloudinary'
+
 import {
   presentationTool,
   defineDocuments,
@@ -83,6 +85,7 @@ export default defineConfig({
     assistWithPresets(),
     // Vision lets you query your content with GROQ in the studio
     // https://www.sanity.io/docs/the-vision-plugin
+    cloudinarySchemaPlugin(),
     process.env.NODE_ENV === "development" &&
       visionTool({ defaultApiVersion: apiVersion }),
   ].filter(Boolean) as PluginOptions[],

@@ -29,17 +29,9 @@ export async function generateMetadata(): Promise<Metadata> {
   const title = settings?.title || demo.title;
   const description = settings?.description || demo.description;
 
-  const ogImage = resolveOpenGraphImage(settings?.ogImage);
-  let metadataBase: URL | undefined = undefined;
-  try {
-    metadataBase = settings?.ogImage?.metadataBase
-      ? new URL(settings.ogImage.metadataBase)
-      : undefined;
-  } catch {
-    // ignore
-  }
+  // const ogImage = resolveOpenGraphImage(settings?.ogImage);
+  const ogImage = settings?.ogImage?.secure_url;
   return {
-    metadataBase,
     title: {
       template: `%s | ${title}`,
       default: title,

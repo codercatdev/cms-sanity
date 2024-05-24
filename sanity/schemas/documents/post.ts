@@ -54,29 +54,29 @@ export default defineType({
     defineField({
       name: "coverImage",
       title: "Cover Image",
-      type: "image",
+      type: "cloudinary.asset",
       options: {
         hotspot: true,
         aiAssist: {
           imageDescriptionField: "alt",
         },
       },
-      fields: [
-        {
-          name: "alt",
-          type: "string",
-          title: "Alternative text",
-          description: "Important for SEO and accessiblity.",
-          validation: (rule) => {
-            return rule.custom((alt, context) => {
-              if ((context.document?.coverImage as any)?.asset?._ref && !alt) {
-                return "Required";
-              }
-              return true;
-            });
-          },
-        },
-      ],
+      // fields: [
+      //   {
+      //     name: "alt",
+      //     type: "string",
+      //     title: "Alternative text",
+      //     description: "Important for SEO and accessiblity.",
+      //     validation: (rule) => {
+      //       return rule.custom((alt, context) => {
+      //         if ((context.document?.coverImage as any)?.asset?._ref && !alt) {
+      //           return "Required";
+      //         }
+      //         return true;
+      //       });
+      //     },
+      //   },
+      // ],
       validation: (rule) => rule.required(),
     }),
     defineField({
