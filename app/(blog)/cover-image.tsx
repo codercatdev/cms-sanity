@@ -1,4 +1,6 @@
-import { Image } from "next-sanity/image";
+"use client"
+
+import { CldImage } from 'next-cloudinary';
 
 interface CoverImageProps {
   image: any;
@@ -8,15 +10,25 @@ interface CoverImageProps {
 export default function CoverImage(props: CoverImageProps) {
   const { image: source, priority } = props;
   const image = source?.secure_url ? (
-    <Image
+    // <Image
+    //   className="h-auto w-full"
+    //   width={2000}
+    //   height={1000}
+    //   alt={source?.alt || ""}
+    //   src={source?.secure_url as string}
+    //   sizes="100vw"
+    //   priority={priority}
+    // />
+    <CldImage
       className="h-auto w-full"
-      width={2000}
-      height={1000}
+      width="1920"
+      height="1080"
       alt={source?.alt || ""}
-      src={source?.secure_url as string}
+      src={source?.public_id}
       sizes="100vw"
       priority={priority}
     />
+
   ) : (
     <div className="bg-slate-50" style={{ paddingTop: "50%" }} />
   );
