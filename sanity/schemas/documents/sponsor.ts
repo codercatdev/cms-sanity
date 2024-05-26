@@ -9,5 +9,13 @@ export default defineType({
   title: "Sponsor",
   icon: PiCurrencyDollarSimpleFill,
   type: "document",
-  fields: [...baseType.fields],
+  fields: [
+    ...baseType.fields,
+    defineField({
+      title: "Link",
+      name: "url",
+      type: "url",
+      validation: (Rule) => Rule.required(),
+    }),
+  ],
 });

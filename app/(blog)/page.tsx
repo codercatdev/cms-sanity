@@ -80,7 +80,7 @@ export default async function Page() {
     }),
     sanityFetch<HeroQueryResult>({ query: heroQuery }),
   ]);
-
+  console.log(settings, heroPost);
   return (
     <div className="container mx-auto px-5">
       <Intro title={settings?.title} description={settings?.description} />

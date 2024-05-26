@@ -125,6 +125,136 @@ export type SanityAssetSourceData = {
   url?: string;
 };
 
+export type Sponsor = {
+  _id: string;
+  _type: "sponsor";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  slug?: Slug;
+  content?: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
+    listItem?: "bullet" | "number";
+    markDefs?: Array<{
+      href?: string;
+      blank?: boolean;
+      _type: "link";
+      _key: string;
+    } | {
+      reference?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "post";
+      } | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "podcast";
+      } | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "course";
+      };
+      _type: "internalLink";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  } | ({
+    _key: string;
+  } & CloudinaryAsset) | ({
+    _key: string;
+  } & Code)>;
+  excerpt?: string;
+  coverImage?: CloudinaryAsset;
+  url?: string;
+};
+
+export type Author = {
+  _id: string;
+  _type: "author";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  slug?: Slug;
+  content?: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
+    listItem?: "bullet" | "number";
+    markDefs?: Array<{
+      href?: string;
+      blank?: boolean;
+      _type: "link";
+      _key: string;
+    } | {
+      reference?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "post";
+      } | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "podcast";
+      } | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "course";
+      };
+      _type: "internalLink";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  } | ({
+    _key: string;
+  } & CloudinaryAsset) | ({
+    _key: string;
+  } & Code)>;
+  excerpt?: string;
+  coverImage?: CloudinaryAsset;
+  socials?: {
+    codepen?: string;
+    devto?: string;
+    discord?: string;
+    dribble?: string;
+    facebook?: string;
+    github?: string;
+    instagram?: string;
+    lastfm?: string;
+    linkedin?: string;
+    email?: string;
+    mastodon?: string;
+    medium?: string;
+    polywork?: string;
+    stackoverflow?: string;
+    substack?: string;
+    tiktok?: string;
+    twitch?: string;
+    twitter?: string;
+    youtube?: string;
+  };
+};
+
 export type Post = {
   _id: string;
   _type: "post";
@@ -144,7 +274,27 @@ export type Post = {
     listItem?: "bullet" | "number";
     markDefs?: Array<{
       href?: string;
+      blank?: boolean;
       _type: "link";
+      _key: string;
+    } | {
+      reference?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "post";
+      } | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "podcast";
+      } | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "course";
+      };
+      _type: "internalLink";
       _key: string;
     }>;
     level?: number;
@@ -152,17 +302,31 @@ export type Post = {
     _key: string;
   } | ({
     _key: string;
-  } & CloudinaryAsset)>;
+  } & CloudinaryAsset) | ({
+    _key: string;
+  } & Code)>;
   excerpt?: string;
   coverImage?: CloudinaryAsset;
-  date?: string;
-  author?: {
+  author?: Array<{
     _ref: string;
     _type: "reference";
     _weak?: boolean;
+    _key: string;
     [internalGroqTypeReferenceTo]?: "author";
-  };
-  tags?: Array<string>;
+  }>;
+  devto?: string;
+  hashnode?: string;
+  sponsor?: Array<{
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    _key: string;
+    [internalGroqTypeReferenceTo]?: "sponsor";
+  }>;
+  tags?: Array<{
+    _key: string;
+  } & Tag>;
+  youtube?: string;
 };
 
 export type Podcast = {
@@ -184,7 +348,27 @@ export type Podcast = {
     listItem?: "bullet" | "number";
     markDefs?: Array<{
       href?: string;
+      blank?: boolean;
       _type: "link";
+      _key: string;
+    } | {
+      reference?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "post";
+      } | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "podcast";
+      } | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "course";
+      };
+      _type: "internalLink";
       _key: string;
     }>;
     level?: number;
@@ -192,17 +376,31 @@ export type Podcast = {
     _key: string;
   } | ({
     _key: string;
-  } & CloudinaryAsset)>;
+  } & CloudinaryAsset) | ({
+    _key: string;
+  } & Code)>;
   excerpt?: string;
   coverImage?: CloudinaryAsset;
-  date?: string;
-  author?: {
+  author?: Array<{
     _ref: string;
     _type: "reference";
     _weak?: boolean;
+    _key: string;
     [internalGroqTypeReferenceTo]?: "author";
-  };
-  tags?: Array<string>;
+  }>;
+  devto?: string;
+  hashnode?: string;
+  sponsor?: Array<{
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    _key: string;
+    [internalGroqTypeReferenceTo]?: "sponsor";
+  }>;
+  tags?: Array<{
+    _key: string;
+  } & Tag>;
+  youtube?: string;
   podcastType?: {
     _ref: string;
     _type: "reference";
@@ -211,13 +409,14 @@ export type Podcast = {
   };
   season?: number;
   episode?: number;
-  recording_date?: string;
-  guest?: {
+  recordingDate?: string;
+  guest?: Array<{
     _ref: string;
     _type: "reference";
     _weak?: boolean;
+    _key: string;
     [internalGroqTypeReferenceTo]?: "guest";
-  };
+  }>;
   pick?: Array<{
     user?: {
       _ref: string;
@@ -234,42 +433,7 @@ export type Podcast = {
     site?: string;
     _key: string;
   }>;
-  devto?: string;
-  hashnode?: string;
   spotify?: string;
-};
-
-export type PodcastType = {
-  _id: string;
-  _type: "podcastType";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  title?: string;
-  slug?: Slug;
-  content?: Array<{
-    children?: Array<{
-      marks?: Array<string>;
-      text?: string;
-      _type: "span";
-      _key: string;
-    }>;
-    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
-    listItem?: "bullet" | "number";
-    markDefs?: Array<{
-      href?: string;
-      _type: "link";
-      _key: string;
-    }>;
-    level?: number;
-    _type: "block";
-    _key: string;
-  } | ({
-    _key: string;
-  } & CloudinaryAsset)>;
-  excerpt?: string;
-  coverImage?: CloudinaryAsset;
-  date?: string;
 };
 
 export type Guest = {
@@ -291,7 +455,27 @@ export type Guest = {
     listItem?: "bullet" | "number";
     markDefs?: Array<{
       href?: string;
+      blank?: boolean;
       _type: "link";
+      _key: string;
+    } | {
+      reference?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "post";
+      } | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "podcast";
+      } | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "course";
+      };
+      _type: "internalLink";
       _key: string;
     }>;
     level?: number;
@@ -299,10 +483,86 @@ export type Guest = {
     _key: string;
   } | ({
     _key: string;
-  } & CloudinaryAsset)>;
+  } & CloudinaryAsset) | ({
+    _key: string;
+  } & Code)>;
   excerpt?: string;
   coverImage?: CloudinaryAsset;
-  date?: string;
+  socials?: {
+    codepen?: string;
+    devto?: string;
+    discord?: string;
+    dribble?: string;
+    facebook?: string;
+    github?: string;
+    instagram?: string;
+    lastfm?: string;
+    linkedin?: string;
+    email?: string;
+    mastodon?: string;
+    medium?: string;
+    polywork?: string;
+    stackoverflow?: string;
+    substack?: string;
+    tiktok?: string;
+    twitch?: string;
+    twitter?: string;
+    youtube?: string;
+  };
+};
+
+export type PodcastType = {
+  _id: string;
+  _type: "podcastType";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  slug?: Slug;
+  content?: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
+    listItem?: "bullet" | "number";
+    markDefs?: Array<{
+      href?: string;
+      blank?: boolean;
+      _type: "link";
+      _key: string;
+    } | {
+      reference?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "post";
+      } | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "podcast";
+      } | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "course";
+      };
+      _type: "internalLink";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  } | ({
+    _key: string;
+  } & CloudinaryAsset) | ({
+    _key: string;
+  } & Code)>;
+  excerpt?: string;
+  coverImage?: CloudinaryAsset;
 };
 
 export type Course = {
@@ -324,7 +584,27 @@ export type Course = {
     listItem?: "bullet" | "number";
     markDefs?: Array<{
       href?: string;
+      blank?: boolean;
       _type: "link";
+      _key: string;
+    } | {
+      reference?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "post";
+      } | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "podcast";
+      } | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "course";
+      };
+      _type: "internalLink";
       _key: string;
     }>;
     level?: number;
@@ -332,17 +612,31 @@ export type Course = {
     _key: string;
   } | ({
     _key: string;
-  } & CloudinaryAsset)>;
+  } & CloudinaryAsset) | ({
+    _key: string;
+  } & Code)>;
   excerpt?: string;
   coverImage?: CloudinaryAsset;
-  date?: string;
-  author?: {
+  author?: Array<{
     _ref: string;
     _type: "reference";
     _weak?: boolean;
+    _key: string;
     [internalGroqTypeReferenceTo]?: "author";
-  };
-  tags?: Array<string>;
+  }>;
+  devto?: string;
+  hashnode?: string;
+  sponsor?: Array<{
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    _key: string;
+    [internalGroqTypeReferenceTo]?: "sponsor";
+  }>;
+  tags?: Array<{
+    _key: string;
+  } & Tag>;
+  youtube?: string;
   lesson?: {
     _ref: string;
     _type: "reference";
@@ -370,7 +664,27 @@ export type Lesson = {
     listItem?: "bullet" | "number";
     markDefs?: Array<{
       href?: string;
+      blank?: boolean;
       _type: "link";
+      _key: string;
+    } | {
+      reference?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "post";
+      } | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "podcast";
+      } | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "course";
+      };
+      _type: "internalLink";
       _key: string;
     }>;
     level?: number;
@@ -378,50 +692,31 @@ export type Lesson = {
     _key: string;
   } | ({
     _key: string;
-  } & CloudinaryAsset)>;
+  } & CloudinaryAsset) | ({
+    _key: string;
+  } & Code)>;
   excerpt?: string;
   coverImage?: CloudinaryAsset;
-  date?: string;
-  author?: {
+  author?: Array<{
     _ref: string;
     _type: "reference";
     _weak?: boolean;
+    _key: string;
     [internalGroqTypeReferenceTo]?: "author";
-  };
-  tags?: Array<string>;
-};
-
-export type Author = {
-  _id: string;
-  _type: "author";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  title?: string;
-  slug?: Slug;
-  content?: Array<{
-    children?: Array<{
-      marks?: Array<string>;
-      text?: string;
-      _type: "span";
-      _key: string;
-    }>;
-    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
-    listItem?: "bullet" | "number";
-    markDefs?: Array<{
-      href?: string;
-      _type: "link";
-      _key: string;
-    }>;
-    level?: number;
-    _type: "block";
+  }>;
+  devto?: string;
+  hashnode?: string;
+  sponsor?: Array<{
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
     _key: string;
-  } | ({
+    [internalGroqTypeReferenceTo]?: "sponsor";
+  }>;
+  tags?: Array<{
     _key: string;
-  } & CloudinaryAsset)>;
-  excerpt?: string;
-  coverImage?: CloudinaryAsset;
-  date?: string;
+  } & Tag>;
+  youtube?: string;
 };
 
 export type Slug = {
@@ -474,6 +769,14 @@ export type Settings = {
     _key: string;
   }>;
   ogImage?: CloudinaryAsset;
+};
+
+export type Code = {
+  _type: "code";
+  language?: string;
+  filename?: string;
+  code?: string;
+  highlightedLines?: Array<number>;
 };
 
 export type Tags = Array<{
@@ -700,7 +1003,9 @@ export type SettingsQueryResult = {
 export type HeroQueryResult = {
   content: Array<({
     _key: string;
-  } & CloudinaryAsset) | {
+  } & CloudinaryAsset) | ({
+    _key: string;
+  } & Code) | {
     children?: Array<{
       marks?: Array<string>;
       text?: string;
@@ -711,7 +1016,27 @@ export type HeroQueryResult = {
     listItem?: "bullet" | "number";
     markDefs?: Array<{
       href?: string;
+      blank?: boolean;
       _type: "link";
+      _key: string;
+    } | {
+      reference?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "course";
+      } | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "podcast";
+      } | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "post";
+      };
+      _type: "internalLink";
       _key: string;
     }>;
     level?: number;
@@ -724,11 +1049,8 @@ export type HeroQueryResult = {
   slug: string | null;
   excerpt: string | null;
   coverImage: CloudinaryAsset | null;
-  date: string;
-  author: {
-    name: null | "Anonymous";
-    picture: null;
-  } | null;
+  date: null | string;
+  author: null;
 } | null;
 // Variable: moreStoriesQuery
 // Query: *[_type == "post" && _id != $skip && defined(slug.current)] | order(date desc, _updatedAt desc) [0...$limit] {    _id,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(date, _updatedAt),  "author": author->{"name": coalesce(name, "Anonymous"), picture},}
@@ -739,18 +1061,17 @@ export type MoreStoriesQueryResult = Array<{
   slug: string | null;
   excerpt: string | null;
   coverImage: CloudinaryAsset | null;
-  date: string;
-  author: {
-    name: null | "Anonymous";
-    picture: null;
-  } | null;
+  date: null | string;
+  author: null;
 }>;
 // Variable: postQuery
 // Query: *[_type == "post" && slug.current == $slug] [0] {  content,    _id,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(date, _updatedAt),  "author": author->{"name": coalesce(name, "Anonymous"), picture},}
 export type PostQueryResult = {
   content: Array<({
     _key: string;
-  } & CloudinaryAsset) | {
+  } & CloudinaryAsset) | ({
+    _key: string;
+  } & Code) | {
     children?: Array<{
       marks?: Array<string>;
       text?: string;
@@ -761,7 +1082,27 @@ export type PostQueryResult = {
     listItem?: "bullet" | "number";
     markDefs?: Array<{
       href?: string;
+      blank?: boolean;
       _type: "link";
+      _key: string;
+    } | {
+      reference?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "course";
+      } | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "podcast";
+      } | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "post";
+      };
+      _type: "internalLink";
       _key: string;
     }>;
     level?: number;
@@ -774,13 +1115,10 @@ export type PostQueryResult = {
   slug: string | null;
   excerpt: string | null;
   coverImage: CloudinaryAsset | null;
-  date: string;
-  author: {
-    name: null | "Anonymous";
-    picture: null;
-  } | null;
+  date: null | string;
+  author: null;
 } | null;
-// Source: ./app/(blog)/posts/[slug]/page.tsx
+// Source: ./app/(blog)/post/[slug]/page.tsx
 // Variable: postSlugs
 // Query: *[_type == "post"]{slug}
 export type PostSlugsResult = Array<{

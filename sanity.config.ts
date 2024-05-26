@@ -7,6 +7,7 @@ import { PluginOptions, defineConfig } from "sanity";
 import { unsplashImageAsset } from "sanity-plugin-asset-source-unsplash";
 import { cloudinarySchemaPlugin } from "sanity-plugin-cloudinary";
 import { tags } from "sanity-plugin-tags";
+import { codeInput } from "@sanity/code-input";
 
 import {
   presentationTool,
@@ -59,7 +60,7 @@ export default defineConfig({
       resolve: {
         mainDocuments: defineDocuments([
           {
-            route: "/posts/:slug",
+            route: "/post/:slug",
             filter: `_type == "post" && slug.current == $slug`,
           },
         ]),
@@ -100,6 +101,7 @@ export default defineConfig({
     // https://www.sanity.io/docs/the-vision-plugin
     cloudinarySchemaPlugin(),
     tags(),
+    codeInput(),
     process.env.NODE_ENV === "development" &&
       visionTool({ defaultApiVersion: apiVersion }),
   ].filter(Boolean) as PluginOptions[],

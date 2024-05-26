@@ -9,7 +9,7 @@ const postFields = /* groq */ `
   "slug": slug.current,
   excerpt,
   coverImage,
-  "date": coalesce(date, _updatedAt),
+  "date": coalesce(_createdAt, _updatedAt),
   "author": author->{"name": coalesce(name, "Anonymous"), picture},
 `;
 

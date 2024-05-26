@@ -1,13 +1,12 @@
 import { UserIcon } from "@sanity/icons";
-import { defineField, defineType } from "sanity";
+import { defineType } from "sanity";
 
-import baseType from "../partials/base";
-
+import userType from "../partials/user";
 
 export default defineType({
+  ...userType,
   name: "guest",
   title: "Guest",
   icon: UserIcon,
   type: "document",
-  fields: [...baseType.fields],
 });

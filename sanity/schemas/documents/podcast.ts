@@ -8,22 +8,20 @@ import guestType from "./guest";
 import authorType from "./author";
 
 export default defineType({
+  ...contentType,
   name: "podcast",
   title: "Podcast",
   icon: FaPodcast,
   type: "document",
   groups: [
+    ...(contentType.groups || []),
     {
-      name: 'podcast',
-      title: 'Podcast Details',
-      default: true,
-    },
-    {
-      name: 'podcastExports',
-      title: 'Podcast Exports',
+      name: "podcast",
+      title: "Podcast Details",
     },
   ],
-  fields:[...contentType.fields,
+  fields: [
+    ...contentType.fields,
     defineField({
       name: "podcastType",
       title: "Podcast Type",
@@ -37,28 +35,43 @@ export default defineType({
       title: "Season",
       type: "number",
       group: "podcast",
-      validation: (rule) => [rule.required(), rule.min(1), rule.max(10), rule.integer()],
+      validation: (rule) => [
+        rule.required(),
+        rule.min(0),
+        rule.max(10),
+        rule.integer(),
+      ],
     }),
     defineField({
       name: "episode",
       title: "Episode",
       type: "number",
       group: "podcast",
-      validation: (rule) => [rule.required(), rule.min(1), rule.max(100), rule.integer()],
+      validation: (rule) => [
+        rule.required(),
+        rule.min(0),
+        rule.max(100),
+        rule.integer(),
+      ],
     }),
     defineField({
-      name: "recording_date",
+      name: "recordingDate",
       title: "Recording Date",
-      type: "date",
+      type: "datetime",
       group: "podcast",
       validation: (rule) => [rule.required()],
     }),
     defineField({
       name: "guest",
       title: "Guest(s)",
-      type: "reference",
+      type: "array",
       group: "podcast",
-      to: [{ type: guestType.name }],
+      of: [
+        {
+          type: "reference",
+          to: [{ type: guestType.name }],
+        },
+      ],
       validation: (rule) => [rule.required()],
     }),
     defineField({
@@ -68,65 +81,85 @@ export default defineType({
       group: "podcast",
       of: [
         {
-          type: 'object',
+          type: "object",
           fields: [
             defineField({
               name: "user",
               title: "Author or Guest",
               type: "reference",
-              to: [
-                { type: guestType.name },
-                { type: authorType.name }
-              ],
+              to: [{ type: guestType.name }, { type: authorType.name }],
               validation: (rule) => [rule.required()],
             }),
             defineField({
               name: "name",
               title: "Pick Name",
               type: "string",
+              validation: (rule) => [rule.required()],
             }),
             defineField({
               name: "site",
               title: "Pick Url",
               type: "url",
             }),
-          ]
-        }
-      ]
-    }),
-    defineField({
-      name: "devto",
-      title: "Dev.to",
-      type: "string",
-      group: "podcastExports",
-    }),
-    defineField({
-      name: "hashnode",
-      title: "Hashnode",
-      type: "string",
-      group: "podcastExports",
+          ],
+          preview: {
+            select: {
+              title: "user.title",
+              name: "name",
+              site: "site",
+            },
+            prepare({ title, name, site }) {
+              const subtitles = [name, ` - ${site}`].filter(Boolean);
+              return {
+                title,
+                subtitle: subtitles.join(" "),
+              };
+            },
+          },
+        },
+      ],
     }),
     defineField({
       name: "spotify",
       title: "Spotify",
       type: "string",
-      group: "podcastExports",
     }),
   ],
-  preview: {
-    select: {
-      title: "title",
-      author: "author.name",
-      date: "date",
-      media: "coverImage",
+  orderings: [
+    {
+      title: "Season Episode New",
+      name: "seasonDesc",
+      by: [
+        { field: "season", direction: "desc" },
+        { field: "episode", direction: "desc" },
+      ],
     },
-    prepare({ title, media, author, date }) {
+    {
+      title: "Season Episode Old",
+      name: "seasonAsc",
+      by: [
+        { field: "season", direction: "asc" },
+        { field: "episode", direction: "asc" },
+      ],
+    },
+  ],
+  preview: {
+    ...contentType.preview,
+    select: {
+      ...contentType.preview?.select,
+      episode: "episode",
+      season: "season",
+    },
+    prepare({ title, _createdAt, _updatedAt, episode, season }) {
       const subtitles = [
-        author && `by ${author}`,
-        date && `on ${format(parseISO(date), "LLL d, yyyy")}`,
+        _createdAt && `on ${format(parseISO(_createdAt), "LLL d, yyyy")}`,
+        _updatedAt && `updated ${format(parseISO(_updatedAt), "LLL d, yyyy")}`,
       ].filter(Boolean);
 
-      return { title, media, subtitle: subtitles.join(" ") };
+      return {
+        title: `${season}.${episode} - ${title}`,
+        subtitle: subtitles.join(" "),
+      };
     },
   },
 });
