@@ -180,6 +180,82 @@ export type Sponsor = {
   url?: string;
 };
 
+export type Lesson = {
+  _id: string;
+  _type: "lesson";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  slug?: Slug;
+  content?: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
+    listItem?: "bullet" | "number";
+    markDefs?: Array<{
+      href?: string;
+      blank?: boolean;
+      _type: "link";
+      _key: string;
+    } | {
+      reference?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "post";
+      } | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "podcast";
+      } | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "course";
+      };
+      _type: "internalLink";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  } | ({
+    _key: string;
+  } & CloudinaryAsset) | ({
+    _key: string;
+  } & Code)>;
+  excerpt?: string;
+  author?: Array<{
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    _key: string;
+    [internalGroqTypeReferenceTo]?: "author";
+  }>;
+  devto?: string;
+  hashnode?: string;
+  sponsor?: Array<{
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    _key: string;
+    [internalGroqTypeReferenceTo]?: "sponsor";
+  }>;
+  tags?: Array<{
+    _key: string;
+  } & Tag>;
+  youtube?: string;
+  locked?: boolean;
+  coverImage?: CloudinaryAsset;
+  videoCloudinary?: CloudinaryAsset;
+};
+
 export type Author = {
   _id: string;
   _type: "author";
@@ -637,86 +713,18 @@ export type Course = {
     _key: string;
   } & Tag>;
   youtube?: string;
-  lesson?: {
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "lesson";
-  };
-};
-
-export type Lesson = {
-  _id: string;
-  _type: "lesson";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  title?: string;
-  slug?: Slug;
-  content?: Array<{
-    children?: Array<{
-      marks?: Array<string>;
-      text?: string;
-      _type: "span";
+  sections?: Array<{
+    title?: string;
+    lesson?: Array<{
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
       _key: string;
+      [internalGroqTypeReferenceTo]?: "lesson";
     }>;
-    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
-    listItem?: "bullet" | "number";
-    markDefs?: Array<{
-      href?: string;
-      blank?: boolean;
-      _type: "link";
-      _key: string;
-    } | {
-      reference?: {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "post";
-      } | {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "podcast";
-      } | {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "course";
-      };
-      _type: "internalLink";
-      _key: string;
-    }>;
-    level?: number;
-    _type: "block";
+    _type: "section";
     _key: string;
-  } | ({
-    _key: string;
-  } & CloudinaryAsset) | ({
-    _key: string;
-  } & Code)>;
-  excerpt?: string;
-  coverImage?: CloudinaryAsset;
-  author?: Array<{
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    _key: string;
-    [internalGroqTypeReferenceTo]?: "author";
   }>;
-  devto?: string;
-  hashnode?: string;
-  sponsor?: Array<{
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    _key: string;
-    [internalGroqTypeReferenceTo]?: "sponsor";
-  }>;
-  tags?: Array<{
-    _key: string;
-  } & Tag>;
-  youtube?: string;
 };
 
 export type Slug = {
@@ -999,7 +1007,7 @@ export type SettingsQueryResult = {
   ogImage?: CloudinaryAsset;
 } | null;
 // Variable: heroQuery
-// Query: *[_type == "post" && defined(slug.current)] | order(date desc, _updatedAt desc) [0] {  content,    _id,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(date, _updatedAt),  "author": author->{"name": coalesce(name, "Anonymous"), picture},}
+// Query: *[_type == "post" && defined(slug.current)] | order(date desc, _updatedAt desc) [0] {  content,    _id,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(_createdAt, _updatedAt),  "author": author->{"name": coalesce(name, "Anonymous"), picture},}
 export type HeroQueryResult = {
   content: Array<({
     _key: string;
@@ -1049,11 +1057,11 @@ export type HeroQueryResult = {
   slug: string | null;
   excerpt: string | null;
   coverImage: CloudinaryAsset | null;
-  date: null | string;
+  date: string;
   author: null;
 } | null;
 // Variable: moreStoriesQuery
-// Query: *[_type == "post" && _id != $skip && defined(slug.current)] | order(date desc, _updatedAt desc) [0...$limit] {    _id,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(date, _updatedAt),  "author": author->{"name": coalesce(name, "Anonymous"), picture},}
+// Query: *[_type == "post" && _id != $skip && defined(slug.current)] | order(date desc, _updatedAt desc) [0...$limit] {    _id,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(_createdAt, _updatedAt),  "author": author->{"name": coalesce(name, "Anonymous"), picture},}
 export type MoreStoriesQueryResult = Array<{
   _id: string;
   status: "draft" | "published";
@@ -1061,11 +1069,11 @@ export type MoreStoriesQueryResult = Array<{
   slug: string | null;
   excerpt: string | null;
   coverImage: CloudinaryAsset | null;
-  date: null | string;
+  date: string;
   author: null;
 }>;
 // Variable: postQuery
-// Query: *[_type == "post" && slug.current == $slug] [0] {  content,    _id,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(date, _updatedAt),  "author": author->{"name": coalesce(name, "Anonymous"), picture},}
+// Query: *[_type == "post" && slug.current == $slug] [0] {  content,    _id,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(_createdAt, _updatedAt),  "author": author->{"name": coalesce(name, "Anonymous"), picture},}
 export type PostQueryResult = {
   content: Array<({
     _key: string;
@@ -1115,7 +1123,7 @@ export type PostQueryResult = {
   slug: string | null;
   excerpt: string | null;
   coverImage: CloudinaryAsset | null;
-  date: null | string;
+  date: string;
   author: null;
 } | null;
 // Source: ./app/(blog)/post/[slug]/page.tsx

@@ -10,5 +10,22 @@ export default defineType({
   title: "Lesson",
   icon: PiStudentBold,
   type: "document",
-  fields: [...contentType.fields],
+  fields: [
+    ...contentType.fields.filter((f) => f.name !== "coverImage"),
+    defineField({
+      name: "locked",
+      title: "Locked",
+      type: "boolean",
+    }),
+    defineField({
+      name: "coverImage",
+      title: "Cover Image",
+      type: "cloudinary.asset",
+    }),
+    defineField({
+      name: "videoCloudinary",
+      title: "Cloudinary Video",
+      type: "cloudinary.asset",
+    }),
+  ],
 });

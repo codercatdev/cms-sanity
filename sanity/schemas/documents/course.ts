@@ -11,13 +11,46 @@ export default defineType({
   title: "Course",
   icon: GiTeacher,
   type: "document",
+  groups: [
+    ...(contentType.groups || []),
+    {
+      name: "sections",
+      title: "Sections / Lessons",
+      default: true,
+    },
+  ],
   fields: [
     ...contentType.fields,
     defineField({
-      name: "lesson",
-      title: "Lesson",
-      type: "reference",
-      to: [{ type: lessonType.name }],
+      name: "sections",
+      title: "Sections",
+      type: "array",
+      group: "sections",
+      of: [
+        {
+          name: "section",
+          title: "Section",
+          type: "object",
+          fields: [
+            defineField({
+              name: "title",
+              title: "Title",
+              type: "string",
+            }),
+            defineField({
+              name: "lesson",
+              title: "Lessons",
+              type: "array",
+              of: [
+                {
+                  type: "reference",
+                  to: [{ type: lessonType.name }],
+                },
+              ],
+            }),
+          ],
+        },
+      ],
     }),
   ],
 });

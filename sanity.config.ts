@@ -4,7 +4,6 @@
  */
 import { visionTool } from "@sanity/vision";
 import { PluginOptions, defineConfig } from "sanity";
-import { unsplashImageAsset } from "sanity-plugin-asset-source-unsplash";
 import { cloudinarySchemaPlugin } from "sanity-plugin-cloudinary";
 import { tags } from "sanity-plugin-tags";
 import { codeInput } from "@sanity/code-input";
@@ -23,13 +22,15 @@ import { assistWithPresets } from "@/sanity/plugins/assist";
 import author from "@/sanity/schemas/documents/author";
 import course from "@/sanity/schemas/documents/course";
 import lesson from "@/sanity/schemas/documents/lesson";
-import guest from "./sanity/schemas/documents/guest";
+import guest from "@/sanity/schemas/documents/guest";
 import podcast from "@/sanity/schemas/documents/podcast";
-import podcastType from "./sanity/schemas/documents/podcastType";
+import podcastType from "@/sanity/schemas/documents/podcastType";
 import post from "@/sanity/schemas/documents/post";
 import settings from "@/sanity/schemas/singletons/settings";
-import sponsor from "./sanity/schemas/documents/sponsor";
+import sponsor from "@/sanity/schemas/documents/sponsor";
 import { resolveHref } from "@/sanity/lib/utils";
+import codepen from "./sanity/schemas/custom/codepen";
+import codesandbox from "./sanity/schemas/custom/codesandbox";
 
 const homeLocation = {
   title: "Home",
@@ -53,6 +54,9 @@ export default defineConfig({
       podcastType,
       post,
       sponsor,
+      // Custom components
+      codepen,
+      codesandbox,
     ],
   },
   plugins: [
@@ -92,16 +96,15 @@ export default defineConfig({
     structureTool({ structure: pageStructure([settings]) }),
     // Configures the global "new document" button, and document actions, to suit the Settings document singleton
     singletonPlugin([settings.name]),
-    // Add an image asset source for Unsplash
-    unsplashImageAsset(),
     // Sets up AI Assist with preset prompts
     // https://www.sanity.io/docs/ai-assist
     assistWithPresets(),
-    // Vision lets you query your content with GROQ in the studio
-    // https://www.sanity.io/docs/the-vision-plugin
     cloudinarySchemaPlugin(),
     tags(),
     codeInput(),
+
+    // Vision lets you query your content with GROQ in the studio
+    // https://www.sanity.io/docs/the-vision-plugin
     process.env.NODE_ENV === "development" &&
       visionTool({ defaultApiVersion: apiVersion }),
   ].filter(Boolean) as PluginOptions[],

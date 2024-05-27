@@ -1,5 +1,17 @@
 import { format, parseISO } from "date-fns";
-import { defineField, defineType } from "sanity";
+import { defineArrayMember, defineField, defineType } from "sanity";
+import { SiCloudinary } from "react-icons/si";
+
+//Custom Editor for markdown paste
+import input from "../../components/BlockEditor";
+
+// Custom annotations
+import externalLink from "../custom/externalLink";
+import internalLink from "../custom/internalLink";
+
+// Custom schemas (need imported in sanity.config.ts)
+import codepen from "../custom/codepen";
+import codesandbox from "../custom/codesandbox";
 
 const baseType = defineType({
   name: "base",
@@ -27,55 +39,26 @@ const baseType = defineType({
       name: "content",
       title: "Content",
       type: "array",
+      components: {
+        input,
+      },
       of: [
-        {
+        defineArrayMember({
           type: "block",
           marks: {
             annotations: [
-              {
-                name: "link",
-                type: "object",
-                title: "External link",
-                fields: [
-                  {
-                    name: "href",
-                    type: "url",
-                    title: "URL",
-                  },
-                  {
-                    title: "Open in new tab",
-                    name: "blank",
-                    description:
-                      "Read https://css-tricks.com/use-target_blank/",
-                    type: "boolean",
-                  },
-                ],
-              },
-              {
-                name: "internalLink",
-                type: "object",
-                title: "Internal link",
-                fields: [
-                  {
-                    name: "reference",
-                    type: "reference",
-                    title: "Reference",
-                    to: [
-                      { type: "post" },
-                      { type: "podcast" },
-                      { type: "course" },
-                      // other types you may want to link to
-                    ],
-                  },
-                ],
-              },
+              defineArrayMember(externalLink),
+              defineArrayMember(internalLink),
             ],
           },
-        },
-        {
+        }),
+        //Plugins
+        defineArrayMember({
           type: "cloudinary.asset",
-        },
-        defineField({
+          title: "Cloudinary",
+          icon: SiCloudinary,
+        }),
+        defineArrayMember({
           type: "code",
           name: "code",
           title: "Code",
@@ -83,23 +66,21 @@ const baseType = defineType({
             language: "typescript",
           },
         }),
+        //Custom Schemas
+        defineArrayMember(codepen),
+        defineArrayMember(codesandbox),
       ],
     }),
     defineField({
       name: "excerpt",
       title: "Excerpt",
       type: "text",
+      validation: (rule) => rule.required(),
     }),
     defineField({
       name: "coverImage",
       title: "Cover Image",
       type: "cloudinary.asset",
-      options: {
-        hotspot: true,
-        aiAssist: {
-          imageDescriptionField: "alt",
-        },
-      },
       validation: (rule) => rule.required(),
     }),
   ],

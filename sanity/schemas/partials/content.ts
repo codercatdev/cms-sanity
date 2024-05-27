@@ -26,6 +26,13 @@ const content = defineType({
           to: [{ type: authorType.name }],
         },
       ],
+      initialValue: [
+        {
+          _type: "reference",
+          _ref: "RIgC5r4TJ0hCGOzxHszD1w",
+        },
+      ],
+      validation: (rule) => rule.required(),
     }),
     defineField({
       name: "devto",
