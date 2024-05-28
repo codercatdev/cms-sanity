@@ -29,8 +29,6 @@ import post from "@/sanity/schemas/documents/post";
 import settings from "@/sanity/schemas/singletons/settings";
 import sponsor from "@/sanity/schemas/documents/sponsor";
 import { resolveHref } from "@/sanity/lib/utils";
-import codepen from "./sanity/schemas/custom/codepen";
-import codesandbox from "./sanity/schemas/custom/codesandbox";
 
 const homeLocation = {
   title: "Home",
@@ -54,9 +52,6 @@ export default defineConfig({
       podcastType,
       post,
       sponsor,
-      // Custom components
-      codepen,
-      codesandbox,
     ],
   },
   plugins: [

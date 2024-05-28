@@ -174,7 +174,15 @@ export type Sponsor = {
     _key: string;
   } & CloudinaryAsset) | ({
     _key: string;
-  } & Code)>;
+  } & Code) | {
+    url?: string;
+    _type: "codepen";
+    _key: string;
+  } | {
+    url?: string;
+    _type: "codesandbox";
+    _key: string;
+  }>;
   excerpt?: string;
   coverImage?: CloudinaryAsset;
   url?: string;
@@ -229,7 +237,15 @@ export type Lesson = {
     _key: string;
   } & CloudinaryAsset) | ({
     _key: string;
-  } & Code)>;
+  } & Code) | {
+    url?: string;
+    _type: "codepen";
+    _key: string;
+  } | {
+    url?: string;
+    _type: "codesandbox";
+    _key: string;
+  }>;
   excerpt?: string;
   author?: Array<{
     _ref: string;
@@ -305,7 +321,15 @@ export type Author = {
     _key: string;
   } & CloudinaryAsset) | ({
     _key: string;
-  } & Code)>;
+  } & Code) | {
+    url?: string;
+    _type: "codepen";
+    _key: string;
+  } | {
+    url?: string;
+    _type: "codesandbox";
+    _key: string;
+  }>;
   excerpt?: string;
   coverImage?: CloudinaryAsset;
   socials?: {
@@ -380,7 +404,15 @@ export type Post = {
     _key: string;
   } & CloudinaryAsset) | ({
     _key: string;
-  } & Code)>;
+  } & Code) | {
+    url?: string;
+    _type: "codepen";
+    _key: string;
+  } | {
+    url?: string;
+    _type: "codesandbox";
+    _key: string;
+  }>;
   excerpt?: string;
   coverImage?: CloudinaryAsset;
   author?: Array<{
@@ -454,7 +486,15 @@ export type Podcast = {
     _key: string;
   } & CloudinaryAsset) | ({
     _key: string;
-  } & Code)>;
+  } & Code) | {
+    url?: string;
+    _type: "codepen";
+    _key: string;
+  } | {
+    url?: string;
+    _type: "codesandbox";
+    _key: string;
+  }>;
   excerpt?: string;
   coverImage?: CloudinaryAsset;
   author?: Array<{
@@ -561,7 +601,15 @@ export type Guest = {
     _key: string;
   } & CloudinaryAsset) | ({
     _key: string;
-  } & Code)>;
+  } & Code) | {
+    url?: string;
+    _type: "codepen";
+    _key: string;
+  } | {
+    url?: string;
+    _type: "codesandbox";
+    _key: string;
+  }>;
   excerpt?: string;
   coverImage?: CloudinaryAsset;
   socials?: {
@@ -636,7 +684,15 @@ export type PodcastType = {
     _key: string;
   } & CloudinaryAsset) | ({
     _key: string;
-  } & Code)>;
+  } & Code) | {
+    url?: string;
+    _type: "codepen";
+    _key: string;
+  } | {
+    url?: string;
+    _type: "codesandbox";
+    _key: string;
+  }>;
   excerpt?: string;
   coverImage?: CloudinaryAsset;
 };
@@ -690,7 +746,15 @@ export type Course = {
     _key: string;
   } & CloudinaryAsset) | ({
     _key: string;
-  } & Code)>;
+  } & Code) | {
+    url?: string;
+    _type: "codepen";
+    _key: string;
+  } | {
+    url?: string;
+    _type: "codesandbox";
+    _key: string;
+  }>;
   excerpt?: string;
   coverImage?: CloudinaryAsset;
   author?: Array<{
@@ -1007,7 +1071,7 @@ export type SettingsQueryResult = {
   ogImage?: CloudinaryAsset;
 } | null;
 // Variable: heroQuery
-// Query: *[_type == "post" && defined(slug.current)] | order(date desc, _updatedAt desc) [0] {  content,    _id,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(_createdAt, _updatedAt),  "author": author->{"name": coalesce(name, "Anonymous"), picture},}
+// Query: *[_type == "post" && defined(slug.current)] | order(date desc, _updatedAt desc) [0] {  content,    _id,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(_createdAt, _updatedAt),  author[]->{    ...,    "title": coalesce(title, "Anonymous"),  }}
 export type HeroQueryResult = {
   content: Array<({
     _key: string;
@@ -1050,6 +1114,14 @@ export type HeroQueryResult = {
     level?: number;
     _type: "block";
     _key: string;
+  } | {
+    url?: string;
+    _type: "codepen";
+    _key: string;
+  } | {
+    url?: string;
+    _type: "codesandbox";
+    _key: string;
   }> | null;
   _id: string;
   status: "draft" | "published";
@@ -1058,10 +1130,91 @@ export type HeroQueryResult = {
   excerpt: string | null;
   coverImage: CloudinaryAsset | null;
   date: string;
-  author: null;
+  author: Array<{
+    _id: string;
+    _type: "author";
+    _createdAt: string;
+    _updatedAt: string;
+    _rev: string;
+    title: string | "Anonymous";
+    slug?: Slug;
+    content?: Array<({
+      _key: string;
+    } & CloudinaryAsset) | ({
+      _key: string;
+    } & Code) | {
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: "span";
+        _key: string;
+      }>;
+      style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+      listItem?: "bullet" | "number";
+      markDefs?: Array<{
+        href?: string;
+        blank?: boolean;
+        _type: "link";
+        _key: string;
+      } | {
+        reference?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "course";
+        } | {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "podcast";
+        } | {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "post";
+        };
+        _type: "internalLink";
+        _key: string;
+      }>;
+      level?: number;
+      _type: "block";
+      _key: string;
+    } | {
+      url?: string;
+      _type: "codepen";
+      _key: string;
+    } | {
+      url?: string;
+      _type: "codesandbox";
+      _key: string;
+    }>;
+    excerpt?: string;
+    coverImage?: CloudinaryAsset;
+    socials?: {
+      codepen?: string;
+      devto?: string;
+      discord?: string;
+      dribble?: string;
+      facebook?: string;
+      github?: string;
+      instagram?: string;
+      lastfm?: string;
+      linkedin?: string;
+      email?: string;
+      mastodon?: string;
+      medium?: string;
+      polywork?: string;
+      stackoverflow?: string;
+      substack?: string;
+      tiktok?: string;
+      twitch?: string;
+      twitter?: string;
+      youtube?: string;
+    };
+  }> | null;
 } | null;
 // Variable: moreStoriesQuery
-// Query: *[_type == "post" && _id != $skip && defined(slug.current)] | order(date desc, _updatedAt desc) [0...$limit] {    _id,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(_createdAt, _updatedAt),  "author": author->{"name": coalesce(name, "Anonymous"), picture},}
+// Query: *[_type == "post" && _id != $skip && defined(slug.current)] | order(date desc, _updatedAt desc) [0...$limit] {    _id,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(_createdAt, _updatedAt),  author[]->{    ...,    "title": coalesce(title, "Anonymous"),  }}
 export type MoreStoriesQueryResult = Array<{
   _id: string;
   status: "draft" | "published";
@@ -1070,10 +1223,91 @@ export type MoreStoriesQueryResult = Array<{
   excerpt: string | null;
   coverImage: CloudinaryAsset | null;
   date: string;
-  author: null;
+  author: Array<{
+    _id: string;
+    _type: "author";
+    _createdAt: string;
+    _updatedAt: string;
+    _rev: string;
+    title: string | "Anonymous";
+    slug?: Slug;
+    content?: Array<({
+      _key: string;
+    } & CloudinaryAsset) | ({
+      _key: string;
+    } & Code) | {
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: "span";
+        _key: string;
+      }>;
+      style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+      listItem?: "bullet" | "number";
+      markDefs?: Array<{
+        href?: string;
+        blank?: boolean;
+        _type: "link";
+        _key: string;
+      } | {
+        reference?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "course";
+        } | {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "podcast";
+        } | {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "post";
+        };
+        _type: "internalLink";
+        _key: string;
+      }>;
+      level?: number;
+      _type: "block";
+      _key: string;
+    } | {
+      url?: string;
+      _type: "codepen";
+      _key: string;
+    } | {
+      url?: string;
+      _type: "codesandbox";
+      _key: string;
+    }>;
+    excerpt?: string;
+    coverImage?: CloudinaryAsset;
+    socials?: {
+      codepen?: string;
+      devto?: string;
+      discord?: string;
+      dribble?: string;
+      facebook?: string;
+      github?: string;
+      instagram?: string;
+      lastfm?: string;
+      linkedin?: string;
+      email?: string;
+      mastodon?: string;
+      medium?: string;
+      polywork?: string;
+      stackoverflow?: string;
+      substack?: string;
+      tiktok?: string;
+      twitch?: string;
+      twitter?: string;
+      youtube?: string;
+    };
+  }> | null;
 }>;
 // Variable: postQuery
-// Query: *[_type == "post" && slug.current == $slug] [0] {  content,    _id,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(_createdAt, _updatedAt),  "author": author->{"name": coalesce(name, "Anonymous"), picture},}
+// Query: *[_type == "post" && slug.current == $slug] [0] {  content,    _id,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(_createdAt, _updatedAt),  author[]->{    ...,    "title": coalesce(title, "Anonymous"),  }}
 export type PostQueryResult = {
   content: Array<({
     _key: string;
@@ -1116,6 +1350,14 @@ export type PostQueryResult = {
     level?: number;
     _type: "block";
     _key: string;
+  } | {
+    url?: string;
+    _type: "codepen";
+    _key: string;
+  } | {
+    url?: string;
+    _type: "codesandbox";
+    _key: string;
   }> | null;
   _id: string;
   status: "draft" | "published";
@@ -1124,7 +1366,88 @@ export type PostQueryResult = {
   excerpt: string | null;
   coverImage: CloudinaryAsset | null;
   date: string;
-  author: null;
+  author: Array<{
+    _id: string;
+    _type: "author";
+    _createdAt: string;
+    _updatedAt: string;
+    _rev: string;
+    title: string | "Anonymous";
+    slug?: Slug;
+    content?: Array<({
+      _key: string;
+    } & CloudinaryAsset) | ({
+      _key: string;
+    } & Code) | {
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: "span";
+        _key: string;
+      }>;
+      style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+      listItem?: "bullet" | "number";
+      markDefs?: Array<{
+        href?: string;
+        blank?: boolean;
+        _type: "link";
+        _key: string;
+      } | {
+        reference?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "course";
+        } | {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "podcast";
+        } | {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "post";
+        };
+        _type: "internalLink";
+        _key: string;
+      }>;
+      level?: number;
+      _type: "block";
+      _key: string;
+    } | {
+      url?: string;
+      _type: "codepen";
+      _key: string;
+    } | {
+      url?: string;
+      _type: "codesandbox";
+      _key: string;
+    }>;
+    excerpt?: string;
+    coverImage?: CloudinaryAsset;
+    socials?: {
+      codepen?: string;
+      devto?: string;
+      discord?: string;
+      dribble?: string;
+      facebook?: string;
+      github?: string;
+      instagram?: string;
+      lastfm?: string;
+      linkedin?: string;
+      email?: string;
+      mastodon?: string;
+      medium?: string;
+      polywork?: string;
+      stackoverflow?: string;
+      substack?: string;
+      tiktok?: string;
+      twitch?: string;
+      twitter?: string;
+      youtube?: string;
+    };
+  }> | null;
 } | null;
 // Source: ./app/(blog)/post/[slug]/page.tsx
 // Variable: postSlugs
