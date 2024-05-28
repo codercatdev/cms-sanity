@@ -7,7 +7,7 @@ import {
   toPlainText,
   type PortableTextBlock,
 } from "next-sanity";
-import { Inter } from "next/font/google";
+import { Inter as FontSans } from "next/font/google";
 import { draftMode } from "next/headers";
 import { Suspense } from "react";
 
@@ -18,7 +18,14 @@ import type { SettingsQueryResult } from "@/sanity.types";
 import * as demo from "@/sanity/lib/demo";
 import { sanityFetch } from "@/sanity/lib/fetch";
 import { settingsQuery } from "@/sanity/lib/queries";
-import { resolveOpenGraphImage } from "@/sanity/lib/utils";
+import { cn } from "@/lib/utils";
+import { ThemeProvider } from "@/components/theme-provider";
+import { ModeToggle } from "@/components/mode-toggle";
+
+const fontSans = FontSans({
+  subsets: ["latin"],
+  variable: "--font-sans",
+});
 
 export async function generateMetadata(): Promise<Metadata> {
   const settings = await sanityFetch<SettingsQueryResult>({
@@ -42,12 +49,6 @@ export async function generateMetadata(): Promise<Metadata> {
     },
   };
 }
-
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-  display: "swap",
-});
 
 async function Footer() {
   const data = await sanityFetch<SettingsQueryResult>({
@@ -95,17 +96,32 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${inter.variable} bg-white text-black`}>
-      <body>
-        <section className="min-h-screen">
-          {draftMode().isEnabled && <AlertBanner />}
-          <main>{children}</main>
-          <Suspense>
-            <Footer />
-          </Suspense>
-        </section>
-        {draftMode().isEnabled && <VisualEditing />}
-        <SpeedInsights />
+    <html lang="en">
+      <body
+        className={cn(
+          "min-h-screen bg-background font-sans antialiased",
+          fontSans.variable
+        )}
+      >
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <section className="min-h-screen">
+            {draftMode().isEnabled && <AlertBanner />}
+            <header className="flex justify-end mt-8">
+              <ModeToggle />
+            </header>
+            <main>{children}</main>
+            <Suspense>
+              <Footer />
+            </Suspense>
+          </section>
+          {draftMode().isEnabled && <VisualEditing />}
+          <SpeedInsights />
+        </ThemeProvider>
       </body>
     </html>
   );
