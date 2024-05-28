@@ -1,7 +1,8 @@
-import { Image } from "next-sanity/image";
+"use client";
 
+import { CldImage } from "next-cloudinary";
+import { stegaClean } from "@sanity/client/stega";
 import type { Author } from "@/sanity.types";
-import { urlForImage } from "@/sanity/lib/utils";
 
 interface Props {
   name: string;
@@ -9,13 +10,24 @@ interface Props {
 }
 
 export default function Avatar({ name, coverImage }: Props) {
+  const source = stegaClean(coverImage);
+
   return (
     <div className="flex items-center text-xl">
-      {coverImage?.secure_url ? (
+      {source?.public_id ? (
         <div className="mr-4 h-12 w-12">
-          <img
-            src={coverImage.secure_url}
-            alt={coverImage.context?.custom?.alt}
+          <CldImage
+            className="h-auto w-full"
+            width={48}
+            height={48}
+            alt={source?.context?.custom?.alt || ""}
+            src={source.public_id}
+            config={{
+              url: {
+                secureDistribution: "media.codingcat.dev",
+                privateCdn: true,
+              },
+            }}
           />
         </div>
       ) : (

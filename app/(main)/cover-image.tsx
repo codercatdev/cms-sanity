@@ -1,21 +1,34 @@
-import { Image } from "next-sanity/image";
+"use client";
+
+import { CloudinaryAsset } from "@/sanity.types";
+import { CldImage } from "next-cloudinary";
+import { stegaClean } from "@sanity/client/stega";
 
 interface CoverImageProps {
-  image: any;
+  image: CloudinaryAsset;
   priority?: boolean;
 }
 
 export default function CoverImage(props: CoverImageProps) {
-  const { image: source, priority } = props;
-  const image = source?.secure_url ? (
-    <Image
+  const { image: originalImage, priority } = props;
+
+  const source = stegaClean(originalImage);
+
+  const image = source?.public_id ? (
+    <CldImage
       className="h-auto w-full"
-      width={2000}
-      height={1000}
-      alt={source?.alt || ""}
-      src={source?.secure_url as string}
-      sizes="100vw"
+      width={1920}
+      height={1080}
       priority={priority}
+      sizes="100vw"
+      alt={source?.context?.custom?.alt || ""}
+      src={source?.public_id}
+      config={{
+        url: {
+          secureDistribution: "media.codingcat.dev",
+          privateCdn: true,
+        },
+      }}
     />
   ) : (
     <div className="bg-slate-50" style={{ paddingTop: "50%" }} />
