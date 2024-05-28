@@ -14,7 +14,7 @@ import {
   type PortableTextBlock,
 } from "next-sanity";
 
-import CoverImage from './cover-image';
+import BlockImage from "@/app/(main)/block-image";
 
 export default function CustomPortableText({
   className,
@@ -26,7 +26,7 @@ export default function CustomPortableText({
   const components: PortableTextComponents = {
     // TODO: make this more dynamic
     types: {
-      "cloudinary.asset": ({value}) => <CoverImage image={value} priority={false} />,
+      "cloudinary.asset": ({ value }) => <BlockImage image={value} />,
     },
     block: {
       h5: ({ children }) => (

@@ -1,11 +1,9 @@
-"use client";
-
 import { CloudinaryAsset } from "@/sanity.types";
-import { CldImage } from "next-cloudinary";
+import CloudinaryImage from "@/app/(main)/cloudinary-image";
 import { stegaClean } from "@sanity/client/stega";
 
 interface CoverImageProps {
-  image: CloudinaryAsset;
+  image: CloudinaryAsset | null;
   priority?: boolean;
 }
 
@@ -15,7 +13,7 @@ export default function CoverImage(props: CoverImageProps) {
   const source = stegaClean(originalImage);
 
   const image = source?.public_id ? (
-    <CldImage
+    <CloudinaryImage
       className="h-auto w-full"
       width={1920}
       height={1080}
