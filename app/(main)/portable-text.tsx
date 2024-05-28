@@ -15,6 +15,7 @@ import {
 } from "next-sanity";
 
 import BlockImage from "@/app/(main)/block-image";
+import BlockCode from "@/app/(main)/block-code";
 
 export default function CustomPortableText({
   className,
@@ -27,6 +28,7 @@ export default function CustomPortableText({
     // TODO: make this more dynamic
     types: {
       "cloudinary.asset": ({ value }) => <BlockImage image={value} />,
+      code: ({ value }) => <BlockCode {...value} />,
     },
     block: {
       h5: ({ children }) => (
