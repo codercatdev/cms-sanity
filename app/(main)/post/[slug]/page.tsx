@@ -120,7 +120,7 @@ export default async function PostPage({ params }: Props) {
         </div>
         {post.content?.length && (
           <PortableText
-            className="mx-auto max-w-2xl"
+            className="mx-auto prose-zinc lg:prose-xl dark:prose-invert"
             value={post.content as PortableTextBlock[]}
           />
         )}

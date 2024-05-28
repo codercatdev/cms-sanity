@@ -25,7 +25,7 @@ function Intro(props: { title: string | null | undefined; description: any }) {
       </h1>
       <h2 className="text-pretty mt-5 text-center text-lg lg:pl-8 lg:text-left">
         <PortableText
-          className="prose-lg"
+          className="prose-lg dark:prose-invert"
           value={description?.length ? description : demo.description}
         />
       </h2>
