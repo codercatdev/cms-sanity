@@ -6,9 +6,7 @@ const CodePenPreview = (props: any) => {
   if (!url) {
     return <div>Add a CodePen URL</div>;
   }
-  console.log("url", url);
   const splitURL = url.split("/").at(-1).split("-").at(-1);
-  console.log("split", splitURL);
   const embedUrl = `https://codesandbox.io/embed/${splitURL}`;
 
   return (
