@@ -107,7 +107,7 @@ export default async function Page() {
             More Stories
           </h2>
           <Suspense>
-            <MoreStories skip={heroPost._id} limit={100} />
+            <MoreStories skip={heroPost._id} limit={4} />
           </Suspense>
         </aside>
       )}
