@@ -4,11 +4,11 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 
-import Avatar from "../../avatar";
-import CoverImage from "../../cover-image";
-import DateComponent from "../../date";
-import MoreStories from "../../more-stories";
-import PortableText from "../../portable-text";
+import Avatar from "@/app/(main)/avatar";
+import CoverImage from "@/app/(main)/cover-image";
+import DateComponent from "@/app/(main)/date";
+import MoreStories from "@/app/(main)/more-stories";
+import PortableText from "@/app/(main)/portable-text";
 
 import type {
   PostQueryResult,
@@ -77,11 +77,6 @@ export default async function PostPage({ params }: Props) {
 
   return (
     <div className="container mx-auto px-5">
-      <h2 className="mb-16 mt-10 text-2xl font-bold leading-tight tracking-tight md:text-4xl md:tracking-tighter">
-        <Link href="/" className="hover:underline">
-          {settings?.title || demo.title}
-        </Link>
-      </h2>
       <article>
         <h1 className="text-balance mb-12 text-6xl font-bold leading-tight tracking-tighter md:text-7xl md:leading-none lg:text-8xl">
           {post.title}

@@ -7,6 +7,7 @@ import { PluginOptions, defineConfig } from "sanity";
 import { cloudinarySchemaPlugin } from "sanity-plugin-cloudinary";
 import { tags } from "sanity-plugin-tags";
 import { codeInput } from "@sanity/code-input";
+import { iconPicker } from "sanity-plugin-icon-picker";
 
 import {
   presentationTool,
@@ -23,6 +24,7 @@ import author from "@/sanity/schemas/documents/author";
 import course from "@/sanity/schemas/documents/course";
 import lesson from "@/sanity/schemas/documents/lesson";
 import guest from "@/sanity/schemas/documents/guest";
+import page from "@/sanity/schemas/documents/page";
 import podcast from "@/sanity/schemas/documents/podcast";
 import podcastType from "@/sanity/schemas/documents/podcastType";
 import post from "@/sanity/schemas/documents/post";
@@ -48,6 +50,7 @@ export default defineConfig({
       course,
       lesson,
       guest,
+      page,
       podcast,
       podcastType,
       post,
@@ -97,7 +100,7 @@ export default defineConfig({
     cloudinarySchemaPlugin(),
     tags(),
     codeInput(),
-
+    iconPicker(),
     // Vision lets you query your content with GROQ in the studio
     // https://www.sanity.io/docs/the-vision-plugin
     process.env.NODE_ENV === "development" &&

@@ -1,7 +1,8 @@
 import { CogIcon } from "@sanity/icons";
 import { defineArrayMember, defineField, defineType } from "sanity";
+import SVG from "react-inlinesvg";
 
-import * as demo from "@/sanity/lib/demo";
+import internalLink from "../custom/internalLink";
 
 export default defineType({
   name: "settings",
@@ -14,7 +15,6 @@ export default defineType({
       description: "This field is the title of your blog.",
       title: "Title",
       type: "string",
-      initialValue: demo.title,
       validation: (rule) => rule.required(),
     }),
     defineField({
@@ -23,7 +23,6 @@ export default defineType({
         "Used both for the <meta> description tag for SEO, and the blog subheader.",
       title: "Description",
       type: "array",
-      initialValue: demo.description,
       of: [
         defineArrayMember({
           type: "block",
@@ -79,44 +78,77 @@ export default defineType({
       ],
     }),
     defineField({
+      name: "navLinks",
+      description:
+        "This is an array of links that will be displayed at the top of the page.",
+      title: "Nav Links",
+      type: "array",
+      of: [
+        defineArrayMember({
+          type: "object",
+          fields: [
+            {
+              name: "title",
+              type: "string",
+              title: "Title",
+              validation: (rule) => rule.required(),
+            },
+            {
+              name: "path",
+              type: "string",
+              title: "Link Path",
+              initialValue: "/",
+              validation: (rule) => rule.required(),
+            },
+          ],
+        }),
+      ],
+    }),
+    defineField({
+      name: "socialLinks",
+      description: "This is an array of socials that will appear in the footer",
+      title: "Socials",
+      type: "array",
+      of: [
+        defineArrayMember({
+          type: "object",
+          preview: {
+            select: {
+              icon: "icon",
+              href: "href",
+            },
+            prepare({ icon, href }) {
+              return {
+                title: href,
+                media: () => <SVG src={icon.svg} />,
+              };
+            },
+          },
+          fields: [
+            {
+              name: "href",
+              type: "url",
+              title: "Url",
+              validation: (rule) => rule.required(),
+            },
+            {
+              name: "icon",
+              type: "iconPicker",
+              title: "Icon",
+              options: {
+                storeSvg: true,
+              },
+              validation: (rule) => rule.required(),
+            },
+          ],
+        }),
+      ],
+    }),
+    defineField({
       name: "ogImage",
       title: "Open Graph Image",
       type: "cloudinary.asset",
       description: "Displayed on social cards and search engine results.",
-      options: {
-        hotspot: true,
-        aiAssist: {
-          imageDescriptionField: "alt",
-        },
-      },
-      // fields: [
-      //   defineField({
-      //     name: "alt",
-      //     description: "Important for accessibility and SEO.",
-      //     title: "Alternative text",
-      //     type: "string",
-      //     validation: (rule) => {
-      //       return rule.custom((alt, context) => {
-      //         if ((context.document?.ogImage as any)?.asset?._ref && !alt) {
-      //           return "Required";
-      //         }
-      //         return true;
-      //       });
-      //     },
-      //   }),
-      //   defineField({
-      //     name: "metadataBase",
-      //     type: "url",
-      //     description: (
-      //       <a
-      //         href="https://nextjs.org/docs/app/api-reference/functions/generate-metadata#metadatabase"
-      //         rel="noreferrer noopener"
-      //       >
-      //         More information
-      //       </a>
-      //     ),
-      //   }),
-      // ],
     }),
   ],
   preview: {

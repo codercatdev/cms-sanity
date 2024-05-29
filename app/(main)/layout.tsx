@@ -7,9 +7,10 @@ import {
   toPlainText,
   type PortableTextBlock,
 } from "next-sanity";
-import { Inter as FontSans } from "next/font/google";
+import { Nunito } from "next/font/google";
+import { Inter } from "next/font/google";
 import { draftMode } from "next/headers";
-import { Suspense } from "react";
+import { JSX, SVGProps, Suspense } from "react";
 
 import AlertBanner from "./alert-banner";
 import PortableText from "./portable-text";
@@ -21,10 +22,19 @@ import { settingsQuery } from "@/sanity/lib/queries";
 import { cn } from "@/lib/utils";
 import { ThemeProvider } from "@/components/theme-provider";
 import { ModeToggle } from "@/components/mode-toggle";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
-const fontSans = FontSans({
+const nunito = Nunito({
   subsets: ["latin"],
-  variable: "--font-sans",
+  display: "swap",
+  variable: "--font-nunito",
+});
+const inter = Inter({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-inter",
 });
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -55,7 +65,6 @@ async function Footer() {
     query: settingsQuery,
   });
   const footer = data?.footer || [];
-
   return (
     <footer className="bg-accent-1 border-accent-2 border-t">
       <div className="container mx-auto px-5">
@@ -90,17 +99,21 @@ async function Footer() {
   );
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const data = await sanityFetch<SettingsQueryResult>({
+    query: settingsQuery,
+  });
   return (
     <html lang="en">
       <body
         className={cn(
           "min-h-screen bg-background font-sans antialiased",
-          fontSans.variable
+          nunito.variable,
+          inter.variable
         )}
       >
         <ThemeProvider
@@ -109,12 +122,62 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <section className="min-h-screen">
-            {draftMode().isEnabled && <AlertBanner />}
-            <header className="flex justify-end mt-8">
-              <ModeToggle />
+          {draftMode().isEnabled && <AlertBanner />}
+
+          <section className="flex flex-col min-h-[100dvh]">
+            <header className="fixed left-0 right-0 z-40 flex items-center justify-between px-6 py-4 bg-gray-100 dark:bg-gray-800 shadow-md">
+              <div className="flex items-center gap-4">
+                <Link className="text-lg md:text-2xl font-bold" href="/">
+                  CodingCat.dev
+                </Link>
+                <nav className="hidden md:flex items-center gap-6">
+                  {data?.navLinks?.map((l) => (
+                    <Link
+                      key={l._key}
+                      className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
+                      href={l?.path || "/"}
+                    >
+                      {l.title}
+                    </Link>
+                  ))}
+                </nav>
+              </div>
+              <div className="flex items-center gap-2">
+                <Button variant="default">Enroll Now</Button>
+                <Button className="hidden md:flex" variant="secondary">
+                  Sign In
+                </Button>
+                <Sheet>
+                  <SheetTrigger asChild>
+                    <Button className="sm:hidden" size="icon" variant="ghost">
+                      <MenuIcon className="h-6 w-6" />
+                      <span className="sr-only">Toggle navigation menu</span>
+                    </Button>
+                  </SheetTrigger>
+                  <SheetContent side="right">
+                    <div className="grid gap-2 py-6">
+                      <Link
+                        className="flex w-full items-center py-2 text-lg font-semibold"
+                        href="#"
+                      >
+                        Home
+                      </Link>
+                      {data?.navLinks?.map((l) => (
+                        <Link
+                          key={l._key}
+                          className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
+                          href={l?.path || "/"}
+                        >
+                          {l.title}
+                        </Link>
+                      ))}
+                    </div>
+                  </SheetContent>
+                </Sheet>
+              </div>
             </header>
-            <main>{children}</main>
+
+            <main className="mt-32">{children}</main>
             <Suspense>
               <Footer />
             </Suspense>
@@ -124,5 +187,26 @@ export default function RootLayout({
         </ThemeProvider>
       </body>
     </html>
+  );
+}
+
+function MenuIcon(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <line x1="4" x2="20" y1="12" y2="12" />
+      <line x1="4" x2="20" y1="6" y2="6" />
+      <line x1="4" x2="20" y1="18" y2="18" />
+    </svg>
   );
 }

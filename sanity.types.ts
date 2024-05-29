@@ -163,6 +163,11 @@ export type Sponsor = {
         _type: "reference";
         _weak?: boolean;
         [internalGroqTypeReferenceTo]?: "course";
+      } | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "page";
       };
       _type: "internalLink";
       _key: string;
@@ -226,6 +231,11 @@ export type Lesson = {
         _type: "reference";
         _weak?: boolean;
         [internalGroqTypeReferenceTo]?: "course";
+      } | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "page";
       };
       _type: "internalLink";
       _key: string;
@@ -310,6 +320,11 @@ export type Author = {
         _type: "reference";
         _weak?: boolean;
         [internalGroqTypeReferenceTo]?: "course";
+      } | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "page";
       };
       _type: "internalLink";
       _key: string;
@@ -393,6 +408,11 @@ export type Post = {
         _type: "reference";
         _weak?: boolean;
         [internalGroqTypeReferenceTo]?: "course";
+      } | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "page";
       };
       _type: "internalLink";
       _key: string;
@@ -475,6 +495,11 @@ export type Podcast = {
         _type: "reference";
         _weak?: boolean;
         [internalGroqTypeReferenceTo]?: "course";
+      } | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "page";
       };
       _type: "internalLink";
       _key: string;
@@ -590,6 +615,11 @@ export type Guest = {
         _type: "reference";
         _weak?: boolean;
         [internalGroqTypeReferenceTo]?: "course";
+      } | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "page";
       };
       _type: "internalLink";
       _key: string;
@@ -673,6 +703,11 @@ export type PodcastType = {
         _type: "reference";
         _weak?: boolean;
         [internalGroqTypeReferenceTo]?: "course";
+      } | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "page";
       };
       _type: "internalLink";
       _key: string;
@@ -735,6 +770,11 @@ export type Course = {
         _type: "reference";
         _weak?: boolean;
         [internalGroqTypeReferenceTo]?: "course";
+      } | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "page";
       };
       _type: "internalLink";
       _key: string;
@@ -791,6 +831,93 @@ export type Course = {
   }>;
 };
 
+export type Page = {
+  _id: string;
+  _type: "page";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  slug?: Slug;
+  content?: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
+    listItem?: "bullet" | "number";
+    markDefs?: Array<{
+      href?: string;
+      blank?: boolean;
+      _type: "link";
+      _key: string;
+    } | {
+      reference?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "post";
+      } | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "podcast";
+      } | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "course";
+      } | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "page";
+      };
+      _type: "internalLink";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  } | ({
+    _key: string;
+  } & CloudinaryAsset) | ({
+    _key: string;
+  } & Code) | {
+    url?: string;
+    _type: "codepen";
+    _key: string;
+  } | {
+    url?: string;
+    _type: "codesandbox";
+    _key: string;
+  }>;
+  excerpt?: string;
+  coverImage?: CloudinaryAsset;
+  author?: Array<{
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    _key: string;
+    [internalGroqTypeReferenceTo]?: "author";
+  }>;
+  devto?: string;
+  hashnode?: string;
+  sponsor?: Array<{
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    _key: string;
+    [internalGroqTypeReferenceTo]?: "sponsor";
+  }>;
+  tags?: Array<{
+    _key: string;
+  } & Tag>;
+  youtube?: string;
+};
+
 export type Slug = {
   _type: "slug";
   current?: string;
@@ -840,7 +967,24 @@ export type Settings = {
     _type: "block";
     _key: string;
   }>;
+  navLinks?: Array<{
+    title?: string;
+    path?: string;
+    _key: string;
+  }>;
+  socialLinks?: Array<{
+    href?: string;
+    icon?: IconPicker;
+    _key: string;
+  }>;
   ogImage?: CloudinaryAsset;
+};
+
+export type IconPicker = {
+  _type: "iconPicker";
+  provider?: string;
+  name?: string;
+  svg?: string;
 };
 
 export type Code = {
@@ -1068,6 +1212,16 @@ export type SettingsQueryResult = {
     _type: "block";
     _key: string;
   }>;
+  navLinks?: Array<{
+    title?: string;
+    path?: string;
+    _key: string;
+  }>;
+  socialLinks?: Array<{
+    href?: string;
+    icon?: IconPicker;
+    _key: string;
+  }>;
   ogImage?: CloudinaryAsset;
 } | null;
 // Variable: heroQuery
@@ -1097,6 +1251,11 @@ export type HeroQueryResult = {
         _type: "reference";
         _weak?: boolean;
         [internalGroqTypeReferenceTo]?: "course";
+      } | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "page";
       } | {
         _ref: string;
         _type: "reference";
@@ -1162,6 +1321,11 @@ export type HeroQueryResult = {
           _type: "reference";
           _weak?: boolean;
           [internalGroqTypeReferenceTo]?: "course";
+        } | {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "page";
         } | {
           _ref: string;
           _type: "reference";
@@ -1259,6 +1423,11 @@ export type MoreStoriesQueryResult = Array<{
           _ref: string;
           _type: "reference";
           _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "page";
+        } | {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
           [internalGroqTypeReferenceTo]?: "podcast";
         } | {
           _ref: string;
@@ -1337,6 +1506,11 @@ export type PostQueryResult = {
         _ref: string;
         _type: "reference";
         _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "page";
+      } | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
         [internalGroqTypeReferenceTo]?: "podcast";
       } | {
         _ref: string;
@@ -1402,6 +1576,11 @@ export type PostQueryResult = {
           _ref: string;
           _type: "reference";
           _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "page";
+        } | {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
           [internalGroqTypeReferenceTo]?: "podcast";
         } | {
           _ref: string;
@@ -1449,7 +1628,7 @@ export type PostQueryResult = {
     };
   }> | null;
 } | null;
-// Source: ./app/(main)/post/[slug]/page.tsx
+// Source: ./app/(main)/(posts)/post/[slug]/page.tsx
 // Variable: postSlugs
 // Query: *[_type == "post"]{slug}
 export type PostSlugsResult = Array<{

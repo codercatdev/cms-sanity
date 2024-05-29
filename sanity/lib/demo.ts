@@ -2,7 +2,7 @@
  * Demo data used as placeholders and initial values for the blog
  */
 
-export const title = "Blog.";
+export const title = "CodingCat.dev";
 
 export const description = [
   {
@@ -56,4 +56,4 @@ export const description = [
   },
 ];
 
-export const ogImageTitle = "A Next.js Blog with a Native Authoring Experience";
+export const ogImageTitle = "A CodingCat.dev Site";

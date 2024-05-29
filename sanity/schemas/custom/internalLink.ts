@@ -15,6 +15,7 @@ export default defineType({
         { type: "post" },
         { type: "podcast" },
         { type: "course" },
+        { type: "page" },
         // other types you may want to link to
       ],
     },

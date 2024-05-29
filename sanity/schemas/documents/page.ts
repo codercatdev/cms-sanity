@@ -1,12 +1,12 @@
-import { HiOutlinePencilAlt } from "react-icons/hi";
+import { DocumentTextIcon } from "@sanity/icons";
 import { defineType } from "sanity";
 
 import contentType from "../partials/content";
 
 export default defineType({
   ...contentType,
-  name: "post",
-  title: "Post",
-  icon: HiOutlinePencilAlt,
+  name: "page",
+  title: "Page",
+  icon: DocumentTextIcon,
   type: "document",
 });
