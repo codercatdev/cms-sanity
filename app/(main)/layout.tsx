@@ -125,7 +125,7 @@ export default async function RootLayout({
           {draftMode().isEnabled && <AlertBanner />}
 
           <section className="flex flex-col min-h-[100dvh]">
-            <header className="fixed left-0 right-0 z-40 flex items-center justify-between px-6 py-4 bg-gray-100 dark:bg-gray-800 shadow-md">
+            <header className="fixed left-0 right-0 z-40 flex items-center justify-between px-6 py-4 bg-background shadow-md">
               <div className="flex items-center gap-4">
                 <Link className="text-lg md:text-2xl font-bold" href="/">
                   CodingCat.dev
