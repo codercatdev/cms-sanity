@@ -9,20 +9,21 @@ import DateComponent from "@/components/date";
 import MorePosts from "@/components/more-posts";
 import PortableText from "@/components/portable-text";
 
-import type { PostQueryResult, PostSlugsResult } from "@/sanity.types";
+import type { CourseSlugsResult, CourseQueryResult } from "@/sanity.types";
 import { sanityFetch } from "@/sanity/lib/fetch";
-import { postQuery } from "@/sanity/lib/queries";
+import { courseQuery } from "@/sanity/lib/queries";
 import { resolveOpenGraphImage } from "@/sanity/lib/utils";
+import Lessons from "./lessons";
 
 type Props = {
-  params: { slug: string };
+  params: { courseSlug: string };
 };
 
-const postSlugs = groq`*[_type == "post"]{slug}`;
+const courseSlugs = groq`*[_type == "course"]{slug}`;
 
 export async function generateStaticParams() {
-  const params = await sanityFetch<PostSlugsResult>({
-    query: postSlugs,
+  const params = await sanityFetch<CourseSlugsResult>({
+    query: courseSlugs,
     perspective: "published",
     stega: false,
   });
@@ -33,8 +34,8 @@ export async function generateMetadata(
   { params }: Props,
   parent: ResolvingMetadata
 ): Promise<Metadata> {
-  const post = await sanityFetch<PostQueryResult>({
-    query: postQuery,
+  const post = await sanityFetch<CourseQueryResult>({
+    query: courseQuery,
     params,
     stega: false,
   });
@@ -54,10 +55,10 @@ export async function generateMetadata(
   } satisfies Metadata;
 }
 
-export default async function PostPage({ params }: Props) {
+export default async function CoursePage({ params }: Props) {
   const [post] = await Promise.all([
-    sanityFetch<PostQueryResult>({
-      query: postQuery,
+    sanityFetch<CourseQueryResult>({
+      query: courseQuery,
       params,
     }),
   ]);
@@ -120,10 +121,13 @@ export default async function PostPage({ params }: Props) {
           />
         )}
       </article>
+      <Suspense>
+        <Lessons courseSlug={params.courseSlug} />
+      </Suspense>
       <aside>
         <hr className="border-accent-2 mb-24 mt-28" />
         <h2 className="mb-8 text-6xl font-bold leading-tight tracking-tighter md:text-7xl">
-          Recent Posts
+          Recent Courses
         </h2>
         <Suspense>
           <MorePosts type={post._type} skip={post._id} limit={2} />

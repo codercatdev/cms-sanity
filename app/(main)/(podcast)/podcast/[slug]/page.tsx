@@ -123,7 +123,7 @@ export default async function PostPage({ params }: Props) {
       <aside>
         <hr className="border-accent-2 mb-24 mt-28" />
         <h2 className="mb-8 text-6xl font-bold leading-tight tracking-tighter md:text-7xl">
-          Recent Stories
+          Recent Podcasts
         </h2>
         <Suspense>
           <MorePosts type={post._type} skip={post._id} limit={2} />

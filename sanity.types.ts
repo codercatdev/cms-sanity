@@ -1650,10 +1650,10 @@ export type PostQueryResult = {
   youtube: string | null;
 } | null;
 // Variable: podcastsQuery
-// Query: *[_type == "post" && defined(slug.current)] | order(date desc, _updatedAt desc) [0] {    _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(_createdAt, _updatedAt),  author[]->{    ...,    "title": coalesce(title, "Anonymous"),  }}
+// Query: *[_type == "podcast" && defined(slug.current)] | order(date desc, _updatedAt desc) [0] {    _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(_createdAt, _updatedAt),  author[]->{    ...,    "title": coalesce(title, "Anonymous"),  }}
 export type PodcastsQueryResult = {
   _id: string;
-  _type: "post";
+  _type: "podcast";
   status: "draft" | "published";
   title: string | "Untitled";
   slug: string | null;
@@ -2170,6 +2170,691 @@ export type PodcastQueryResult = {
     site: string | null;
   }> | null;
 } | null;
+// Variable: coursesQuery
+// Query: *[_type == "course" && defined(slug.current)] | order(date desc, _updatedAt desc) [0] {    _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(_createdAt, _updatedAt),  author[]->{    ...,    "title": coalesce(title, "Anonymous"),  }}
+export type CoursesQueryResult = {
+  _id: string;
+  _type: "course";
+  status: "draft" | "published";
+  title: string | "Untitled";
+  slug: string | null;
+  excerpt: string | null;
+  coverImage: CloudinaryAsset | null;
+  date: string;
+  author: Array<{
+    _id: string;
+    _type: "author";
+    _createdAt: string;
+    _updatedAt: string;
+    _rev: string;
+    title: string | "Anonymous";
+    slug?: Slug;
+    content?: Array<({
+      _key: string;
+    } & CloudinaryAsset) | ({
+      _key: string;
+    } & Code) | {
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: "span";
+        _key: string;
+      }>;
+      style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+      listItem?: "bullet" | "number";
+      markDefs?: Array<{
+        href?: string;
+        blank?: boolean;
+        _type: "link";
+        _key: string;
+      } | {
+        reference?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "course";
+        } | {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "page";
+        } | {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "podcast";
+        } | {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "post";
+        };
+        _type: "internalLink";
+        _key: string;
+      }>;
+      level?: number;
+      _type: "block";
+      _key: string;
+    } | {
+      url?: string;
+      _type: "codepen";
+      _key: string;
+    } | {
+      url?: string;
+      _type: "codesandbox";
+      _key: string;
+    }>;
+    excerpt?: string;
+    coverImage?: CloudinaryAsset;
+    socials?: {
+      codepen?: string;
+      devto?: string;
+      discord?: string;
+      dribble?: string;
+      facebook?: string;
+      github?: string;
+      instagram?: string;
+      lastfm?: string;
+      linkedin?: string;
+      email?: string;
+      mastodon?: string;
+      medium?: string;
+      polywork?: string;
+      stackoverflow?: string;
+      substack?: string;
+      tiktok?: string;
+      twitch?: string;
+      twitter?: string;
+      youtube?: string;
+    };
+  }> | null;
+} | null;
+// Variable: moreCourseQuery
+// Query: *[_type == "course" && _id != $skip && defined(slug.current)] | order(date desc, _updatedAt desc) [0...$limit] {    _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(_createdAt, _updatedAt),  author[]->{    ...,    "title": coalesce(title, "Anonymous"),  }}
+export type MoreCourseQueryResult = Array<{
+  _id: string;
+  _type: "course";
+  status: "draft" | "published";
+  title: string | "Untitled";
+  slug: string | null;
+  excerpt: string | null;
+  coverImage: CloudinaryAsset | null;
+  date: string;
+  author: Array<{
+    _id: string;
+    _type: "author";
+    _createdAt: string;
+    _updatedAt: string;
+    _rev: string;
+    title: string | "Anonymous";
+    slug?: Slug;
+    content?: Array<({
+      _key: string;
+    } & CloudinaryAsset) | ({
+      _key: string;
+    } & Code) | {
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: "span";
+        _key: string;
+      }>;
+      style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+      listItem?: "bullet" | "number";
+      markDefs?: Array<{
+        href?: string;
+        blank?: boolean;
+        _type: "link";
+        _key: string;
+      } | {
+        reference?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "course";
+        } | {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "page";
+        } | {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "podcast";
+        } | {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "post";
+        };
+        _type: "internalLink";
+        _key: string;
+      }>;
+      level?: number;
+      _type: "block";
+      _key: string;
+    } | {
+      url?: string;
+      _type: "codepen";
+      _key: string;
+    } | {
+      url?: string;
+      _type: "codesandbox";
+      _key: string;
+    }>;
+    excerpt?: string;
+    coverImage?: CloudinaryAsset;
+    socials?: {
+      codepen?: string;
+      devto?: string;
+      discord?: string;
+      dribble?: string;
+      facebook?: string;
+      github?: string;
+      instagram?: string;
+      lastfm?: string;
+      linkedin?: string;
+      email?: string;
+      mastodon?: string;
+      medium?: string;
+      polywork?: string;
+      stackoverflow?: string;
+      substack?: string;
+      tiktok?: string;
+      twitch?: string;
+      twitter?: string;
+      youtube?: string;
+    };
+  }> | null;
+}>;
+// Variable: courseQuery
+// Query: *[_type == "course" && slug.current == $courseSlug] [0] {    _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(_createdAt, _updatedAt),    content,  author[]->{    ...,    "title": coalesce(title, "Anonymous"),  },  devto,  hashnode,  sponsor[]->{    ...,    "title": coalesce(title, "Anonymous"),  },  tags,  youtube,    podcastType[]->{    ...,    "title": coalesce(title, "Missing Podcast Title"),  },  season,  episode,  recordingDate,  guest[]->{    ...,    "title": coalesce(title, "Anonymous"),  },  pick[]{    user[]->{      ...,      "title": coalesce(title, "Anonymous"),    },    name,    site  }}
+export type CourseQueryResult = {
+  _id: string;
+  _type: "course";
+  status: "draft" | "published";
+  title: string | "Untitled";
+  slug: string | null;
+  excerpt: string | null;
+  coverImage: CloudinaryAsset | null;
+  date: string;
+  content: Array<({
+    _key: string;
+  } & CloudinaryAsset) | ({
+    _key: string;
+  } & Code) | {
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+    listItem?: "bullet" | "number";
+    markDefs?: Array<{
+      href?: string;
+      blank?: boolean;
+      _type: "link";
+      _key: string;
+    } | {
+      reference?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "course";
+      } | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "page";
+      } | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "podcast";
+      } | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "post";
+      };
+      _type: "internalLink";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  } | {
+    url?: string;
+    _type: "codepen";
+    _key: string;
+  } | {
+    url?: string;
+    _type: "codesandbox";
+    _key: string;
+  }> | null;
+  author: Array<{
+    _id: string;
+    _type: "author";
+    _createdAt: string;
+    _updatedAt: string;
+    _rev: string;
+    title: string | "Anonymous";
+    slug?: Slug;
+    content?: Array<({
+      _key: string;
+    } & CloudinaryAsset) | ({
+      _key: string;
+    } & Code) | {
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: "span";
+        _key: string;
+      }>;
+      style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+      listItem?: "bullet" | "number";
+      markDefs?: Array<{
+        href?: string;
+        blank?: boolean;
+        _type: "link";
+        _key: string;
+      } | {
+        reference?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "course";
+        } | {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "page";
+        } | {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "podcast";
+        } | {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "post";
+        };
+        _type: "internalLink";
+        _key: string;
+      }>;
+      level?: number;
+      _type: "block";
+      _key: string;
+    } | {
+      url?: string;
+      _type: "codepen";
+      _key: string;
+    } | {
+      url?: string;
+      _type: "codesandbox";
+      _key: string;
+    }>;
+    excerpt?: string;
+    coverImage?: CloudinaryAsset;
+    socials?: {
+      codepen?: string;
+      devto?: string;
+      discord?: string;
+      dribble?: string;
+      facebook?: string;
+      github?: string;
+      instagram?: string;
+      lastfm?: string;
+      linkedin?: string;
+      email?: string;
+      mastodon?: string;
+      medium?: string;
+      polywork?: string;
+      stackoverflow?: string;
+      substack?: string;
+      tiktok?: string;
+      twitch?: string;
+      twitter?: string;
+      youtube?: string;
+    };
+  }> | null;
+  devto: string | null;
+  hashnode: string | null;
+  sponsor: Array<{
+    _id: string;
+    _type: "sponsor";
+    _createdAt: string;
+    _updatedAt: string;
+    _rev: string;
+    title: string | "Anonymous";
+    slug?: Slug;
+    content?: Array<({
+      _key: string;
+    } & CloudinaryAsset) | ({
+      _key: string;
+    } & Code) | {
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: "span";
+        _key: string;
+      }>;
+      style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+      listItem?: "bullet" | "number";
+      markDefs?: Array<{
+        href?: string;
+        blank?: boolean;
+        _type: "link";
+        _key: string;
+      } | {
+        reference?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "course";
+        } | {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "page";
+        } | {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "podcast";
+        } | {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "post";
+        };
+        _type: "internalLink";
+        _key: string;
+      }>;
+      level?: number;
+      _type: "block";
+      _key: string;
+    } | {
+      url?: string;
+      _type: "codepen";
+      _key: string;
+    } | {
+      url?: string;
+      _type: "codesandbox";
+      _key: string;
+    }>;
+    excerpt?: string;
+    coverImage?: CloudinaryAsset;
+    url?: string;
+  }> | null;
+  tags: Array<{
+    _key: string;
+  } & Tag> | null;
+  youtube: string | null;
+  podcastType: null;
+  season: null;
+  episode: null;
+  recordingDate: null;
+  guest: null;
+  pick: null;
+} | null;
+// Variable: lessonsInCourseQuery
+// Query: *[_type == "course" && slug.current == $courseSlug] [0] {  sections[]{    title,    lesson[]->{        _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(_createdAt, _updatedAt),        locked,  videoCloudinary    }  }}
+export type LessonsInCourseQueryResult = {
+  sections: Array<{
+    title: string | null;
+    lesson: Array<{
+      _id: string;
+      _type: "lesson";
+      status: "draft" | "published";
+      title: string | "Untitled";
+      slug: string | null;
+      excerpt: string | null;
+      coverImage: CloudinaryAsset | null;
+      date: string;
+      locked: boolean | null;
+      videoCloudinary: CloudinaryAsset | null;
+    }> | null;
+  }> | null;
+} | null;
+// Variable: lessonQuery
+// Query: *[_type == "lesson" && slug.current == $courseSlug] [0] {    _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(_createdAt, _updatedAt),    content,  author[]->{    ...,    "title": coalesce(title, "Anonymous"),  },  devto,  hashnode,  sponsor[]->{    ...,    "title": coalesce(title, "Anonymous"),  },  tags,  youtube,    locked,  videoCloudinary}
+export type LessonQueryResult = {
+  _id: string;
+  _type: "lesson";
+  status: "draft" | "published";
+  title: string | "Untitled";
+  slug: string | null;
+  excerpt: string | null;
+  coverImage: CloudinaryAsset | null;
+  date: string;
+  content: Array<({
+    _key: string;
+  } & CloudinaryAsset) | ({
+    _key: string;
+  } & Code) | {
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+    listItem?: "bullet" | "number";
+    markDefs?: Array<{
+      href?: string;
+      blank?: boolean;
+      _type: "link";
+      _key: string;
+    } | {
+      reference?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "course";
+      } | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "page";
+      } | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "podcast";
+      } | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "post";
+      };
+      _type: "internalLink";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  } | {
+    url?: string;
+    _type: "codepen";
+    _key: string;
+  } | {
+    url?: string;
+    _type: "codesandbox";
+    _key: string;
+  }> | null;
+  author: Array<{
+    _id: string;
+    _type: "author";
+    _createdAt: string;
+    _updatedAt: string;
+    _rev: string;
+    title: string | "Anonymous";
+    slug?: Slug;
+    content?: Array<({
+      _key: string;
+    } & CloudinaryAsset) | ({
+      _key: string;
+    } & Code) | {
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: "span";
+        _key: string;
+      }>;
+      style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+      listItem?: "bullet" | "number";
+      markDefs?: Array<{
+        href?: string;
+        blank?: boolean;
+        _type: "link";
+        _key: string;
+      } | {
+        reference?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "course";
+        } | {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "page";
+        } | {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "podcast";
+        } | {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "post";
+        };
+        _type: "internalLink";
+        _key: string;
+      }>;
+      level?: number;
+      _type: "block";
+      _key: string;
+    } | {
+      url?: string;
+      _type: "codepen";
+      _key: string;
+    } | {
+      url?: string;
+      _type: "codesandbox";
+      _key: string;
+    }>;
+    excerpt?: string;
+    coverImage?: CloudinaryAsset;
+    socials?: {
+      codepen?: string;
+      devto?: string;
+      discord?: string;
+      dribble?: string;
+      facebook?: string;
+      github?: string;
+      instagram?: string;
+      lastfm?: string;
+      linkedin?: string;
+      email?: string;
+      mastodon?: string;
+      medium?: string;
+      polywork?: string;
+      stackoverflow?: string;
+      substack?: string;
+      tiktok?: string;
+      twitch?: string;
+      twitter?: string;
+      youtube?: string;
+    };
+  }> | null;
+  devto: string | null;
+  hashnode: string | null;
+  sponsor: Array<{
+    _id: string;
+    _type: "sponsor";
+    _createdAt: string;
+    _updatedAt: string;
+    _rev: string;
+    title: string | "Anonymous";
+    slug?: Slug;
+    content?: Array<({
+      _key: string;
+    } & CloudinaryAsset) | ({
+      _key: string;
+    } & Code) | {
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: "span";
+        _key: string;
+      }>;
+      style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+      listItem?: "bullet" | "number";
+      markDefs?: Array<{
+        href?: string;
+        blank?: boolean;
+        _type: "link";
+        _key: string;
+      } | {
+        reference?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "course";
+        } | {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "page";
+        } | {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "podcast";
+        } | {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "post";
+        };
+        _type: "internalLink";
+        _key: string;
+      }>;
+      level?: number;
+      _type: "block";
+      _key: string;
+    } | {
+      url?: string;
+      _type: "codepen";
+      _key: string;
+    } | {
+      url?: string;
+      _type: "codesandbox";
+      _key: string;
+    }>;
+    excerpt?: string;
+    coverImage?: CloudinaryAsset;
+    url?: string;
+  }> | null;
+  tags: Array<{
+    _key: string;
+  } & Tag> | null;
+  youtube: string | null;
+  locked: boolean | null;
+  videoCloudinary: CloudinaryAsset | null;
+} | null;
+// Source: ./app/(main)/(course)/course/[courseSlug]/page.tsx
+// Variable: courseSlugs
+// Query: *[_type == "course"]{slug}
+export type CourseSlugsResult = Array<{
+  slug: Slug | null;
+}>;
 // Source: ./app/(main)/(podcast)/podcast/[slug]/page.tsx
 // Variable: podcastSlugs
 // Query: *[_type == "podcast"]{slug}
@@ -2180,5 +2865,11 @@ export type PodcastSlugsResult = Array<{
 // Variable: postSlugs
 // Query: *[_type == "post"]{slug}
 export type PostSlugsResult = Array<{
+  slug: Slug | null;
+}>;
+// Source: ./app/(main)/(course)/course/[courseSlug]/lesson/[lessonSlug]/page.tsx
+// Variable: lessonSlugs
+// Query: *[_type == "lesson"]{slug}
+export type LessonSlugsResult = Array<{
   slug: Slug | null;
 }>;

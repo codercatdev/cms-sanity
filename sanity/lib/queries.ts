@@ -51,6 +51,11 @@ const podcastFields = `
   }
 `;
 
+const lessonFields = `
+  locked,
+  videoCloudinary
+`;
+
 // Post
 
 export const blogQuery = groq`*[_type == "post" && defined(slug.current)] | order(date desc, _updatedAt desc) [0] {
@@ -96,4 +101,46 @@ export const podcastQuery = groq`*[_type == "podcast" && slug.current == $slug] 
   ${baseFieldsNoContent},
   ${contentFields},
   ${podcastFields}
+}`;
+
+// Courses
+
+export const coursesQuery = groq`*[_type == "course" && defined(slug.current)] | order(date desc, _updatedAt desc) [0] {
+  ${baseFieldsNoContent},
+  author[]->{
+    ...,
+    "title": coalesce(title, "Anonymous"),
+  }
+}`;
+
+export const moreCourseQuery = groq`*[_type == "course" && _id != $skip && defined(slug.current)] | order(date desc, _updatedAt desc) [0...$limit] {
+  ${baseFieldsNoContent},
+  author[]->{
+    ...,
+    "title": coalesce(title, "Anonymous"),
+  }
+}`;
+
+export const courseQuery = groq`*[_type == "course" && slug.current == $courseSlug] [0] {
+  ${baseFieldsNoContent},
+  ${contentFields},
+  ${podcastFields}
+}`;
+
+// Lessons
+
+export const lessonsInCourseQuery = groq`*[_type == "course" && slug.current == $courseSlug] [0] {
+  sections[]{
+    title,
+    lesson[]->{
+      ${baseFieldsNoContent},
+      ${lessonFields}
+    }
+  }
+}`;
+
+export const lessonQuery = groq`*[_type == "lesson" && slug.current == $lessonSlug] [0] {
+  ${baseFieldsNoContent},
+  ${contentFields},
+  ${lessonFields}
 }`;
