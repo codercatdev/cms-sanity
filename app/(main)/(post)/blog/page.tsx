@@ -4,12 +4,12 @@ import { Suspense } from "react";
 import Avatar from "@/components/avatar";
 import CoverImage from "@/components/cover-image";
 import DateComponent from "@/components/date";
-import MoreStories from "@/components/more-stories";
+import MorePosts from "@/components/more-posts";
 import Onboarding from "@/components/onboarding";
 
-import type { HeroQueryResult } from "@/sanity.types";
+import type { BlogQueryResult } from "@/sanity.types";
 import { sanityFetch } from "@/sanity/lib/fetch";
-import { heroQuery } from "@/sanity/lib/queries";
+import { blogQuery } from "@/sanity/lib/queries";
 
 function HeroPost({
   title,
@@ -19,7 +19,7 @@ function HeroPost({
   date,
   author,
 }: Pick<
-  Exclude<HeroQueryResult, null>,
+  Exclude<BlogQueryResult, null>,
   "title" | "coverImage" | "date" | "excerpt" | "author" | "slug"
 >) {
   return (
@@ -59,7 +59,7 @@ function HeroPost({
 
 export default async function Page() {
   const [heroPost] = await Promise.all([
-    sanityFetch<HeroQueryResult>({ query: heroQuery }),
+    sanityFetch<BlogQueryResult>({ query: blogQuery }),
   ]);
   return (
     <div className="container mx-auto px-5">
@@ -81,7 +81,7 @@ export default async function Page() {
             More Stories
           </h2>
           <Suspense fallback={<p>Loading feed...</p>}>
-            <MoreStories skip={heroPost._id} limit={4} />
+            <MorePosts type={heroPost._type} skip={heroPost._id} limit={4} />
           </Suspense>
         </aside>
       )}

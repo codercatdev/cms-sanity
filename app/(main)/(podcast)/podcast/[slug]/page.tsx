@@ -1,34 +1,28 @@
 import type { Metadata, ResolvingMetadata } from "next";
 import { groq, type PortableTextBlock } from "next-sanity";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 
-import Avatar from "@/app/(main)/avatar";
-import CoverImage from "@/app/(main)/cover-image";
-import DateComponent from "@/app/(main)/date";
-import MoreStories from "@/app/(main)/more-stories";
-import PortableText from "@/app/(main)/portable-text";
+import Avatar from "@/components/avatar";
+import CoverImage from "@/components/cover-image";
+import DateComponent from "@/components/date";
+import MorePosts from "@/components/more-posts";
+import PortableText from "@/components/portable-text";
 
-import type {
-  PostQueryResult,
-  PostSlugsResult,
-  SettingsQueryResult,
-} from "@/sanity.types";
-import * as demo from "@/sanity/lib/demo";
+import type { PodcastQueryResult, PodcastSlugsResult } from "@/sanity.types";
 import { sanityFetch } from "@/sanity/lib/fetch";
-import { postQuery, settingsQuery } from "@/sanity/lib/queries";
+import { podcastQuery } from "@/sanity/lib/queries";
 import { resolveOpenGraphImage } from "@/sanity/lib/utils";
 
 type Props = {
   params: { slug: string };
 };
 
-const postSlugs = groq`*[_type == "post"]{slug}`;
+const podcastSlugs = groq`*[_type == "podcast"]{slug}`;
 
 export async function generateStaticParams() {
-  const params = await sanityFetch<PostSlugsResult>({
-    query: postSlugs,
+  const params = await sanityFetch<PodcastSlugsResult>({
+    query: podcastSlugs,
     perspective: "published",
     stega: false,
   });
@@ -39,8 +33,8 @@ export async function generateMetadata(
   { params }: Props,
   parent: ResolvingMetadata
 ): Promise<Metadata> {
-  const post = await sanityFetch<PostQueryResult>({
-    query: postQuery,
+  const post = await sanityFetch<PodcastQueryResult>({
+    query: podcastQuery,
     params,
     stega: false,
   });
@@ -61,13 +55,10 @@ export async function generateMetadata(
 }
 
 export default async function PostPage({ params }: Props) {
-  const [post, settings] = await Promise.all([
-    sanityFetch<PostQueryResult>({
-      query: postQuery,
+  const [post] = await Promise.all([
+    sanityFetch<PodcastQueryResult>({
+      query: podcastQuery,
       params,
-    }),
-    sanityFetch<SettingsQueryResult>({
-      query: settingsQuery,
     }),
   ]);
 
@@ -135,7 +126,7 @@ export default async function PostPage({ params }: Props) {
           Recent Stories
         </h2>
         <Suspense>
-          <MoreStories skip={post._id} limit={2} />
+          <MorePosts type={post._type} skip={post._id} limit={2} />
         </Suspense>
       </aside>
     </div>

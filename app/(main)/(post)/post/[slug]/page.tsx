@@ -1,23 +1,17 @@
 import type { Metadata, ResolvingMetadata } from "next";
 import { groq, type PortableTextBlock } from "next-sanity";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 
-import Avatar from "@/app/(main)/avatar";
-import CoverImage from "@/app/(main)/cover-image";
-import DateComponent from "@/app/(main)/date";
-import MoreStories from "@/app/(main)/more-stories";
-import PortableText from "@/app/(main)/portable-text";
+import Avatar from "@/components/avatar";
+import CoverImage from "@/components/cover-image";
+import DateComponent from "@/components/date";
+import MorePosts from "@/components/more-posts";
+import PortableText from "@/components/portable-text";
 
-import type {
-  PostQueryResult,
-  PostSlugsResult,
-  SettingsQueryResult,
-} from "@/sanity.types";
-import * as demo from "@/sanity/lib/demo";
+import type { PostQueryResult, PostSlugsResult } from "@/sanity.types";
 import { sanityFetch } from "@/sanity/lib/fetch";
-import { postQuery, settingsQuery } from "@/sanity/lib/queries";
+import { postQuery } from "@/sanity/lib/queries";
 import { resolveOpenGraphImage } from "@/sanity/lib/utils";
 
 type Props = {
@@ -61,13 +55,10 @@ export async function generateMetadata(
 }
 
 export default async function PostPage({ params }: Props) {
-  const [post, settings] = await Promise.all([
+  const [post] = await Promise.all([
     sanityFetch<PostQueryResult>({
       query: postQuery,
       params,
-    }),
-    sanityFetch<SettingsQueryResult>({
-      query: settingsQuery,
     }),
   ]);
 
@@ -135,7 +126,7 @@ export default async function PostPage({ params }: Props) {
           Recent Stories
         </h2>
         <Suspense>
-          <MoreStories skip={post._id} limit={2} />
+          <MorePosts type={post._type} skip={post._id} limit={2} />
         </Suspense>
       </aside>
     </div>

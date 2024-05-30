@@ -4,16 +4,28 @@ import Avatar from "./avatar";
 import CoverImage from "./cover-image";
 import DateComponent from "./date";
 
-import type { MoreStoriesQueryResult } from "@/sanity.types";
+import type { MorePostQueryResult } from "@/sanity.types";
 import { sanityFetch } from "@/sanity/lib/fetch";
-import { moreStoriesQuery } from "@/sanity/lib/queries";
+import { morePodcastQuery, morePostQuery } from "@/sanity/lib/queries";
 
-export default async function MoreStories(params: {
+export default async function MorePosts(params: {
+  type: string;
   skip: string;
   limit: number;
 }) {
-  const data = await sanityFetch<MoreStoriesQueryResult>({
-    query: moreStoriesQuery,
+  const whichQuery = () => {
+    switch (params.type) {
+      case "post":
+        return morePostQuery;
+      case "podcast":
+        return morePodcastQuery;
+      default:
+        return morePostQuery;
+    }
+  };
+
+  const data = await sanityFetch<MorePostQueryResult>({
+    query: whichQuery(),
     params,
   });
 
