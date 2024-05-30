@@ -12,8 +12,8 @@ import { Inter } from "next/font/google";
 import { draftMode } from "next/headers";
 import { JSX, SVGProps, Suspense } from "react";
 
-import AlertBanner from "./alert-banner";
-import PortableText from "./portable-text";
+import AlertBanner from "@/components/alert-banner";
+import PortableText from "@/components/portable-text";
 
 import type { SettingsQueryResult } from "@/sanity.types";
 import * as demo from "@/sanity/lib/demo";
@@ -25,6 +25,7 @@ import { ModeToggle } from "@/components/mode-toggle";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import NavHeader from "@/components/nav-header";
 
 const nunito = Nunito({
   subsets: ["latin"],
@@ -131,15 +132,7 @@ export default async function RootLayout({
                   CodingCat.dev
                 </Link>
                 <nav className="hidden md:flex items-center gap-6">
-                  {data?.navLinks?.map((l) => (
-                    <Link
-                      key={l._key}
-                      className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
-                      href={l?.path || "/"}
-                    >
-                      {l.title}
-                    </Link>
-                  ))}
+                  <NavHeader navLinks={data?.navLinks} />
                 </nav>
               </div>
               <div className="flex items-center gap-2">
@@ -157,23 +150,15 @@ export default async function RootLayout({
                     </Button>
                   </SheetTrigger>
                   <SheetContent side="left">
-                    <div className="grid gap-2 py-6">
+                    <nav className="grid gap-2 py-6">
                       <Link
                         className="flex w-full items-center py-2 text-lg font-semibold"
                         href="#"
                       >
                         Home
                       </Link>
-                      {data?.navLinks?.map((l) => (
-                        <Link
-                          key={l._key}
-                          className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
-                          href={l?.path || "/"}
-                        >
-                          {l.title}
-                        </Link>
-                      ))}
-                    </div>
+                      <NavHeader navLinks={data?.navLinks} />
+                    </nav>
                   </SheetContent>
                 </Sheet>
               </div>

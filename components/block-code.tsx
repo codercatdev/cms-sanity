@@ -1,7 +1,7 @@
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { okaidia } from "react-syntax-highlighter/dist/esm/styles/prism";
 
-import BlockCodeButton from "@/app/(main)/block-code-btn";
+import BlockCodeButton from "@/components/block-code-btn";
 
 import { prismLanguages } from "@/lib/prism";
 

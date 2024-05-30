@@ -1628,7 +1628,7 @@ export type PostQueryResult = {
     };
   }> | null;
 } | null;
-// Source: ./app/(main)/(posts)/post/[slug]/page.tsx
+// Source: ./app/(main)/(post)/post/[slug]/page.tsx
 // Variable: postSlugs
 // Query: *[_type == "post"]{slug}
 export type PostSlugsResult = Array<{

@@ -1,5 +1,5 @@
 import { CloudinaryAsset } from "@/sanity.types";
-import CloudinaryImage from "@/app/(main)/cloudinary-image";
+import CloudinaryImage from "@/components/cloudinary-image";
 import { stegaClean } from "@sanity/client/stega";
 
 interface CoverImageProps {

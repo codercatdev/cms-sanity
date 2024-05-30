@@ -14,8 +14,8 @@ import {
   type PortableTextBlock,
 } from "next-sanity";
 
-import BlockImage from "@/app/(main)/block-image";
-import BlockCode from "@/app/(main)/block-code";
+import BlockImage from "@/components/block-image";
+import BlockCode from "@/components/block-code";
 
 export default function CustomPortableText({
   className,
