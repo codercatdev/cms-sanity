@@ -164,7 +164,7 @@ export default async function RootLayout({
               </div>
             </header>
 
-            <main className="mt-32">{children}</main>
+            <main className="mt-20">{children}</main>
             <Suspense>
               <Footer />
             </Suspense>

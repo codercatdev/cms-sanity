@@ -2602,8 +2602,10 @@ export type CourseQueryResult = {
   pick: null;
 } | null;
 // Variable: lessonsInCourseQuery
-// Query: *[_type == "course" && slug.current == $courseSlug] [0] {  sections[]{    title,    lesson[]->{        _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(_createdAt, _updatedAt),        locked,  videoCloudinary    }  }}
+// Query: *[_type == "course" && slug.current == $courseSlug] [0] {  "title": coalesce(title, "Untitled"),  "slug": slug.current,  sections[]{    title,    lesson[]->{        _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(_createdAt, _updatedAt),        locked,  videoCloudinary    }  }}
 export type LessonsInCourseQueryResult = {
+  title: string | "Untitled";
+  slug: string | null;
   sections: Array<{
     title: string | null;
     lesson: Array<{
@@ -2621,7 +2623,7 @@ export type LessonsInCourseQueryResult = {
   }> | null;
 } | null;
 // Variable: lessonQuery
-// Query: *[_type == "lesson" && slug.current == $courseSlug] [0] {    _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(_createdAt, _updatedAt),    content,  author[]->{    ...,    "title": coalesce(title, "Anonymous"),  },  devto,  hashnode,  sponsor[]->{    ...,    "title": coalesce(title, "Anonymous"),  },  tags,  youtube,    locked,  videoCloudinary}
+// Query: *[_type == "lesson" && slug.current == $lessonSlug] [0] {    _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(_createdAt, _updatedAt),    content,  author[]->{    ...,    "title": coalesce(title, "Anonymous"),  },  devto,  hashnode,  sponsor[]->{    ...,    "title": coalesce(title, "Anonymous"),  },  tags,  youtube,    locked,  videoCloudinary}
 export type LessonQueryResult = {
   _id: string;
   _type: "lesson";

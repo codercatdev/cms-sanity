@@ -11,8 +11,7 @@ import {
   CardHeader,
 } from "@/components/ui/card";
 
-import { FaUnlock, FaLock } from "react-icons/fa";
-import { Badge } from "@/components/ui/badge";
+import BadgePro from "@/components/badge-pro";
 
 export default async function Lessons(params: { courseSlug: string }) {
   const data = await sanityFetch<LessonsInCourseQueryResult>({
@@ -73,15 +72,7 @@ export default async function Lessons(params: { courseSlug: string }) {
                         )}
                       </CardContent>
                       <CardFooter>
-                        <Badge
-                          className="flex gap-2"
-                          variant={locked ? "default" : "secondary"}
-                        >
-                          <p className="text-sm">
-                            {locked ? "Pro:" : "Public"}
-                          </p>
-                          {locked ? <FaLock /> : <FaUnlock />}
-                        </Badge>
+                        <BadgePro locked={locked} />
                       </CardFooter>
                     </Card>
                   );
