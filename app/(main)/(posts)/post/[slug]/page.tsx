@@ -78,24 +78,12 @@ export default async function PostPage({ params }: Props) {
   return (
     <div className="container mx-auto px-5">
       <article>
-        <h1 className="text-balance mb-12 text-6xl font-bold leading-tight tracking-tighter md:text-7xl md:leading-none lg:text-8xl">
+        <h1 className="text-balance mb-12 text-4xl font-bold leading-tight tracking-tighter md:text-7xl md:leading-none lg:text-8xl">
           {post.title}
         </h1>
         <div className="hidden md:mb-12 md:block">
-          {post.author && (
-            <div className="flex">
-              {post.author.map((a) => (
-                <Avatar key={a._id} name={a.title} coverImage={a?.coverImage} />
-              ))}
-            </div>
-          )}
-        </div>
-        <div className="mb-8 sm:mx-0 md:mb-16">
-          <CoverImage image={post.coverImage} priority />
-        </div>
-        <div className="mx-auto max-w-2xl">
-          <div className="mb-6 block md:hidden">
-            {post.author && (
+          <div className="flex flex-col gap-8">
+            {post?.author && (
               <div className="flex">
                 {post.author.map((a) => (
                   <Avatar
@@ -106,8 +94,29 @@ export default async function PostPage({ params }: Props) {
                 ))}
               </div>
             )}
+            <div className="text-lg">
+              <DateComponent dateString={post.date} />
+            </div>
           </div>
-          <div className="mb-6 text-lg">
+        </div>
+        <div className="mb-8 sm:mx-0 md:mb-16">
+          <CoverImage image={post.coverImage} priority />
+        </div>
+        <div className="block md:hidden">
+          <div className="mx-auto max-w-2xl">
+            <div className="mb-6">
+              {post.author && (
+                <div className="flex">
+                  {post.author.map((a) => (
+                    <Avatar
+                      key={a._id}
+                      name={a.title}
+                      coverImage={a?.coverImage}
+                    />
+                  ))}
+                </div>
+              )}
+            </div>
             <div className="mb-4 text-lg">
               <DateComponent dateString={post.date} />
             </div>
@@ -115,7 +124,7 @@ export default async function PostPage({ params }: Props) {
         </div>
         {post.content?.length && (
           <PortableText
-            className="mx-auto prose-zinc lg:prose-xl dark:prose-invert"
+            className="mx-auto prose-violet lg:prose-xl dark:prose-invert"
             value={post.content as PortableTextBlock[]}
           />
         )}

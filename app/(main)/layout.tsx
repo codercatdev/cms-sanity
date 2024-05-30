@@ -70,7 +70,7 @@ async function Footer() {
       <div className="container mx-auto px-5">
         {footer.length > 0 ? (
           <PortableText
-            className="prose-sm text-pretty bottom-0 w-full max-w-none bg-white py-12 text-center md:py-20"
+            className="prose-sm prose-violet dark:prose-invert text-pretty bottom-0 w-full max-w-none py-12 text-center md:py-20"
             value={footer as PortableTextBlock[]}
           />
         ) : (
@@ -147,6 +147,8 @@ export default async function RootLayout({
                 <Button className="hidden md:flex" variant="secondary">
                   Sign In
                 </Button>
+                <ModeToggle />
+
                 <Sheet>
                   <SheetTrigger asChild>
                     <Button className="sm:hidden" size="icon" variant="ghost">
@@ -154,7 +156,7 @@ export default async function RootLayout({
                       <span className="sr-only">Toggle navigation menu</span>
                     </Button>
                   </SheetTrigger>
-                  <SheetContent side="right">
+                  <SheetContent side="left">
                     <div className="grid gap-2 py-6">
                       <Link
                         className="flex w-full items-center py-2 text-lg font-semibold"
