@@ -18,6 +18,12 @@ const baseType = defineType({
   type: "object",
   fields: [
     defineField({
+      name: "date",
+      title: "Publish Date",
+      type: "datetime",
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
       name: "title",
       title: "Title",
       type: "string",

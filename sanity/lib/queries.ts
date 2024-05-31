@@ -10,7 +10,7 @@ const baseFieldsNoContent = `
   "slug": slug.current,
   excerpt,
   coverImage,
-  "date": coalesce(_createdAt, _updatedAt)
+  "date": coalesce(date, _createdAt)
 `;
 
 const contentFields = `

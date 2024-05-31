@@ -131,6 +131,7 @@ export type Sponsor = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
+  date?: string;
   title?: string;
   slug?: Slug;
   content?: Array<{
@@ -199,6 +200,7 @@ export type Lesson = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
+  date?: string;
   title?: string;
   slug?: Slug;
   content?: Array<{
@@ -288,6 +290,7 @@ export type Author = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
+  date?: string;
   title?: string;
   slug?: Slug;
   content?: Array<{
@@ -376,6 +379,7 @@ export type Post = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
+  date?: string;
   title?: string;
   slug?: Slug;
   content?: Array<{
@@ -463,6 +467,7 @@ export type Podcast = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
+  date?: string;
   title?: string;
   slug?: Slug;
   content?: Array<{
@@ -583,6 +588,7 @@ export type Guest = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
+  date?: string;
   title?: string;
   slug?: Slug;
   content?: Array<{
@@ -671,6 +677,7 @@ export type PodcastType = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
+  date?: string;
   title?: string;
   slug?: Slug;
   content?: Array<{
@@ -738,6 +745,7 @@ export type Course = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
+  date?: string;
   title?: string;
   slug?: Slug;
   content?: Array<{
@@ -837,6 +845,7 @@ export type Page = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
+  date?: string;
   title?: string;
   slug?: Slug;
   content?: Array<{
@@ -1241,6 +1250,7 @@ export type BlogQueryResult = {
     _createdAt: string;
     _updatedAt: string;
     _rev: string;
+    date?: string;
     title: string | "Anonymous";
     slug?: Slug;
     content?: Array<({
@@ -1340,6 +1350,7 @@ export type MorePostQueryResult = Array<{
     _createdAt: string;
     _updatedAt: string;
     _rev: string;
+    date?: string;
     title: string | "Anonymous";
     slug?: Slug;
     content?: Array<({
@@ -1494,6 +1505,7 @@ export type PostQueryResult = {
     _createdAt: string;
     _updatedAt: string;
     _rev: string;
+    date?: string;
     title: string | "Anonymous";
     slug?: Slug;
     content?: Array<({
@@ -1583,6 +1595,7 @@ export type PostQueryResult = {
     _createdAt: string;
     _updatedAt: string;
     _rev: string;
+    date?: string;
     title: string | "Anonymous";
     slug?: Slug;
     content?: Array<({
@@ -1666,6 +1679,7 @@ export type PodcastsQueryResult = {
     _createdAt: string;
     _updatedAt: string;
     _rev: string;
+    date?: string;
     title: string | "Anonymous";
     slug?: Slug;
     content?: Array<({
@@ -1765,6 +1779,7 @@ export type MorePodcastQueryResult = Array<{
     _createdAt: string;
     _updatedAt: string;
     _rev: string;
+    date?: string;
     title: string | "Anonymous";
     slug?: Slug;
     content?: Array<({
@@ -1919,6 +1934,7 @@ export type PodcastQueryResult = {
     _createdAt: string;
     _updatedAt: string;
     _rev: string;
+    date?: string;
     title: string | "Anonymous";
     slug?: Slug;
     content?: Array<({
@@ -2008,6 +2024,7 @@ export type PodcastQueryResult = {
     _createdAt: string;
     _updatedAt: string;
     _rev: string;
+    date?: string;
     title: string | "Anonymous";
     slug?: Slug;
     content?: Array<({
@@ -2083,6 +2100,7 @@ export type PodcastQueryResult = {
     _createdAt: string;
     _updatedAt: string;
     _rev: string;
+    date?: string;
     title: string | "Anonymous";
     slug?: Slug;
     content?: Array<({
@@ -2187,6 +2205,7 @@ export type CoursesQueryResult = {
     _createdAt: string;
     _updatedAt: string;
     _rev: string;
+    date?: string;
     title: string | "Anonymous";
     slug?: Slug;
     content?: Array<({
@@ -2286,6 +2305,7 @@ export type MoreCourseQueryResult = Array<{
     _createdAt: string;
     _updatedAt: string;
     _rev: string;
+    date?: string;
     title: string | "Anonymous";
     slug?: Slug;
     content?: Array<({
@@ -2440,6 +2460,7 @@ export type CourseQueryResult = {
     _createdAt: string;
     _updatedAt: string;
     _rev: string;
+    date?: string;
     title: string | "Anonymous";
     slug?: Slug;
     content?: Array<({
@@ -2529,6 +2550,7 @@ export type CourseQueryResult = {
     _createdAt: string;
     _updatedAt: string;
     _rev: string;
+    date?: string;
     title: string | "Anonymous";
     slug?: Slug;
     content?: Array<({
@@ -2694,6 +2716,7 @@ export type LessonQueryResult = {
     _createdAt: string;
     _updatedAt: string;
     _rev: string;
+    date?: string;
     title: string | "Anonymous";
     slug?: Slug;
     content?: Array<({
@@ -2783,6 +2806,7 @@ export type LessonQueryResult = {
     _createdAt: string;
     _updatedAt: string;
     _rev: string;
+    date?: string;
     title: string | "Anonymous";
     slug?: Slug;
     content?: Array<({
