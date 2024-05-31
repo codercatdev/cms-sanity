@@ -66,7 +66,7 @@ export const blogQuery = groq`*[_type == "post" && defined(slug.current)] | orde
   }
 }`;
 
-export const morePostQuery = groq`*[_type == "post" && _id != $skip && defined(slug.current)] | order(date desc, _updatedAt desc) [0...$limit] {
+export const morePostQuery = groq`*[_type == "post" && _id != $skip && defined(slug.current)] | order(date desc, _updatedAt desc) [$offset...$limit] {
   ${baseFieldsNoContent},
   author[]->{
     ...,
@@ -89,7 +89,7 @@ export const podcastsQuery = groq`*[_type == "podcast" && defined(slug.current)]
   }
 }`;
 
-export const morePodcastQuery = groq`*[_type == "podcast" && _id != $skip && defined(slug.current)] | order(date desc, _updatedAt desc) [0...$limit] {
+export const morePodcastQuery = groq`*[_type == "podcast" && _id != $skip && defined(slug.current)] | order(date desc, _updatedAt desc) [$offset...$limit] {
   ${baseFieldsNoContent},
   author[]->{
     ...,
@@ -113,7 +113,7 @@ export const coursesQuery = groq`*[_type == "course" && defined(slug.current)] |
   }
 }`;
 
-export const moreCourseQuery = groq`*[_type == "course" && _id != $skip && defined(slug.current)] | order(date desc, _updatedAt desc) [0...$limit] {
+export const moreCourseQuery = groq`*[_type == "course" && _id != $skip && defined(slug.current)] | order(date desc, _updatedAt desc) [$offset...$limit] {
   ${baseFieldsNoContent},
   author[]->{
     ...,

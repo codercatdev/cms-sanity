@@ -1234,7 +1234,7 @@ export type SettingsQueryResult = {
   ogImage?: CloudinaryAsset;
 } | null;
 // Variable: blogQuery
-// Query: *[_type == "post" && defined(slug.current)] | order(date desc, _updatedAt desc) [0] {    _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(_createdAt, _updatedAt),  author[]->{    ...,    "title": coalesce(title, "Anonymous"),  }}
+// Query: *[_type == "post" && defined(slug.current)] | order(date desc, _updatedAt desc) [0] {    _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(date, _createdAt),  author[]->{    ...,    "title": coalesce(title, "Anonymous"),  }}
 export type BlogQueryResult = {
   _id: string;
   _type: "post";
@@ -1334,7 +1334,7 @@ export type BlogQueryResult = {
   }> | null;
 } | null;
 // Variable: morePostQuery
-// Query: *[_type == "post" && _id != $skip && defined(slug.current)] | order(date desc, _updatedAt desc) [0...$limit] {    _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(_createdAt, _updatedAt),  author[]->{    ...,    "title": coalesce(title, "Anonymous"),  }}
+// Query: *[_type == "post" && _id != $skip && defined(slug.current)] | order(date desc, _updatedAt desc) [$offset...$limit] {    _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(date, _createdAt),  author[]->{    ...,    "title": coalesce(title, "Anonymous"),  }}
 export type MorePostQueryResult = Array<{
   _id: string;
   _type: "post";
@@ -1434,7 +1434,7 @@ export type MorePostQueryResult = Array<{
   }> | null;
 }>;
 // Variable: postQuery
-// Query: *[_type == "post" && slug.current == $slug] [0] {    _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(_createdAt, _updatedAt),    content,  author[]->{    ...,    "title": coalesce(title, "Anonymous"),  },  devto,  hashnode,  sponsor[]->{    ...,    "title": coalesce(title, "Anonymous"),  },  tags,  youtube}
+// Query: *[_type == "post" && slug.current == $slug] [0] {    _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(date, _createdAt),    content,  author[]->{    ...,    "title": coalesce(title, "Anonymous"),  },  devto,  hashnode,  sponsor[]->{    ...,    "title": coalesce(title, "Anonymous"),  },  tags,  youtube}
 export type PostQueryResult = {
   _id: string;
   _type: "post";
@@ -1663,7 +1663,7 @@ export type PostQueryResult = {
   youtube: string | null;
 } | null;
 // Variable: podcastsQuery
-// Query: *[_type == "podcast" && defined(slug.current)] | order(date desc, _updatedAt desc) [0] {    _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(_createdAt, _updatedAt),  author[]->{    ...,    "title": coalesce(title, "Anonymous"),  }}
+// Query: *[_type == "podcast" && defined(slug.current)] | order(date desc, _updatedAt desc) [0] {    _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(date, _createdAt),  author[]->{    ...,    "title": coalesce(title, "Anonymous"),  }}
 export type PodcastsQueryResult = {
   _id: string;
   _type: "podcast";
@@ -1763,7 +1763,7 @@ export type PodcastsQueryResult = {
   }> | null;
 } | null;
 // Variable: morePodcastQuery
-// Query: *[_type == "podcast" && _id != $skip && defined(slug.current)] | order(date desc, _updatedAt desc) [0...$limit] {    _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(_createdAt, _updatedAt),  author[]->{    ...,    "title": coalesce(title, "Anonymous"),  }}
+// Query: *[_type == "podcast" && _id != $skip && defined(slug.current)] | order(date desc, _updatedAt desc) [$offset...$limit] {    _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(date, _createdAt),  author[]->{    ...,    "title": coalesce(title, "Anonymous"),  }}
 export type MorePodcastQueryResult = Array<{
   _id: string;
   _type: "podcast";
@@ -1863,7 +1863,7 @@ export type MorePodcastQueryResult = Array<{
   }> | null;
 }>;
 // Variable: podcastQuery
-// Query: *[_type == "podcast" && slug.current == $slug] [0] {    _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(_createdAt, _updatedAt),    content,  author[]->{    ...,    "title": coalesce(title, "Anonymous"),  },  devto,  hashnode,  sponsor[]->{    ...,    "title": coalesce(title, "Anonymous"),  },  tags,  youtube,    podcastType[]->{    ...,    "title": coalesce(title, "Missing Podcast Title"),  },  season,  episode,  recordingDate,  guest[]->{    ...,    "title": coalesce(title, "Anonymous"),  },  pick[]{    user[]->{      ...,      "title": coalesce(title, "Anonymous"),    },    name,    site  }}
+// Query: *[_type == "podcast" && slug.current == $slug] [0] {    _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(date, _createdAt),    content,  author[]->{    ...,    "title": coalesce(title, "Anonymous"),  },  devto,  hashnode,  sponsor[]->{    ...,    "title": coalesce(title, "Anonymous"),  },  tags,  youtube,    podcastType[]->{    ...,    "title": coalesce(title, "Missing Podcast Title"),  },  season,  episode,  recordingDate,  guest[]->{    ...,    "title": coalesce(title, "Anonymous"),  },  pick[]{    user[]->{      ...,      "title": coalesce(title, "Anonymous"),    },    name,    site  }}
 export type PodcastQueryResult = {
   _id: string;
   _type: "podcast";
@@ -2189,7 +2189,7 @@ export type PodcastQueryResult = {
   }> | null;
 } | null;
 // Variable: coursesQuery
-// Query: *[_type == "course" && defined(slug.current)] | order(date desc, _updatedAt desc) [0] {    _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(_createdAt, _updatedAt),  author[]->{    ...,    "title": coalesce(title, "Anonymous"),  }}
+// Query: *[_type == "course" && defined(slug.current)] | order(date desc, _updatedAt desc) [0] {    _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(date, _createdAt),  author[]->{    ...,    "title": coalesce(title, "Anonymous"),  }}
 export type CoursesQueryResult = {
   _id: string;
   _type: "course";
@@ -2289,7 +2289,7 @@ export type CoursesQueryResult = {
   }> | null;
 } | null;
 // Variable: moreCourseQuery
-// Query: *[_type == "course" && _id != $skip && defined(slug.current)] | order(date desc, _updatedAt desc) [0...$limit] {    _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(_createdAt, _updatedAt),  author[]->{    ...,    "title": coalesce(title, "Anonymous"),  }}
+// Query: *[_type == "course" && _id != $skip && defined(slug.current)] | order(date desc, _updatedAt desc) [$offset...$limit] {    _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(date, _createdAt),  author[]->{    ...,    "title": coalesce(title, "Anonymous"),  }}
 export type MoreCourseQueryResult = Array<{
   _id: string;
   _type: "course";
@@ -2389,7 +2389,7 @@ export type MoreCourseQueryResult = Array<{
   }> | null;
 }>;
 // Variable: courseQuery
-// Query: *[_type == "course" && slug.current == $courseSlug] [0] {    _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(_createdAt, _updatedAt),    content,  author[]->{    ...,    "title": coalesce(title, "Anonymous"),  },  devto,  hashnode,  sponsor[]->{    ...,    "title": coalesce(title, "Anonymous"),  },  tags,  youtube,    podcastType[]->{    ...,    "title": coalesce(title, "Missing Podcast Title"),  },  season,  episode,  recordingDate,  guest[]->{    ...,    "title": coalesce(title, "Anonymous"),  },  pick[]{    user[]->{      ...,      "title": coalesce(title, "Anonymous"),    },    name,    site  }}
+// Query: *[_type == "course" && slug.current == $courseSlug] [0] {    _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(date, _createdAt),    content,  author[]->{    ...,    "title": coalesce(title, "Anonymous"),  },  devto,  hashnode,  sponsor[]->{    ...,    "title": coalesce(title, "Anonymous"),  },  tags,  youtube,    podcastType[]->{    ...,    "title": coalesce(title, "Missing Podcast Title"),  },  season,  episode,  recordingDate,  guest[]->{    ...,    "title": coalesce(title, "Anonymous"),  },  pick[]{    user[]->{      ...,      "title": coalesce(title, "Anonymous"),    },    name,    site  }}
 export type CourseQueryResult = {
   _id: string;
   _type: "course";
@@ -2624,7 +2624,7 @@ export type CourseQueryResult = {
   pick: null;
 } | null;
 // Variable: lessonsInCourseQuery
-// Query: *[_type == "course" && slug.current == $courseSlug] [0] {  "title": coalesce(title, "Untitled"),  "slug": slug.current,  sections[]{    title,    lesson[]->{        _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(_createdAt, _updatedAt),        locked,  videoCloudinary    }  }}
+// Query: *[_type == "course" && slug.current == $courseSlug] [0] {  "title": coalesce(title, "Untitled"),  "slug": slug.current,  sections[]{    title,    lesson[]->{        _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(date, _createdAt),        locked,  videoCloudinary    }  }}
 export type LessonsInCourseQueryResult = {
   title: string | "Untitled";
   slug: string | null;
@@ -2645,7 +2645,7 @@ export type LessonsInCourseQueryResult = {
   }> | null;
 } | null;
 // Variable: lessonQuery
-// Query: *[_type == "lesson" && slug.current == $lessonSlug] [0] {    _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(_createdAt, _updatedAt),    content,  author[]->{    ...,    "title": coalesce(title, "Anonymous"),  },  devto,  hashnode,  sponsor[]->{    ...,    "title": coalesce(title, "Anonymous"),  },  tags,  youtube,    locked,  videoCloudinary}
+// Query: *[_type == "lesson" && slug.current == $lessonSlug] [0] {    _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(date, _createdAt),    content,  author[]->{    ...,    "title": coalesce(title, "Anonymous"),  },  devto,  hashnode,  sponsor[]->{    ...,    "title": coalesce(title, "Anonymous"),  },  tags,  youtube,    locked,  videoCloudinary}
 export type LessonQueryResult = {
   _id: string;
   _type: "lesson";
@@ -2881,18 +2881,22 @@ export type LessonQueryResult = {
 export type CourseSlugsResult = Array<{
   slug: Slug | null;
 }>;
-// Source: ./app/(main)/(podcast)/podcast/[slug]/page.tsx
-// Variable: podcastSlugs
-// Query: *[_type == "podcast"]{slug}
-export type PodcastSlugsResult = Array<{
-  slug: Slug | null;
-}>;
 // Source: ./app/(main)/(post)/post/[slug]/page.tsx
 // Variable: postSlugs
 // Query: *[_type == "post"]{slug}
 export type PostSlugsResult = Array<{
   slug: Slug | null;
 }>;
+// Source: ./app/(main)/(podcast)/podcast/[slug]/page.tsx
+// Variable: podcastSlugs
+// Query: *[_type == "podcast"]{slug}
+export type PodcastSlugsResult = Array<{
+  slug: Slug | null;
+}>;
+// Source: ./app/(main)/(post)/blog/page/[number]/page.tsx
+// Variable: postCount
+// Query: count(*[_type == "post"])
+export type PostCountResult = number;
 // Source: ./app/(main)/(course)/course/[courseSlug]/lesson/[lessonSlug]/page.tsx
 // Variable: lessonSlugs
 // Query: *[_type == "lesson"]{slug}

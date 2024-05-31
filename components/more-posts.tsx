@@ -14,8 +14,9 @@ import {
 
 export default async function MorePosts(params: {
   type: string;
-  skip: string;
-  limit: number;
+  skip?: string;
+  limit?: number;
+  offset?: number;
 }) {
   const whichQuery = () => {
     switch (params.type) {
@@ -32,7 +33,12 @@ export default async function MorePosts(params: {
 
   const data = await sanityFetch<MorePostQueryResult>({
     query: whichQuery(),
-    params,
+    params: {
+      type: params.type,
+      skip: params.skip || "none",
+      limit: params.limit || 4,
+      offset: params.offset || 0,
+    },
   });
 
   return (
