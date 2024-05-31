@@ -50,7 +50,7 @@ export default async function LessonPanel({ params }: Props) {
             <>
               <div className="flex h-[60px] items-center border-b px-6">
                 <Link
-                  href={"/courses/" + params.courseSlug}
+                  href={"/course/" + params.courseSlug}
                   className="flex items-center gap-2 font-semibold"
                   prefetch={false}
                 >
