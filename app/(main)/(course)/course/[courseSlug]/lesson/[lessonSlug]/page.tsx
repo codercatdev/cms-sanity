@@ -13,6 +13,7 @@ import { lessonQuery, lessonsInCourseQuery } from "@/sanity/lib/queries";
 import { resolveOpenGraphImage } from "@/sanity/lib/utils";
 import Lessons from "../../lessons";
 import LessonPanel from "./lesson-panel";
+import MorePosts from "@/components/more-posts";
 
 type Props = {
   params: { lessonSlug: string; courseSlug: string };
@@ -71,19 +72,19 @@ export default async function LessonPage({ params }: Props) {
   }
 
   return (
-    <div className="container mx-auto px-5">
+    <div className="container px-5 mx-auto">
       <LessonPanel params={params} />
       <Suspense>
         <Lessons courseSlug={params.courseSlug} />
       </Suspense>
       <aside>
-        <hr className="border-accent-2 mb-24 mt-28" />
+        <hr className="mb-24 border-accent-2 mt-28" />
         <h2 className="mb-8 text-6xl font-bold leading-tight tracking-tighter md:text-7xl">
           Recent Courses
         </h2>
-        {/* <Suspense>
+        <Suspense>
           <MorePosts type="course" skip={post._id} limit={2} />
-        </Suspense> */}
+        </Suspense>
       </aside>
     </div>
   );

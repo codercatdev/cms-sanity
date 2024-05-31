@@ -17,13 +17,16 @@ import { sanityFetch } from "@/sanity/lib/fetch";
 import { lessonQuery, lessonsInCourseQuery } from "@/sanity/lib/queries";
 import CoverImage from "@/components/cover-image";
 import BadgePro from "@/components/badge-pro";
+import NavLesson from "./nav-lesson";
+import PortableText from "@/components/portable-text";
+import { type PortableTextBlock } from "next-sanity";
 
 type Props = {
   params: { lessonSlug: string; courseSlug: string };
 };
 
 export default async function LessonPanel({ params }: Props) {
-  const [post, lessons] = await Promise.all([
+  const [post, course] = await Promise.all([
     sanityFetch<LessonQueryResult>({
       query: lessonQuery,
       params,
@@ -42,82 +45,24 @@ export default async function LessonPanel({ params }: Props) {
     <div className="grid w-full">
       <ResizablePanelGroup
         direction="horizontal"
-        className="hidden border-r  lg:flex lg:max-h-screen lg:flex-col lg:gap-2"
+        className="hidden border-r lg:flex lg:flex-col lg:gap-2"
       >
-        <ResizablePanel defaultSize={25} minSize={4} collapsible>
-          {lessons?.sections && (
+        <ResizablePanel defaultSize={25} minSize={20} collapsible>
+          {course?.sections && (
             <>
               <div className="flex h-[60px] items-center border-b px-6">
                 <Link
-                  href="#"
+                  href={"/courses/" + params.courseSlug}
                   className="flex items-center gap-2 font-semibold"
                   prefetch={false}
                 >
-                  <span className="truncate">{lessons.title}</span>
+                  <span className="truncate">{course.title}</span>
                 </Link>
               </div>
 
-              <div className="flex-1 overflow-auto py-2">
+              <div className="flex-1 py-2 overflow-auto">
                 <nav className="grid items-start px-4 text-sm font-medium">
-                  <Link
-                    href="#"
-                    className="flex items-center gap-3 rounded-lg bg-gray-100 px-3 py-2 text-gray-900 transition-all hover:text-gray-900 dark:bg-gray-800 dark:text-gray-50 dark:hover:text-gray-50"
-                    prefetch={false}
-                  >
-                    <InboxIcon className="h-4 w-4" />
-                    Inbox
-                    <Badge className="ml-auto flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-gray-900 text-gray-50 dark:bg-gray-50 dark:text-gray-900">
-                      12
-                    </Badge>
-                  </Link>
-                  <Link
-                    href="#"
-                    className="flex items-center gap-3 rounded-lg px-3 py-2 text-gray-500 transition-all hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
-                    prefetch={false}
-                  >
-                    <SendIcon className="h-4 w-4" />
-                    Sent
-                  </Link>
-                  <Link
-                    href="#"
-                    className="flex items-center gap-3 rounded-lg px-3 py-2 text-gray-500 transition-all hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
-                    prefetch={false}
-                  >
-                    <FileIcon className="h-4 w-4" />
-                    Drafts
-                  </Link>
-                  <Link
-                    href="#"
-                    className="flex items-center gap-3 rounded-lg px-3 py-2 text-gray-500 transition-all hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
-                    prefetch={false}
-                  >
-                    <Trash2Icon className="h-4 w-4" />
-                    Trash
-                  </Link>
-                  <Link
-                    href="#"
-                    className="flex items-center gap-3 rounded-lg px-3 py-2 text-gray-500 transition-all hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
-                    prefetch={false}
-                  >
-                    <ArchiveIcon className="h-4 w-4" />
-                    Archived
-                  </Link>
-                  <Link
-                    href="#"
-                    className="flex items-center gap-3 rounded-lg px-3 py-2 text-gray-500 transition-all hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
-                    prefetch={false}
-                  >
-                    <ArchiveXIcon className="h-4 w-4" />
-                    Spam
-                  </Link>
-                  <Link
-                    href="#"
-                    className="flex items-center gap-3 rounded-lg px-3 py-2 text-gray-500 transition-all hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
-                    prefetch={false}
-                  >
-                    <UsersIcon className="h-4 w-4" />
-                    Contacts
-                  </Link>
+                  <NavLesson course={course} />
                 </nav>
               </div>
             </>
@@ -128,10 +73,10 @@ export default async function LessonPanel({ params }: Props) {
           <div className="flex flex-col">
             <header className="flex h-14 lg:h-[60px] items-center gap-4 border-b  px-6 dark:bg-gray-800/40">
               <Link href="#" className="lg:hidden" prefetch={false}>
-                <InboxIcon className="h-6 w-6" />
+                <InboxIcon className="w-6 h-6" />
                 <span className="sr-only">Home</span>
               </Link>
-              <div className="w-full flex-1">
+              <div className="flex-1 w-full">
                 <h1>{post.title}</h1>
               </div>
               <BadgePro locked={post?.locked} />
@@ -142,6 +87,12 @@ export default async function LessonPanel({ params }: Props) {
               </div>
             </main>
           </div>
+          {post.content?.length && (
+            <PortableText
+              className="mx-auto prose-violet lg:prose-xl dark:prose-invert"
+              value={post.content as PortableTextBlock[]}
+            />
+          )}
         </ResizablePanel>
       </ResizablePanelGroup>
     </div>
