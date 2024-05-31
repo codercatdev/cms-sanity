@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useActivePath } from "@/lib/hooks";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
+import BadgePro from "@/components/badge-pro";
 
 interface Props {
   course: LessonsInCourseQueryResult | undefined;
@@ -36,9 +37,7 @@ export default function NavLesson({ course }: Props) {
                   prefetch={false}
                 >
                   <span>{l.title}</span>
-                  <Badge className="flex items-center justify-center w-6 h-6 ml-auto bg-gray-900 rounded-full shrink-0 text-gray-50 dark:bg-gray-50 dark:text-gray-900">
-                    12
-                  </Badge>
+                  <BadgePro locked={l.locked} hideLabel={true} />
                 </Link>
               ) : (
                 <></>

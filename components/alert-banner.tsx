@@ -25,7 +25,7 @@ export default function AlertBanner() {
         pending ? "animate-pulse" : ""
       } fixed top-0 left-0 z-50 w-full border-b backdrop-blur`}
     >
-      <div className="py-2 text-center text-sm">
+      <div className="py-2 text-sm text-center">
         {pending ? (
           "Disabling draft mode..."
         ) : (
@@ -40,7 +40,7 @@ export default function AlertBanner() {
                   })
                 )
               }
-              className="hover:text-cyan underline transition-colors duration-200"
+              className="underline hover:text-cyan transition-colors duration-200"
             >
               Back to published
             </button>

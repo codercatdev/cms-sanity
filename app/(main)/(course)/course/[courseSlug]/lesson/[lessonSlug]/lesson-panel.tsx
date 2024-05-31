@@ -42,7 +42,7 @@ export default async function LessonPanel({ params }: Props) {
   }
 
   return (
-    <div className="grid w-full">
+    <div className="w-full grid">
       <ResizablePanelGroup
         direction="horizontal"
         className="hidden border-r lg:flex lg:flex-col lg:gap-2"
@@ -53,7 +53,7 @@ export default async function LessonPanel({ params }: Props) {
               <div className="flex h-[60px] items-center border-b px-6">
                 <Link
                   href={"/courses/" + params.courseSlug}
-                  className="flex items-center gap-2 font-semibold"
+                  className="flex items-center font-semibold gap-2"
                   prefetch={false}
                 >
                   <span className="truncate">{course.title}</span>
@@ -61,7 +61,7 @@ export default async function LessonPanel({ params }: Props) {
               </div>
 
               <div className="flex-1 py-2 overflow-auto">
-                <nav className="grid items-start px-4 text-sm font-medium">
+                <nav className="items-start px-4 text-sm font-medium grid">
                   <NavLesson course={course} />
                 </nav>
               </div>

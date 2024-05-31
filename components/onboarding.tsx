@@ -18,9 +18,9 @@ export default function Onboarding() {
   );
 
   return (
-    <div className="grid grid-flow-row gap-6 py-60 text-center">
+    <div className="text-center grid grid-flow-row gap-6 py-60">
       <svg
-        className="mx-auto h-10 w-10 text-gray-400"
+        className="w-10 h-10 mx-auto text-gray-400"
         aria-hidden="true"
         width="512"
         height="512"
@@ -53,7 +53,7 @@ export default function Onboarding() {
 
       <div>
         <Link
-          className="inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+          className="inline-flex items-center px-3 py-2 text-sm font-semibold text-white bg-indigo-600 rounded-md shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
           href="/studio/intent/create/template=post;type=post/"
           target={target}
         >

@@ -2,7 +2,7 @@ import Onboarding from "@/components/onboarding";
 
 export default async function Page() {
   return (
-    <div className="container mx-auto px-5">
+    <div className="container px-5 mx-auto">
       <Onboarding />
     </div>
   );

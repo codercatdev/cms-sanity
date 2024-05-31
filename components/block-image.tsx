@@ -26,7 +26,7 @@ export default async function CoverImage(props: CoverImageProps) {
 
     image = (
       <CloudinaryImage
-        className="h-auto w-full"
+        className="w-full h-auto"
         width={1920}
         height={1080}
         sizes="100vw"

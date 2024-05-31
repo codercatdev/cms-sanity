@@ -14,7 +14,7 @@ export default function CoverImage(props: CoverImageProps) {
 
   const image = source?.public_id ? (
     <CloudinaryImage
-      className="h-auto w-full"
+      className="w-full h-auto"
       width={1920}
       height={1080}
       priority={priority}

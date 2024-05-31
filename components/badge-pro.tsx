@@ -3,13 +3,16 @@ import { Badge } from "./ui/badge";
 
 interface BadgePro {
   locked: boolean | null;
+  hideLabel?: boolean;
 }
 
-export default async function BadgePro(props: BadgePro) {
-  const { locked } = props;
+export default function BadgePro(props: BadgePro) {
+  const { locked, hideLabel = false } = props;
   return (
     <Badge className="flex gap-2" variant={locked ? "default" : "secondary"}>
-      <p className="text-sm">{locked ? "Pro:" : "Public"}</p>
+      {hideLabel ? null : (
+        <p className="text-sm">{locked ? "Pro:" : "Public"}</p>
+      )}
       {locked ? <FaLock /> : <FaUnlock />}
     </Badge>
   );

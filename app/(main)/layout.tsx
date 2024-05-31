@@ -67,22 +67,22 @@ async function Footer() {
   });
   const footer = data?.footer || [];
   return (
-    <footer className="bg-accent-1 border-accent-2 border-t">
-      <div className="container mx-auto px-5">
+    <footer className="border-t bg-accent-1 border-accent-2">
+      <div className="container px-5 mx-auto">
         {footer.length > 0 ? (
           <PortableText
-            className="prose-sm prose-violet dark:prose-invert text-pretty bottom-0 w-full max-w-none py-12 text-center md:py-20"
+            className="bottom-0 w-full py-12 text-center prose-sm prose-violet dark:prose-invert text-pretty max-w-none md:py-20"
             value={footer as PortableTextBlock[]}
           />
         ) : (
           <div className="flex flex-col items-center py-28 lg:flex-row">
-            <h3 className="mb-10 text-center text-4xl font-bold leading-tight tracking-tighter lg:mb-0 lg:w-1/2 lg:pr-4 lg:text-left lg:text-5xl">
+            <h3 className="mb-10 text-4xl font-bold leading-tight tracking-tighter text-center lg:mb-0 lg:w-1/2 lg:pr-4 lg:text-left lg:text-5xl">
               Built with Next.js.
             </h3>
             <div className="flex flex-col items-center justify-center lg:w-1/2 lg:flex-row lg:pl-4">
               <a
                 href="https://nextjs.org/docs"
-                className="mx-3 mb-6 border border-black bg-black py-3 px-12 font-bold text-white transition-colors duration-200 hover:bg-white hover:text-black lg:mb-0 lg:px-8"
+                className="px-12 py-3 mx-3 mb-6 font-bold text-white bg-black border border-black transition-colors duration-200 hover:bg-white hover:text-black lg:mb-0 lg:px-8"
               >
                 Read Documentation
               </a>
@@ -126,12 +126,12 @@ export default async function RootLayout({
           {draftMode().isEnabled && <AlertBanner />}
 
           <section className="flex flex-col min-h-[100dvh]">
-            <header className="fixed left-0 right-0 z-40 flex items-center justify-between px-6 py-4 bg-background shadow-md">
+            <header className="fixed left-0 right-0 z-40 flex items-center justify-between px-6 py-4 shadow-md bg-background">
               <div className="flex items-center gap-4">
-                <Link className="text-lg md:text-2xl font-bold" href="/">
+                <Link className="text-lg font-bold md:text-2xl" href="/">
                   CodingCat.dev
                 </Link>
-                <nav className="hidden md:flex items-center gap-6">
+                <nav className="items-center hidden md:flex gap-6">
                   <NavHeader navLinks={data?.navLinks} />
                 </nav>
               </div>
@@ -145,14 +145,14 @@ export default async function RootLayout({
                 <Sheet>
                   <SheetTrigger asChild>
                     <Button className="sm:hidden" size="icon" variant="ghost">
-                      <MenuIcon className="h-6 w-6" />
+                      <MenuIcon className="w-6 h-6" />
                       <span className="sr-only">Toggle navigation menu</span>
                     </Button>
                   </SheetTrigger>
                   <SheetContent side="left">
-                    <nav className="grid gap-2 py-6">
+                    <nav className="py-6 grid gap-2">
                       <Link
-                        className="flex w-full items-center py-2 text-lg font-semibold"
+                        className="flex items-center w-full py-2 text-lg font-semibold"
                         href="#"
                       >
                         Home

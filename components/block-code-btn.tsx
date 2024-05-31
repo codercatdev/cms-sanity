@@ -5,8 +5,8 @@ import { useState } from "react";
 import { LuClipboard, LuCheck } from "react-icons/lu";
 
 export default function BlockCodeButton({ code }: { code: string }) {
-  const startIcon = <LuClipboard className="h-4 w-4" />;
-  const copiedIcon = <LuCheck className="h-4 w-4" />;
+  const startIcon = <LuClipboard className="w-4 h-4" />;
+  const copiedIcon = <LuCheck className="w-4 h-4" />;
   const [icon, setIcon] = useState(startIcon);
   const copy = () => {
     navigator.clipboard.writeText(code);

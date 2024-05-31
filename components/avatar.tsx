@@ -15,9 +15,9 @@ export default function Avatar({ name, coverImage }: Props) {
   return (
     <div className="flex items-center text-xl">
       {source?.public_id ? (
-        <div className="mr-4 h-12 w-12">
+        <div className="w-12 h-12 mr-4">
           <CldImage
-            className="h-auto w-full"
+            className="w-full h-auto"
             width={48}
             height={48}
             alt={source?.context?.custom?.alt || ""}
@@ -33,7 +33,7 @@ export default function Avatar({ name, coverImage }: Props) {
       ) : (
         <div className="mr-1">By </div>
       )}
-      <div className="text-pretty text-xl font-bold">{name}</div>
+      <div className="text-xl font-bold text-pretty">{name}</div>
     </div>
   );
 }

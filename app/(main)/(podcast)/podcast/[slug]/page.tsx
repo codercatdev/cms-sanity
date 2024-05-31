@@ -67,9 +67,9 @@ export default async function PostPage({ params }: Props) {
   }
 
   return (
-    <div className="container mx-auto px-5">
+    <div className="container px-5 mx-auto">
       <article>
-        <h1 className="text-balance mb-12 text-4xl font-bold leading-tight tracking-tighter md:text-7xl md:leading-none lg:text-8xl">
+        <h1 className="mb-12 text-4xl font-bold leading-tight tracking-tighter text-balance md:text-7xl md:leading-none lg:text-8xl">
           {post.title}
         </h1>
         <div className="hidden md:mb-12 md:block">
@@ -94,7 +94,7 @@ export default async function PostPage({ params }: Props) {
           <CoverImage image={post.coverImage} priority />
         </div>
         <div className="block md:hidden">
-          <div className="mx-auto max-w-2xl">
+          <div className="max-w-2xl mx-auto">
             <div className="mb-6">
               {post.author && (
                 <div className="flex">
@@ -121,7 +121,7 @@ export default async function PostPage({ params }: Props) {
         )}
       </article>
       <aside>
-        <hr className="border-accent-2 mb-24 mt-28" />
+        <hr className="mb-24 border-accent-2 mt-28" />
         <h2 className="mb-8 text-6xl font-bold leading-tight tracking-tighter md:text-7xl">
           Recent Podcasts
         </h2>

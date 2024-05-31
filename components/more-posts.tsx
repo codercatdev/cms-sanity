@@ -42,10 +42,10 @@ export default async function MorePosts(params: {
           const { _id, _type, title, slug, coverImage, excerpt, author } = post;
           return (
             <article key={_id}>
-              <Link href={`/${_type}/${slug}`} className="group mb-5 block">
+              <Link href={`/${_type}/${slug}`} className="block mb-5 group">
                 <CoverImage image={coverImage} priority={false} />
               </Link>
-              <h3 className="text-balance mb-3 text-3xl leading-snug">
+              <h3 className="mb-3 text-3xl leading-snug text-balance">
                 <Link href={`/${_type}/${slug}`} className="hover:underline">
                   {title}
                 </Link>
@@ -54,7 +54,7 @@ export default async function MorePosts(params: {
                 <DateComponent dateString={post.date} />
               </div>
               {excerpt && (
-                <p className="text-pretty mb-4 text-lg leading-relaxed">
+                <p className="mb-4 text-lg leading-relaxed text-pretty">
                   {excerpt}
                 </p>
               )}

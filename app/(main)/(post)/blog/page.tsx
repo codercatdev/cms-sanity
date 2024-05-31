@@ -24,12 +24,12 @@ function HeroPost({
 >) {
   return (
     <article>
-      <Link className="group mb-8 block md:mb-16" href={`/post/${slug}`}>
+      <Link className="block mb-8 group md:mb-16" href={`/post/${slug}`}>
         <CoverImage image={coverImage} priority />
       </Link>
       <div className="mb-20 md:mb-28 md:grid md:grid-cols-2 md:gap-x-16 lg:gap-x-8">
         <div>
-          <h3 className="text-pretty mb-4 text-4xl leading-tight lg:text-6xl">
+          <h3 className="mb-4 text-4xl leading-tight text-pretty lg:text-6xl">
             <Link href={`/post/${slug}`} className="hover:underline">
               {title}
             </Link>
@@ -40,7 +40,7 @@ function HeroPost({
         </div>
         <div>
           {excerpt && (
-            <p className="text-pretty mb-4 text-lg leading-relaxed">
+            <p className="mb-4 text-lg leading-relaxed text-pretty">
               {excerpt}
             </p>
           )}
@@ -62,7 +62,7 @@ export default async function Page() {
     sanityFetch<BlogQueryResult>({ query: blogQuery }),
   ]);
   return (
-    <div className="container mx-auto px-5">
+    <div className="container px-5 mx-auto">
       {heroPost ? (
         <HeroPost
           title={heroPost.title}

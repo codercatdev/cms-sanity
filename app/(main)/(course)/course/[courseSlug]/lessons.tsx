@@ -22,7 +22,7 @@ export default async function Lessons(params: { courseSlug: string }) {
     <>
       {data?.sections && (
         <div className="flex flex-col">
-          <hr className="border-accent-2 mb-24 mt-28" />
+          <hr className="mb-24 border-accent-2 mt-28" />
           <h2 className="mb-8 text-6xl font-bold leading-tight tracking-tighter md:text-7xl">
             Lessons
           </h2>
@@ -31,7 +31,7 @@ export default async function Lessons(params: { courseSlug: string }) {
               <div className="text-xl">
                 <h3 className="mb-3 text-3xl leading-snug">{section?.title}</h3>
               </div>
-              <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-4 md:p-6 auto-rows-fr">
+              <section className="p-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:p-6 auto-rows-fr">
                 {section?.lesson?.map((post) => {
                   const {
                     _id,
@@ -50,13 +50,13 @@ export default async function Lessons(params: { courseSlug: string }) {
                       <CardHeader className="p-0">
                         <Link
                           href={`/course/${params.courseSlug}/${_type}/${slug}`}
-                          className="group mb-5 block"
+                          className="block mb-5 group"
                         >
                           <CoverImage image={coverImage} priority={false} />
                         </Link>
                       </CardHeader>
                       <CardContent className="flex-grow">
-                        <h3 className="text-balance mb-3 text-3xl leading-snug">
+                        <h3 className="mb-3 text-3xl leading-snug text-balance">
                           <Link
                             href={`/course/${params.courseSlug}/${_type}/${slug}`}
                             className="hover:underline"
@@ -66,7 +66,7 @@ export default async function Lessons(params: { courseSlug: string }) {
                         </h3>
 
                         {excerpt && (
-                          <p className="text-pretty mb-4 text-lg leading-relaxed">
+                          <p className="mb-4 text-lg leading-relaxed text-pretty">
                             {excerpt}
                           </p>
                         )}
