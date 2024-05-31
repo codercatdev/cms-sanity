@@ -9,10 +9,12 @@ import {
 } from "@/components/ui/pagination";
 
 export default async function PaginateList({
+  base,
   num,
   limit,
   count,
 }: {
+  base: string;
   num: number;
   limit: number;
   count: number;
@@ -20,7 +22,7 @@ export default async function PaginateList({
   const pageNumber = Number(num);
   const offset = (pageNumber - 1) * limit;
   const offsetLimit = offset + limit;
-  const total = Math.ceil((count || 1) / offsetLimit);
+  const total = Math.ceil((count || 1) / limit);
 
   return (
     <div className="flex justify-between">
@@ -29,10 +31,10 @@ export default async function PaginateList({
           {pageNumber > 1 && (
             <>
               <PaginationItem>
-                <PaginationPrevious href={`/blog/page/${pageNumber - 1}`} />
+                <PaginationPrevious href={`/${base}/page/${pageNumber - 1}`} />
               </PaginationItem>
               <PaginationItem>
-                <PaginationLink href={`/blog/page/1`}>1</PaginationLink>
+                <PaginationLink href={`/${base}/page/1`}>1</PaginationLink>
               </PaginationItem>
             </>
           )}
@@ -44,7 +46,10 @@ export default async function PaginateList({
             </>
           )}
           <PaginationItem>
-            <PaginationLink href={`/blog/page/${pageNumber}`} isActive={true}>
+            <PaginationLink
+              href={`/${base}/page/${pageNumber}`}
+              isActive={true}
+            >
               {pageNumber}
             </PaginationLink>
           </PaginationItem>
@@ -57,14 +62,14 @@ export default async function PaginateList({
           )}
           {pageNumber !== total && (
             <PaginationItem>
-              <PaginationLink href={`/blog/page/${total}`}>
+              <PaginationLink href={`/${base}/page/${total}`}>
                 {total}
               </PaginationLink>
             </PaginationItem>
           )}
           {pageNumber < total && (
             <PaginationItem>
-              <PaginationNext href={`/blog/page/${pageNumber + 1}`} />
+              <PaginationNext href={`/${base}/page/${pageNumber + 1}`} />
             </PaginationItem>
           )}
         </PaginationContent>

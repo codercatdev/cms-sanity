@@ -1,5 +1,7 @@
 import { groq } from "next-sanity";
 
+export const docCount = groq`count(*[_type == $type])`;
+
 export const settingsQuery = groq`*[_type == "settings"][0]`;
 
 const baseFieldsNoContent = `

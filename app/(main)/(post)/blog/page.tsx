@@ -10,6 +10,8 @@ import Onboarding from "@/components/onboarding";
 import type { BlogQueryResult } from "@/sanity.types";
 import { sanityFetch } from "@/sanity/lib/fetch";
 import { blogQuery } from "@/sanity/lib/queries";
+import { Button, buttonVariants } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
 
 function HeroPost({
   title,
@@ -75,15 +77,29 @@ export default async function Page() {
       ) : (
         <Onboarding />
       )}
+
       {heroPost?._id && (
-        <aside>
-          <h2 className="mb-8 text-6xl font-bold leading-tight tracking-tighter md:text-7xl">
-            More Stories
-          </h2>
-          <Suspense fallback={<p>Loading feed...</p>}>
-            <MorePosts type={heroPost._type} skip={heroPost._id} limit={4} />
-          </Suspense>
-        </aside>
+        <>
+          <div className="mb-16">
+            <Separator />
+          </div>
+          <aside>
+            <div className="flex flex-col md:flex-row md:justify-between">
+              <h2 className="mb-8 text-6xl font-bold leading-tight tracking-tighter md:text-7xl">
+                Latest Posts
+              </h2>
+              <Button
+                asChild
+                className="mb-8 text-3xl font-bold md:text-4xl p-2 md:p-8"
+              >
+                <Link href="/blog/page/1">Read More</Link>
+              </Button>
+            </div>
+            <Suspense fallback={<p>Loading feed...</p>}>
+              <MorePosts type={heroPost._type} skip={heroPost._id} limit={4} />
+            </Suspense>
+          </aside>
+        </>
       )}
     </div>
   );

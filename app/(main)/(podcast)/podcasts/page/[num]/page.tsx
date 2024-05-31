@@ -6,12 +6,11 @@ import PaginateList from "@/components/paginate-list";
 import { docCount } from "@/sanity/lib/queries";
 
 const LIMIT = 10;
-
 export async function generateStaticParams() {
   const count = await sanityFetch<DocCountResult>({
     query: docCount,
     params: {
-      type: "post",
+      type: "podcast",
     },
     perspective: "published",
     stega: false,
@@ -32,7 +31,7 @@ export default async function Page({ params }: Props) {
     sanityFetch<DocCountResult>({
       query: docCount,
       params: {
-        type: "post",
+        type: "podcast",
       },
     }),
   ]);
@@ -44,8 +43,13 @@ export default async function Page({ params }: Props) {
 
   return (
     <div className="container px-5 mx-auto mb-32">
-      <MorePosts type="post" limit={limit} offset={offset} />
-      <PaginateList num={Number(num)} limit={LIMIT} count={count} />
+      <MorePosts type="podcast" limit={limit} offset={offset} />
+      <PaginateList
+        base="podcasts"
+        num={Number(num)}
+        limit={LIMIT}
+        count={count}
+      />
     </div>
   );
 }

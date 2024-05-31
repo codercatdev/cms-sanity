@@ -1176,6 +1176,9 @@ export type SanityAssistSchemaTypeField = {
 };
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./sanity/lib/queries.ts
+// Variable: docCount
+// Query: count(*[_type == "$type"])
+export type DocCountResult = number;
 // Variable: settingsQuery
 // Query: *[_type == "settings"][0]
 export type SettingsQueryResult = {
@@ -2887,16 +2890,6 @@ export type CourseSlugsResult = Array<{
 export type PostSlugsResult = Array<{
   slug: Slug | null;
 }>;
-// Source: ./app/(main)/(podcast)/podcast/[slug]/page.tsx
-// Variable: podcastSlugs
-// Query: *[_type == "podcast"]{slug}
-export type PodcastSlugsResult = Array<{
-  slug: Slug | null;
-}>;
-// Source: ./app/(main)/(post)/blog/page/[number]/page.tsx
-// Variable: postCount
-// Query: count(*[_type == "post"])
-export type PostCountResult = number;
 // Source: ./app/(main)/(course)/course/[courseSlug]/lesson/[lessonSlug]/page.tsx
 // Variable: lessonSlugs
 // Query: *[_type == "lesson"]{slug}
