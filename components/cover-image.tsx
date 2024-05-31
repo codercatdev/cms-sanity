@@ -3,7 +3,7 @@ import CloudinaryImage from "@/components/cloudinary-image";
 import { stegaClean } from "@sanity/client/stega";
 
 interface CoverImageProps {
-  image: CloudinaryAsset | null;
+  image: CloudinaryAsset | null | undefined;
   priority?: boolean;
 }
 
@@ -33,7 +33,7 @@ export default function CoverImage(props: CoverImageProps) {
   );
 
   return (
-    <div className="shadow-md transition-shadow duration-200 group-hover:shadow-lg sm:mx-0">
+    <div className="transition-shadow duration-200 shadow-md group-hover:shadow-lg sm:mx-0">
       {image}
     </div>
   );

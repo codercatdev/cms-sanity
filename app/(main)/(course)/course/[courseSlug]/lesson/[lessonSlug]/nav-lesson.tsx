@@ -4,7 +4,6 @@ import type { LessonsInCourseQueryResult } from "@/sanity.types";
 import Link from "next/link";
 
 import { useActivePath } from "@/lib/hooks";
-import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import BadgePro from "@/components/badge-pro";
 
@@ -36,7 +35,7 @@ export default function NavLesson({ course }: Props) {
                   }
                   prefetch={false}
                 >
-                  <span>{l.title}</span>
+                  <span className="flex-1">{l.title}</span>
                   <BadgePro locked={l.locked} hideLabel={true} />
                 </Link>
               ) : (

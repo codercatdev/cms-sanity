@@ -14,6 +14,7 @@ import { resolveOpenGraphImage } from "@/sanity/lib/utils";
 import Lessons from "../../lessons";
 import LessonPanel from "./lesson-panel";
 import MorePosts from "@/components/more-posts";
+import { cookies } from "next/headers";
 
 type Props = {
   params: { lessonSlug: string; courseSlug: string };
@@ -56,7 +57,7 @@ export async function generateMetadata(
 }
 
 export default async function LessonPage({ params }: Props) {
-  const [post, lessons] = await Promise.all([
+  const [lesson, course] = await Promise.all([
     sanityFetch<LessonQueryResult>({
       query: lessonQuery,
       params,
@@ -67,13 +68,23 @@ export default async function LessonPage({ params }: Props) {
     }),
   ]);
 
-  if (!post?._id) {
+  if (!lesson?._id) {
     return notFound();
+  }
+
+  const layout = cookies().get("react-resizable-panels:layout");
+  let defaultLayout;
+  if (layout) {
+    defaultLayout = JSON.parse(layout.value);
   }
 
   return (
     <div className="container px-5 mx-auto">
-      <LessonPanel params={params} />
+      <LessonPanel
+        lesson={lesson}
+        course={course}
+        defaultLayout={defaultLayout}
+      />
       <Suspense>
         <Lessons courseSlug={params.courseSlug} />
       </Suspense>
@@ -83,7 +94,7 @@ export default async function LessonPage({ params }: Props) {
           Recent Courses
         </h2>
         <Suspense>
-          <MorePosts type="course" skip={post._id} limit={2} />
+          <MorePosts type="course" skip={lesson._id} limit={2} />
         </Suspense>
       </aside>
     </div>

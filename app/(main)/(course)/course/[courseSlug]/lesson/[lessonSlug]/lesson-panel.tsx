@@ -1,5 +1,4 @@
-import { notFound } from "next/navigation";
-
+"use client";
 import {
   ResizablePanelGroup,
   ResizablePanel,
@@ -19,38 +18,31 @@ import NavLesson from "./nav-lesson";
 import PortableText from "@/components/portable-text";
 import { type PortableTextBlock } from "next-sanity";
 
-type Props = {
-  params: { lessonSlug: string; courseSlug: string };
-};
-
-export default async function LessonPanel({ params }: Props) {
-  const [post, course] = await Promise.all([
-    sanityFetch<LessonQueryResult>({
-      query: lessonQuery,
-      params,
-    }),
-    sanityFetch<LessonsInCourseQueryResult>({
-      query: lessonsInCourseQuery,
-      params,
-    }),
-  ]);
-
-  if (!post?._id) {
-    return notFound();
-  }
-
+export default function LessonPanel({
+  lesson,
+  course,
+  defaultLayout = [25, 75],
+}: {
+  lesson: LessonQueryResult;
+  course: LessonsInCourseQueryResult;
+  defaultLayout: number[];
+}) {
+  const onLayout = (sizes: number[]) => {
+    document.cookie = `react-resizable-panels:layout=${JSON.stringify(sizes)}`;
+  };
   return (
     <div className="grid w-full">
       <ResizablePanelGroup
         direction="horizontal"
         className="hidden border-r lg:flex lg:flex-col lg:gap-2"
+        onLayout={onLayout}
       >
-        <ResizablePanel defaultSize={25} minSize={20} collapsible>
+        <ResizablePanel defaultSize={defaultLayout[0]} minSize={20} collapsible>
           {course?.sections && (
             <>
               <div className="flex h-[60px] items-center border-b px-6">
                 <Link
-                  href={"/course/" + params.courseSlug}
+                  href={"/course/" + course.slug}
                   className="flex items-center gap-2 font-semibold"
                   prefetch={false}
                 >
@@ -67,24 +59,24 @@ export default async function LessonPanel({ params }: Props) {
           )}
         </ResizablePanel>
         <ResizableHandle withHandle />
-        <ResizablePanel defaultSize={75}>
+        <ResizablePanel defaultSize={defaultLayout[1]}>
           <div className="flex flex-col">
             <header className="flex h-14 lg:h-[60px] items-center gap-4 border-b  px-6 dark:bg-gray-800/40">
               <div className="flex-1 w-full">
-                <h1>{post.title}</h1>
+                <h1>{lesson?.title}</h1>
               </div>
-              <BadgePro locked={post?.locked} />
+              <BadgePro locked={lesson?.locked} />
             </header>
             <main className="flex-1 overflow-auto">
               <div className="mb-8 sm:mx-0 md:mb-16">
-                <CoverImage image={post.coverImage} priority />
+                <CoverImage image={lesson?.coverImage} priority />
               </div>
             </main>
           </div>
-          {post.content?.length && (
+          {lesson?.content?.length && (
             <PortableText
               className="mx-auto prose-violet lg:prose-xl dark:prose-invert"
-              value={post.content as PortableTextBlock[]}
+              value={lesson.content as PortableTextBlock[]}
             />
           )}
         </ResizablePanel>

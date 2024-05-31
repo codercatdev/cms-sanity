@@ -2,7 +2,7 @@ import { FaLock, FaUnlock } from "react-icons/fa";
 import { Badge } from "./ui/badge";
 
 interface BadgePro {
-  locked: boolean | null;
+  locked: boolean | null | undefined;
   hideLabel?: boolean;
 }
 
