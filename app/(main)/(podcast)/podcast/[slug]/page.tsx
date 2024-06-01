@@ -3,7 +3,7 @@ import { groq, type PortableTextBlock } from "next-sanity";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 
-import Avatar from "@/components/avatar";
+import AvatarList from "@/components/author-list";
 import DateComponent from "@/components/date";
 import MorePosts from "@/components/more-posts";
 import PortableText from "@/components/portable-text";
@@ -13,6 +13,7 @@ import { sanityFetch } from "@/sanity/lib/fetch";
 import { podcastQuery } from "@/sanity/lib/queries";
 import { resolveOpenGraphImage } from "@/sanity/lib/utils";
 import CoverMedia from "@/components/cover-media";
+import MoreHeader from "@/components/more-header";
 
 type Props = {
   params: { slug: string };
@@ -33,21 +34,21 @@ export async function generateMetadata(
   { params }: Props,
   parent: ResolvingMetadata
 ): Promise<Metadata> {
-  const post = await sanityFetch<PodcastQueryResult>({
+  const podcast = await sanityFetch<PodcastQueryResult>({
     query: podcastQuery,
     params,
     stega: false,
   });
   const previousImages = (await parent).openGraph?.images || [];
-  const ogImage = resolveOpenGraphImage(post?.coverImage);
+  const ogImage = resolveOpenGraphImage(podcast?.coverImage);
 
   return {
     authors:
-      post?.author?.map((a) => {
+      podcast?.author?.map((a) => {
         return { name: a.title };
       }) || [],
-    title: post?.title,
-    description: post?.excerpt,
+    title: podcast?.title,
+    description: podcast?.excerpt,
     openGraph: {
       images: ogImage ? [ogImage, ...previousImages] : previousImages,
     },
@@ -55,14 +56,14 @@ export async function generateMetadata(
 }
 
 export default async function PostPage({ params }: Props) {
-  const [post] = await Promise.all([
+  const [podcast] = await Promise.all([
     sanityFetch<PodcastQueryResult>({
       query: podcastQuery,
       params,
     }),
   ]);
 
-  if (!post?._id) {
+  if (!podcast?._id) {
     return notFound();
   }
 
@@ -70,67 +71,48 @@ export default async function PostPage({ params }: Props) {
     <div className="container px-5 mx-auto">
       <article>
         <h1 className="mb-12 text-4xl font-bold leading-tight tracking-tighter text-balance md:text-7xl md:leading-none lg:text-8xl">
-          {post.title}
+          {podcast.title}
         </h1>
         <div className="hidden md:mb-12 md:block">
           <div className="flex flex-col gap-8">
-            {post?.author && (
-              <div className="flex">
-                {post.author.map((a) => (
-                  <Avatar
-                    key={a._id}
-                    name={a.title}
-                    coverImage={a?.coverImage}
-                  />
-                ))}
-              </div>
-            )}
+            {podcast?.author && <AvatarList author={podcast.author} />}
             <div className="text-lg">
-              <DateComponent dateString={post.date} />
+              <DateComponent dateString={podcast.date} />
             </div>
           </div>
         </div>
         <div className="mb-8 sm:mx-0 md:mb-16">
           <CoverMedia
-            cloudinaryImage={post?.coverImage}
-            cloudinaryVideo={post?.videoCloudinary}
-            youtube={post?.youtube}
+            cloudinaryImage={podcast?.coverImage}
+            cloudinaryVideo={podcast?.videoCloudinary}
+            youtube={podcast?.youtube}
           />
         </div>
         <div className="block md:hidden">
           <div className="max-w-2xl mx-auto">
             <div className="mb-6">
-              {post.author && (
+              {podcast.author && (
                 <div className="flex">
-                  {post.author.map((a) => (
-                    <Avatar
-                      key={a._id}
-                      name={a.title}
-                      coverImage={a?.coverImage}
-                    />
-                  ))}
+                  {podcast?.author && <AvatarList author={podcast.author} />}
                 </div>
               )}
             </div>
             <div className="mb-4 text-lg">
-              <DateComponent dateString={post.date} />
+              <DateComponent dateString={podcast.date} />
             </div>
           </div>
         </div>
-        {post.content?.length && (
+        {podcast.content?.length && (
           <PortableText
             className="mx-auto prose-violet lg:prose-xl dark:prose-invert"
-            value={post.content as PortableTextBlock[]}
+            value={podcast.content as PortableTextBlock[]}
           />
         )}
       </article>
       <aside>
-        <hr className="mb-24 border-accent-2 mt-28" />
-        <h2 className="mb-8 text-6xl font-bold leading-tight tracking-tighter md:text-7xl">
-          Recent Podcasts
-        </h2>
+        <MoreHeader title="Recent Podcasts" href="/podcasts/page/1" />
         <Suspense>
-          <MorePosts type={post._type} skip={post._id} limit={2} />
+          <MorePosts type={podcast._type} skip={podcast._id} limit={2} />
         </Suspense>
       </aside>
     </div>

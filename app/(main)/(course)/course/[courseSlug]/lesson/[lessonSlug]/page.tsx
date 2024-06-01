@@ -15,6 +15,7 @@ import Lessons from "../../lessons";
 import LessonPanel from "./lesson-panel";
 import MorePosts from "@/components/more-posts";
 import { cookies } from "next/headers";
+import MoreHeader from "@/components/more-header";
 
 type Props = {
   params: { lessonSlug: string; courseSlug: string };
@@ -89,10 +90,7 @@ export default async function LessonPage({ params }: Props) {
         <Lessons courseSlug={params.courseSlug} />
       </Suspense>
       <aside>
-        <hr className="mb-24 border-accent-2 mt-28" />
-        <h2 className="mb-8 text-6xl font-bold leading-tight tracking-tighter md:text-7xl">
-          Recent Courses
-        </h2>
+        <MoreHeader title="Recent Courses" href="/courses/page/1" />
         <Suspense>
           <MorePosts type="course" skip={lesson._id} limit={2} />
         </Suspense>

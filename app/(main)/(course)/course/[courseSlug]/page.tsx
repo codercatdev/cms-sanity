@@ -14,6 +14,7 @@ import { sanityFetch } from "@/sanity/lib/fetch";
 import { courseQuery } from "@/sanity/lib/queries";
 import { resolveOpenGraphImage } from "@/sanity/lib/utils";
 import Lessons from "./lessons";
+import MoreHeader from "@/components/more-header";
 
 type Props = {
   params: { courseSlug: string };
@@ -129,10 +130,7 @@ export default async function CoursePage({ params }: Props) {
         <Lessons courseSlug={params.courseSlug} />
       </Suspense>
       <aside>
-        <hr className="mb-24 border-accent-2 mt-28" />
-        <h2 className="mb-8 text-6xl font-bold leading-tight tracking-tighter md:text-7xl">
-          Recent Courses
-        </h2>
+        <MoreHeader title="Recent Courses" href="/courses/page/1" />
         <Suspense>
           <MorePosts type={post._type} skip={post._id} limit={2} />
         </Suspense>

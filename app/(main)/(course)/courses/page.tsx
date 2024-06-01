@@ -10,6 +10,7 @@ import Onboarding from "@/components/onboarding";
 import type { CoursesQueryResult } from "@/sanity.types";
 import { sanityFetch } from "@/sanity/lib/fetch";
 import { coursesQuery } from "@/sanity/lib/queries";
+import MoreHeader from "@/components/more-header";
 
 function HeroCourse({
   title,
@@ -77,9 +78,7 @@ export default async function Page() {
       )}
       {heroPost?._id && (
         <aside>
-          <h2 className="mb-8 text-6xl font-bold leading-tight tracking-tighter md:text-7xl">
-            More Courses
-          </h2>
+          <MoreHeader title="Latest Courses" href="/courses/page/1" />
           <Suspense fallback={<p>Loading feed...</p>}>
             <MorePosts type={heroPost._type} skip={heroPost._id} limit={4} />
           </Suspense>

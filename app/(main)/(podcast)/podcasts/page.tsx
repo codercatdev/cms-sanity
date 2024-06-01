@@ -12,6 +12,7 @@ import { sanityFetch } from "@/sanity/lib/fetch";
 import { podcastsQuery } from "@/sanity/lib/queries";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
+import MoreHeader from "@/components/more-header";
 
 function HeroPodcast({
   title,
@@ -78,27 +79,12 @@ export default async function Page() {
         <Onboarding />
       )}
       {heroPost?._id && (
-        <>
-          <div className="mb-16">
-            <Separator />
-          </div>
-          <aside>
-            <div className="flex flex-col md:flex-row md:justify-between">
-              <h2 className="mb-8 text-6xl font-bold leading-tight tracking-tighter md:text-7xl">
-                Latest Podcasts
-              </h2>
-              <Button
-                asChild
-                className="mb-8 text-3xl font-bold md:text-4xl p-2 md:p-8"
-              >
-                <Link href="/podcasts/page/1">View More</Link>
-              </Button>
-            </div>
-            <Suspense fallback={<p>Loading feed...</p>}>
-              <MorePosts type={heroPost._type} skip={heroPost._id} limit={4} />
-            </Suspense>
-          </aside>
-        </>
+        <aside>
+          <MoreHeader title="Latest Podcasts" href="/podcasts/page/1" />
+          <Suspense fallback={<p>Loading feed...</p>}>
+            <MorePosts type={heroPost._type} skip={heroPost._id} limit={4} />
+          </Suspense>
+        </aside>
       )}
     </div>
   );

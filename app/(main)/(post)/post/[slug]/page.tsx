@@ -13,6 +13,7 @@ import { sanityFetch } from "@/sanity/lib/fetch";
 import { postQuery } from "@/sanity/lib/queries";
 import { resolveOpenGraphImage } from "@/sanity/lib/utils";
 import CoverMedia from "@/components/cover-media";
+import MoreHeader from "@/components/more-header";
 
 type Props = {
   params: { slug: string };
@@ -125,10 +126,7 @@ export default async function PostPage({ params }: Props) {
         )}
       </article>
       <aside>
-        <hr className="mb-24 border-accent-2 mt-28" />
-        <h2 className="mb-8 text-6xl font-bold leading-tight tracking-tighter md:text-7xl">
-          Recent Posts
-        </h2>
+        <MoreHeader title="Recent Posts" href="/blog/page/1" />
         <Suspense>
           <MorePosts type={post._type} skip={post._id} limit={2} />
         </Suspense>
