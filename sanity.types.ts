@@ -2878,6 +2878,12 @@ export type LessonQueryResult = {
   locked: boolean | null;
   videoCloudinary: CloudinaryAsset | null;
 } | null;
+// Source: ./app/(main)/(podcast)/podcast/[slug]/page.tsx
+// Variable: podcastSlugs
+// Query: *[_type == "podcast"]{slug}
+export type PodcastSlugsResult = Array<{
+  slug: Slug | null;
+}>;
 // Source: ./app/(main)/(course)/course/[courseSlug]/page.tsx
 // Variable: courseSlugs
 // Query: *[_type == "course"]{slug}

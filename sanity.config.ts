@@ -9,6 +9,11 @@ import { tags } from "sanity-plugin-tags";
 import { codeInput } from "@sanity/code-input";
 import { iconPicker } from "sanity-plugin-icon-picker";
 
+// TODO: Review for possible plugins
+// import {draftReviewPluginV3} from 'sanity-plugin-draft-review-v3'
+// https://github.com/jamesreaco/inbox-tool-sanity
+// https://www.sanity.io/plugins/vercel-deploy
+
 import {
   presentationTool,
   defineDocuments,

@@ -4,6 +4,8 @@ import baseType from "./base";
 import authorType from "../documents/author";
 import sponsorType from "../documents/sponsor";
 
+import { input } from "../../components/YouTubePreview";
+
 const content = defineType({
   ...baseType,
   name: "content",
@@ -70,6 +72,9 @@ const content = defineType({
       name: "youtube",
       title: "YouTube",
       type: "string",
+      components: {
+        input,
+      },
     }),
   ],
 });

@@ -1,7 +1,6 @@
 import { toPlainText } from "@portabletext/react";
 import {
   BlockEditor as DefaultBlockEditor,
-  PortableTextInputProps,
 } from "sanity";
 import { handlePaste } from "./pastehandler";
 
