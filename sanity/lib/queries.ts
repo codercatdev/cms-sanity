@@ -28,6 +28,7 @@ const contentFields = `
     "title": coalesce(title, "Anonymous"),
   },
   tags,
+  videoCloudinary,
   youtube
 `;
 

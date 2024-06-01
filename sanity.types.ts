@@ -131,9 +131,11 @@ export type Sponsor = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
+  coverImage?: CloudinaryAsset;
   date?: string;
   title?: string;
   slug?: Slug;
+  excerpt?: string;
   content?: Array<{
     children?: Array<{
       marks?: Array<string>;
@@ -189,8 +191,6 @@ export type Sponsor = {
     _type: "codesandbox";
     _key: string;
   }>;
-  excerpt?: string;
-  coverImage?: CloudinaryAsset;
   url?: string;
 };
 
@@ -203,6 +203,7 @@ export type Lesson = {
   date?: string;
   title?: string;
   slug?: Slug;
+  excerpt?: string;
   content?: Array<{
     children?: Array<{
       marks?: Array<string>;
@@ -258,7 +259,8 @@ export type Lesson = {
     _type: "codesandbox";
     _key: string;
   }>;
-  excerpt?: string;
+  videoCloudinary?: CloudinaryAsset;
+  youtube?: string;
   author?: Array<{
     _ref: string;
     _type: "reference";
@@ -278,10 +280,7 @@ export type Lesson = {
   tags?: Array<{
     _key: string;
   } & Tag>;
-  youtube?: string;
   locked?: boolean;
-  coverImage?: CloudinaryAsset;
-  videoCloudinary?: CloudinaryAsset;
 };
 
 export type Author = {
@@ -290,9 +289,11 @@ export type Author = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
+  coverImage?: CloudinaryAsset;
   date?: string;
   title?: string;
   slug?: Slug;
+  excerpt?: string;
   content?: Array<{
     children?: Array<{
       marks?: Array<string>;
@@ -348,8 +349,6 @@ export type Author = {
     _type: "codesandbox";
     _key: string;
   }>;
-  excerpt?: string;
-  coverImage?: CloudinaryAsset;
   socials?: {
     codepen?: string;
     devto?: string;
@@ -382,6 +381,7 @@ export type Post = {
   date?: string;
   title?: string;
   slug?: Slug;
+  excerpt?: string;
   content?: Array<{
     children?: Array<{
       marks?: Array<string>;
@@ -437,8 +437,8 @@ export type Post = {
     _type: "codesandbox";
     _key: string;
   }>;
-  excerpt?: string;
-  coverImage?: CloudinaryAsset;
+  videoCloudinary?: CloudinaryAsset;
+  youtube?: string;
   author?: Array<{
     _ref: string;
     _type: "reference";
@@ -458,7 +458,6 @@ export type Post = {
   tags?: Array<{
     _key: string;
   } & Tag>;
-  youtube?: string;
 };
 
 export type Podcast = {
@@ -470,6 +469,7 @@ export type Podcast = {
   date?: string;
   title?: string;
   slug?: Slug;
+  excerpt?: string;
   content?: Array<{
     children?: Array<{
       marks?: Array<string>;
@@ -525,8 +525,8 @@ export type Podcast = {
     _type: "codesandbox";
     _key: string;
   }>;
-  excerpt?: string;
-  coverImage?: CloudinaryAsset;
+  videoCloudinary?: CloudinaryAsset;
+  youtube?: string;
   author?: Array<{
     _ref: string;
     _type: "reference";
@@ -546,7 +546,6 @@ export type Podcast = {
   tags?: Array<{
     _key: string;
   } & Tag>;
-  youtube?: string;
   podcastType?: {
     _ref: string;
     _type: "reference";
@@ -588,9 +587,11 @@ export type Guest = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
+  coverImage?: CloudinaryAsset;
   date?: string;
   title?: string;
   slug?: Slug;
+  excerpt?: string;
   content?: Array<{
     children?: Array<{
       marks?: Array<string>;
@@ -646,8 +647,6 @@ export type Guest = {
     _type: "codesandbox";
     _key: string;
   }>;
-  excerpt?: string;
-  coverImage?: CloudinaryAsset;
   socials?: {
     codepen?: string;
     devto?: string;
@@ -677,9 +676,11 @@ export type PodcastType = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
+  coverImage?: CloudinaryAsset;
   date?: string;
   title?: string;
   slug?: Slug;
+  excerpt?: string;
   content?: Array<{
     children?: Array<{
       marks?: Array<string>;
@@ -735,8 +736,6 @@ export type PodcastType = {
     _type: "codesandbox";
     _key: string;
   }>;
-  excerpt?: string;
-  coverImage?: CloudinaryAsset;
 };
 
 export type Course = {
@@ -748,6 +747,7 @@ export type Course = {
   date?: string;
   title?: string;
   slug?: Slug;
+  excerpt?: string;
   content?: Array<{
     children?: Array<{
       marks?: Array<string>;
@@ -803,8 +803,8 @@ export type Course = {
     _type: "codesandbox";
     _key: string;
   }>;
-  excerpt?: string;
-  coverImage?: CloudinaryAsset;
+  videoCloudinary?: CloudinaryAsset;
+  youtube?: string;
   author?: Array<{
     _ref: string;
     _type: "reference";
@@ -824,7 +824,6 @@ export type Course = {
   tags?: Array<{
     _key: string;
   } & Tag>;
-  youtube?: string;
   sections?: Array<{
     title?: string;
     lesson?: Array<{
@@ -848,6 +847,7 @@ export type Page = {
   date?: string;
   title?: string;
   slug?: Slug;
+  excerpt?: string;
   content?: Array<{
     children?: Array<{
       marks?: Array<string>;
@@ -903,8 +903,8 @@ export type Page = {
     _type: "codesandbox";
     _key: string;
   }>;
-  excerpt?: string;
-  coverImage?: CloudinaryAsset;
+  videoCloudinary?: CloudinaryAsset;
+  youtube?: string;
   author?: Array<{
     _ref: string;
     _type: "reference";
@@ -924,7 +924,6 @@ export type Page = {
   tags?: Array<{
     _key: string;
   } & Tag>;
-  youtube?: string;
 };
 
 export type Slug = {
@@ -1245,7 +1244,7 @@ export type BlogQueryResult = {
   title: string | "Untitled";
   slug: string | null;
   excerpt: string | null;
-  coverImage: CloudinaryAsset | null;
+  coverImage: null;
   date: string;
   author: Array<{
     _id: string;
@@ -1253,9 +1252,11 @@ export type BlogQueryResult = {
     _createdAt: string;
     _updatedAt: string;
     _rev: string;
+    coverImage?: CloudinaryAsset;
     date?: string;
     title: string | "Anonymous";
     slug?: Slug;
+    excerpt?: string;
     content?: Array<({
       _key: string;
     } & CloudinaryAsset) | ({
@@ -1311,8 +1312,6 @@ export type BlogQueryResult = {
       _type: "codesandbox";
       _key: string;
     }>;
-    excerpt?: string;
-    coverImage?: CloudinaryAsset;
     socials?: {
       codepen?: string;
       devto?: string;
@@ -1345,7 +1344,7 @@ export type MorePostQueryResult = Array<{
   title: string | "Untitled";
   slug: string | null;
   excerpt: string | null;
-  coverImage: CloudinaryAsset | null;
+  coverImage: null;
   date: string;
   author: Array<{
     _id: string;
@@ -1353,9 +1352,11 @@ export type MorePostQueryResult = Array<{
     _createdAt: string;
     _updatedAt: string;
     _rev: string;
+    coverImage?: CloudinaryAsset;
     date?: string;
     title: string | "Anonymous";
     slug?: Slug;
+    excerpt?: string;
     content?: Array<({
       _key: string;
     } & CloudinaryAsset) | ({
@@ -1411,8 +1412,6 @@ export type MorePostQueryResult = Array<{
       _type: "codesandbox";
       _key: string;
     }>;
-    excerpt?: string;
-    coverImage?: CloudinaryAsset;
     socials?: {
       codepen?: string;
       devto?: string;
@@ -1437,7 +1436,7 @@ export type MorePostQueryResult = Array<{
   }> | null;
 }>;
 // Variable: postQuery
-// Query: *[_type == "post" && slug.current == $slug] [0] {    _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(date, _createdAt),    content,  author[]->{    ...,    "title": coalesce(title, "Anonymous"),  },  devto,  hashnode,  sponsor[]->{    ...,    "title": coalesce(title, "Anonymous"),  },  tags,  youtube}
+// Query: *[_type == "post" && slug.current == $slug] [0] {    _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(date, _createdAt),    content,  author[]->{    ...,    "title": coalesce(title, "Anonymous"),  },  devto,  hashnode,  sponsor[]->{    ...,    "title": coalesce(title, "Anonymous"),  },  tags,  videoCloudinary,  youtube}
 export type PostQueryResult = {
   _id: string;
   _type: "post";
@@ -1445,7 +1444,7 @@ export type PostQueryResult = {
   title: string | "Untitled";
   slug: string | null;
   excerpt: string | null;
-  coverImage: CloudinaryAsset | null;
+  coverImage: null;
   date: string;
   content: Array<({
     _key: string;
@@ -1508,9 +1507,11 @@ export type PostQueryResult = {
     _createdAt: string;
     _updatedAt: string;
     _rev: string;
+    coverImage?: CloudinaryAsset;
     date?: string;
     title: string | "Anonymous";
     slug?: Slug;
+    excerpt?: string;
     content?: Array<({
       _key: string;
     } & CloudinaryAsset) | ({
@@ -1566,8 +1567,6 @@ export type PostQueryResult = {
       _type: "codesandbox";
       _key: string;
     }>;
-    excerpt?: string;
-    coverImage?: CloudinaryAsset;
     socials?: {
       codepen?: string;
       devto?: string;
@@ -1598,9 +1597,11 @@ export type PostQueryResult = {
     _createdAt: string;
     _updatedAt: string;
     _rev: string;
+    coverImage?: CloudinaryAsset;
     date?: string;
     title: string | "Anonymous";
     slug?: Slug;
+    excerpt?: string;
     content?: Array<({
       _key: string;
     } & CloudinaryAsset) | ({
@@ -1656,13 +1657,12 @@ export type PostQueryResult = {
       _type: "codesandbox";
       _key: string;
     }>;
-    excerpt?: string;
-    coverImage?: CloudinaryAsset;
     url?: string;
   }> | null;
   tags: Array<{
     _key: string;
   } & Tag> | null;
+  videoCloudinary: CloudinaryAsset | null;
   youtube: string | null;
 } | null;
 // Variable: podcastsQuery
@@ -1674,7 +1674,7 @@ export type PodcastsQueryResult = {
   title: string | "Untitled";
   slug: string | null;
   excerpt: string | null;
-  coverImage: CloudinaryAsset | null;
+  coverImage: null;
   date: string;
   author: Array<{
     _id: string;
@@ -1682,9 +1682,11 @@ export type PodcastsQueryResult = {
     _createdAt: string;
     _updatedAt: string;
     _rev: string;
+    coverImage?: CloudinaryAsset;
     date?: string;
     title: string | "Anonymous";
     slug?: Slug;
+    excerpt?: string;
     content?: Array<({
       _key: string;
     } & CloudinaryAsset) | ({
@@ -1740,8 +1742,6 @@ export type PodcastsQueryResult = {
       _type: "codesandbox";
       _key: string;
     }>;
-    excerpt?: string;
-    coverImage?: CloudinaryAsset;
     socials?: {
       codepen?: string;
       devto?: string;
@@ -1774,7 +1774,7 @@ export type MorePodcastQueryResult = Array<{
   title: string | "Untitled";
   slug: string | null;
   excerpt: string | null;
-  coverImage: CloudinaryAsset | null;
+  coverImage: null;
   date: string;
   author: Array<{
     _id: string;
@@ -1782,9 +1782,11 @@ export type MorePodcastQueryResult = Array<{
     _createdAt: string;
     _updatedAt: string;
     _rev: string;
+    coverImage?: CloudinaryAsset;
     date?: string;
     title: string | "Anonymous";
     slug?: Slug;
+    excerpt?: string;
     content?: Array<({
       _key: string;
     } & CloudinaryAsset) | ({
@@ -1840,8 +1842,6 @@ export type MorePodcastQueryResult = Array<{
       _type: "codesandbox";
       _key: string;
     }>;
-    excerpt?: string;
-    coverImage?: CloudinaryAsset;
     socials?: {
       codepen?: string;
       devto?: string;
@@ -1866,7 +1866,7 @@ export type MorePodcastQueryResult = Array<{
   }> | null;
 }>;
 // Variable: podcastQuery
-// Query: *[_type == "podcast" && slug.current == $slug] [0] {    _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(date, _createdAt),    content,  author[]->{    ...,    "title": coalesce(title, "Anonymous"),  },  devto,  hashnode,  sponsor[]->{    ...,    "title": coalesce(title, "Anonymous"),  },  tags,  youtube,    podcastType[]->{    ...,    "title": coalesce(title, "Missing Podcast Title"),  },  season,  episode,  recordingDate,  guest[]->{    ...,    "title": coalesce(title, "Anonymous"),  },  pick[]{    user[]->{      ...,      "title": coalesce(title, "Anonymous"),    },    name,    site  }}
+// Query: *[_type == "podcast" && slug.current == $slug] [0] {    _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(date, _createdAt),    content,  author[]->{    ...,    "title": coalesce(title, "Anonymous"),  },  devto,  hashnode,  sponsor[]->{    ...,    "title": coalesce(title, "Anonymous"),  },  tags,  videoCloudinary,  youtube,    podcastType[]->{    ...,    "title": coalesce(title, "Missing Podcast Title"),  },  season,  episode,  recordingDate,  guest[]->{    ...,    "title": coalesce(title, "Anonymous"),  },  pick[]{    user[]->{      ...,      "title": coalesce(title, "Anonymous"),    },    name,    site  }}
 export type PodcastQueryResult = {
   _id: string;
   _type: "podcast";
@@ -1874,7 +1874,7 @@ export type PodcastQueryResult = {
   title: string | "Untitled";
   slug: string | null;
   excerpt: string | null;
-  coverImage: CloudinaryAsset | null;
+  coverImage: null;
   date: string;
   content: Array<({
     _key: string;
@@ -1937,9 +1937,11 @@ export type PodcastQueryResult = {
     _createdAt: string;
     _updatedAt: string;
     _rev: string;
+    coverImage?: CloudinaryAsset;
     date?: string;
     title: string | "Anonymous";
     slug?: Slug;
+    excerpt?: string;
     content?: Array<({
       _key: string;
     } & CloudinaryAsset) | ({
@@ -1995,8 +1997,6 @@ export type PodcastQueryResult = {
       _type: "codesandbox";
       _key: string;
     }>;
-    excerpt?: string;
-    coverImage?: CloudinaryAsset;
     socials?: {
       codepen?: string;
       devto?: string;
@@ -2027,9 +2027,11 @@ export type PodcastQueryResult = {
     _createdAt: string;
     _updatedAt: string;
     _rev: string;
+    coverImage?: CloudinaryAsset;
     date?: string;
     title: string | "Anonymous";
     slug?: Slug;
+    excerpt?: string;
     content?: Array<({
       _key: string;
     } & CloudinaryAsset) | ({
@@ -2085,13 +2087,12 @@ export type PodcastQueryResult = {
       _type: "codesandbox";
       _key: string;
     }>;
-    excerpt?: string;
-    coverImage?: CloudinaryAsset;
     url?: string;
   }> | null;
   tags: Array<{
     _key: string;
   } & Tag> | null;
+  videoCloudinary: CloudinaryAsset | null;
   youtube: string | null;
   podcastType: null;
   season: number | null;
@@ -2103,9 +2104,11 @@ export type PodcastQueryResult = {
     _createdAt: string;
     _updatedAt: string;
     _rev: string;
+    coverImage?: CloudinaryAsset;
     date?: string;
     title: string | "Anonymous";
     slug?: Slug;
+    excerpt?: string;
     content?: Array<({
       _key: string;
     } & CloudinaryAsset) | ({
@@ -2161,8 +2164,6 @@ export type PodcastQueryResult = {
       _type: "codesandbox";
       _key: string;
     }>;
-    excerpt?: string;
-    coverImage?: CloudinaryAsset;
     socials?: {
       codepen?: string;
       devto?: string;
@@ -2200,7 +2201,7 @@ export type CoursesQueryResult = {
   title: string | "Untitled";
   slug: string | null;
   excerpt: string | null;
-  coverImage: CloudinaryAsset | null;
+  coverImage: null;
   date: string;
   author: Array<{
     _id: string;
@@ -2208,9 +2209,11 @@ export type CoursesQueryResult = {
     _createdAt: string;
     _updatedAt: string;
     _rev: string;
+    coverImage?: CloudinaryAsset;
     date?: string;
     title: string | "Anonymous";
     slug?: Slug;
+    excerpt?: string;
     content?: Array<({
       _key: string;
     } & CloudinaryAsset) | ({
@@ -2266,8 +2269,6 @@ export type CoursesQueryResult = {
       _type: "codesandbox";
       _key: string;
     }>;
-    excerpt?: string;
-    coverImage?: CloudinaryAsset;
     socials?: {
       codepen?: string;
       devto?: string;
@@ -2300,7 +2301,7 @@ export type MoreCourseQueryResult = Array<{
   title: string | "Untitled";
   slug: string | null;
   excerpt: string | null;
-  coverImage: CloudinaryAsset | null;
+  coverImage: null;
   date: string;
   author: Array<{
     _id: string;
@@ -2308,9 +2309,11 @@ export type MoreCourseQueryResult = Array<{
     _createdAt: string;
     _updatedAt: string;
     _rev: string;
+    coverImage?: CloudinaryAsset;
     date?: string;
     title: string | "Anonymous";
     slug?: Slug;
+    excerpt?: string;
     content?: Array<({
       _key: string;
     } & CloudinaryAsset) | ({
@@ -2366,8 +2369,6 @@ export type MoreCourseQueryResult = Array<{
       _type: "codesandbox";
       _key: string;
     }>;
-    excerpt?: string;
-    coverImage?: CloudinaryAsset;
     socials?: {
       codepen?: string;
       devto?: string;
@@ -2392,7 +2393,7 @@ export type MoreCourseQueryResult = Array<{
   }> | null;
 }>;
 // Variable: courseQuery
-// Query: *[_type == "course" && slug.current == $courseSlug] [0] {    _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(date, _createdAt),    content,  author[]->{    ...,    "title": coalesce(title, "Anonymous"),  },  devto,  hashnode,  sponsor[]->{    ...,    "title": coalesce(title, "Anonymous"),  },  tags,  youtube,    podcastType[]->{    ...,    "title": coalesce(title, "Missing Podcast Title"),  },  season,  episode,  recordingDate,  guest[]->{    ...,    "title": coalesce(title, "Anonymous"),  },  pick[]{    user[]->{      ...,      "title": coalesce(title, "Anonymous"),    },    name,    site  }}
+// Query: *[_type == "course" && slug.current == $courseSlug] [0] {    _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(date, _createdAt),    content,  author[]->{    ...,    "title": coalesce(title, "Anonymous"),  },  devto,  hashnode,  sponsor[]->{    ...,    "title": coalesce(title, "Anonymous"),  },  tags,  videoCloudinary,  youtube,    podcastType[]->{    ...,    "title": coalesce(title, "Missing Podcast Title"),  },  season,  episode,  recordingDate,  guest[]->{    ...,    "title": coalesce(title, "Anonymous"),  },  pick[]{    user[]->{      ...,      "title": coalesce(title, "Anonymous"),    },    name,    site  }}
 export type CourseQueryResult = {
   _id: string;
   _type: "course";
@@ -2400,7 +2401,7 @@ export type CourseQueryResult = {
   title: string | "Untitled";
   slug: string | null;
   excerpt: string | null;
-  coverImage: CloudinaryAsset | null;
+  coverImage: null;
   date: string;
   content: Array<({
     _key: string;
@@ -2463,9 +2464,11 @@ export type CourseQueryResult = {
     _createdAt: string;
     _updatedAt: string;
     _rev: string;
+    coverImage?: CloudinaryAsset;
     date?: string;
     title: string | "Anonymous";
     slug?: Slug;
+    excerpt?: string;
     content?: Array<({
       _key: string;
     } & CloudinaryAsset) | ({
@@ -2521,8 +2524,6 @@ export type CourseQueryResult = {
       _type: "codesandbox";
       _key: string;
     }>;
-    excerpt?: string;
-    coverImage?: CloudinaryAsset;
     socials?: {
       codepen?: string;
       devto?: string;
@@ -2553,9 +2554,11 @@ export type CourseQueryResult = {
     _createdAt: string;
     _updatedAt: string;
     _rev: string;
+    coverImage?: CloudinaryAsset;
     date?: string;
     title: string | "Anonymous";
     slug?: Slug;
+    excerpt?: string;
     content?: Array<({
       _key: string;
     } & CloudinaryAsset) | ({
@@ -2611,13 +2614,12 @@ export type CourseQueryResult = {
       _type: "codesandbox";
       _key: string;
     }>;
-    excerpt?: string;
-    coverImage?: CloudinaryAsset;
     url?: string;
   }> | null;
   tags: Array<{
     _key: string;
   } & Tag> | null;
+  videoCloudinary: CloudinaryAsset | null;
   youtube: string | null;
   podcastType: null;
   season: null;
@@ -2640,7 +2642,7 @@ export type LessonsInCourseQueryResult = {
       title: string | "Untitled";
       slug: string | null;
       excerpt: string | null;
-      coverImage: CloudinaryAsset | null;
+      coverImage: null;
       date: string;
       locked: boolean | null;
       videoCloudinary: CloudinaryAsset | null;
@@ -2648,7 +2650,7 @@ export type LessonsInCourseQueryResult = {
   }> | null;
 } | null;
 // Variable: lessonQuery
-// Query: *[_type == "lesson" && slug.current == $lessonSlug] [0] {    _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(date, _createdAt),    content,  author[]->{    ...,    "title": coalesce(title, "Anonymous"),  },  devto,  hashnode,  sponsor[]->{    ...,    "title": coalesce(title, "Anonymous"),  },  tags,  youtube,    locked,  videoCloudinary}
+// Query: *[_type == "lesson" && slug.current == $lessonSlug] [0] {    _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(date, _createdAt),    content,  author[]->{    ...,    "title": coalesce(title, "Anonymous"),  },  devto,  hashnode,  sponsor[]->{    ...,    "title": coalesce(title, "Anonymous"),  },  tags,  videoCloudinary,  youtube,    locked,  videoCloudinary}
 export type LessonQueryResult = {
   _id: string;
   _type: "lesson";
@@ -2656,7 +2658,7 @@ export type LessonQueryResult = {
   title: string | "Untitled";
   slug: string | null;
   excerpt: string | null;
-  coverImage: CloudinaryAsset | null;
+  coverImage: null;
   date: string;
   content: Array<({
     _key: string;
@@ -2719,9 +2721,11 @@ export type LessonQueryResult = {
     _createdAt: string;
     _updatedAt: string;
     _rev: string;
+    coverImage?: CloudinaryAsset;
     date?: string;
     title: string | "Anonymous";
     slug?: Slug;
+    excerpt?: string;
     content?: Array<({
       _key: string;
     } & CloudinaryAsset) | ({
@@ -2777,8 +2781,6 @@ export type LessonQueryResult = {
       _type: "codesandbox";
       _key: string;
     }>;
-    excerpt?: string;
-    coverImage?: CloudinaryAsset;
     socials?: {
       codepen?: string;
       devto?: string;
@@ -2809,9 +2811,11 @@ export type LessonQueryResult = {
     _createdAt: string;
     _updatedAt: string;
     _rev: string;
+    coverImage?: CloudinaryAsset;
     date?: string;
     title: string | "Anonymous";
     slug?: Slug;
+    excerpt?: string;
     content?: Array<({
       _key: string;
     } & CloudinaryAsset) | ({
@@ -2867,27 +2871,25 @@ export type LessonQueryResult = {
       _type: "codesandbox";
       _key: string;
     }>;
-    excerpt?: string;
-    coverImage?: CloudinaryAsset;
     url?: string;
   }> | null;
   tags: Array<{
     _key: string;
   } & Tag> | null;
+  videoCloudinary: CloudinaryAsset | null;
   youtube: string | null;
   locked: boolean | null;
-  videoCloudinary: CloudinaryAsset | null;
 } | null;
-// Source: ./app/(main)/(podcast)/podcast/[slug]/page.tsx
-// Variable: podcastSlugs
-// Query: *[_type == "podcast"]{slug}
-export type PodcastSlugsResult = Array<{
-  slug: Slug | null;
-}>;
 // Source: ./app/(main)/(course)/course/[courseSlug]/page.tsx
 // Variable: courseSlugs
 // Query: *[_type == "course"]{slug}
 export type CourseSlugsResult = Array<{
+  slug: Slug | null;
+}>;
+// Source: ./app/(main)/(podcast)/podcast/[slug]/page.tsx
+// Variable: podcastSlugs
+// Query: *[_type == "podcast"]{slug}
+export type PodcastSlugsResult = Array<{
   slug: Slug | null;
 }>;
 // Source: ./app/(main)/(post)/post/[slug]/page.tsx

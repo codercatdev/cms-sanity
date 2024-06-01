@@ -10,13 +10,11 @@ import type {
   LessonQueryResult,
   LessonsInCourseQueryResult,
 } from "@/sanity.types";
-import { sanityFetch } from "@/sanity/lib/fetch";
-import { lessonQuery, lessonsInCourseQuery } from "@/sanity/lib/queries";
-import CoverImage from "@/components/cover-image";
 import BadgePro from "@/components/badge-pro";
 import NavLesson from "./nav-lesson";
 import PortableText from "@/components/portable-text";
 import { type PortableTextBlock } from "next-sanity";
+import CoverMedia from "@/components/cover-media";
 
 export default function LessonPanel({
   lesson,
@@ -69,7 +67,11 @@ export default function LessonPanel({
             </header>
             <main className="flex-1 overflow-auto">
               <div className="mb-8 sm:mx-0 md:mb-16">
-                <CoverImage image={lesson?.coverImage} priority />
+                <CoverMedia
+                  cloudinaryImage={lesson?.coverImage}
+                  cloudinaryVideo={lesson?.videoCloudinary}
+                  youtube={lesson?.youtube}
+                />
               </div>
             </main>
           </div>

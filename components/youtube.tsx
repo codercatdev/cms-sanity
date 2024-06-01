@@ -3,7 +3,7 @@
 import { youtubeParser } from "@/lib/utils";
 import { useState } from "react";
 
-export function VideoPreview(props: { youtube: string }) {
+export function YouTube(props: { youtube: string }) {
   const [loadEmbed, setLoadEmbed] = useState(false);
   const id = youtubeParser(props.youtube);
 

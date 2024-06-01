@@ -697,6 +697,14 @@
           "type": "string"
         }
       },
+      "coverImage": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "inline",
+          "name": "cloudinary.asset"
+        },
+        "optional": true
+      },
       "date": {
         "type": "objectAttribute",
         "value": {
@@ -716,6 +724,13 @@
         "value": {
           "type": "inline",
           "name": "slug"
+        },
+        "optional": true
+      },
+      "excerpt": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
         },
         "optional": true
       },
@@ -1138,21 +1153,6 @@
               }
             ]
           }
-        },
-        "optional": true
-      },
-      "excerpt": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "string"
-        },
-        "optional": true
-      },
-      "coverImage": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "inline",
-          "name": "cloudinary.asset"
         },
         "optional": true
       },
@@ -1222,6 +1222,13 @@
         },
         "optional": true
       },
+      "excerpt": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": true
+      },
       "content": {
         "type": "objectAttribute",
         "value": {
@@ -1644,7 +1651,15 @@
         },
         "optional": true
       },
-      "excerpt": {
+      "videoCloudinary": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "inline",
+          "name": "cloudinary.asset"
+        },
+        "optional": true
+      },
+      "youtube": {
         "type": "objectAttribute",
         "value": {
           "type": "string"
@@ -1775,33 +1790,10 @@
         },
         "optional": true
       },
-      "youtube": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "string"
-        },
-        "optional": true
-      },
       "locked": {
         "type": "objectAttribute",
         "value": {
           "type": "boolean"
-        },
-        "optional": true
-      },
-      "coverImage": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "inline",
-          "name": "cloudinary.asset"
-        },
-        "optional": true
-      },
-      "videoCloudinary": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "inline",
-          "name": "cloudinary.asset"
         },
         "optional": true
       }
@@ -1842,6 +1834,14 @@
           "type": "string"
         }
       },
+      "coverImage": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "inline",
+          "name": "cloudinary.asset"
+        },
+        "optional": true
+      },
       "date": {
         "type": "objectAttribute",
         "value": {
@@ -1861,6 +1861,13 @@
         "value": {
           "type": "inline",
           "name": "slug"
+        },
+        "optional": true
+      },
+      "excerpt": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
         },
         "optional": true
       },
@@ -2283,21 +2290,6 @@
               }
             ]
           }
-        },
-        "optional": true
-      },
-      "excerpt": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "string"
-        },
-        "optional": true
-      },
-      "coverImage": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "inline",
-          "name": "cloudinary.asset"
         },
         "optional": true
       },
@@ -2502,6 +2494,13 @@
         },
         "optional": true
       },
+      "excerpt": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": true
+      },
       "content": {
         "type": "objectAttribute",
         "value": {
@@ -2924,18 +2923,18 @@
         },
         "optional": true
       },
-      "excerpt": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "string"
-        },
-        "optional": true
-      },
-      "coverImage": {
+      "videoCloudinary": {
         "type": "objectAttribute",
         "value": {
           "type": "inline",
           "name": "cloudinary.asset"
+        },
+        "optional": true
+      },
+      "youtube": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
         },
         "optional": true
       },
@@ -3060,13 +3059,6 @@
               "name": "tag"
             }
           }
-        },
-        "optional": true
-      },
-      "youtube": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "string"
         },
         "optional": true
       }
@@ -3129,6 +3121,13 @@
         },
         "optional": true
       },
+      "excerpt": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": true
+      },
       "content": {
         "type": "objectAttribute",
         "value": {
@@ -3551,18 +3550,18 @@
         },
         "optional": true
       },
-      "excerpt": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "string"
-        },
-        "optional": true
-      },
-      "coverImage": {
+      "videoCloudinary": {
         "type": "objectAttribute",
         "value": {
           "type": "inline",
           "name": "cloudinary.asset"
+        },
+        "optional": true
+      },
+      "youtube": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
         },
         "optional": true
       },
@@ -3687,13 +3686,6 @@
               "name": "tag"
             }
           }
-        },
-        "optional": true
-      },
-      "youtube": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "string"
         },
         "optional": true
       },
@@ -3934,6 +3926,14 @@
           "type": "string"
         }
       },
+      "coverImage": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "inline",
+          "name": "cloudinary.asset"
+        },
+        "optional": true
+      },
       "date": {
         "type": "objectAttribute",
         "value": {
@@ -3953,6 +3953,13 @@
         "value": {
           "type": "inline",
           "name": "slug"
+        },
+        "optional": true
+      },
+      "excerpt": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
         },
         "optional": true
       },
@@ -4375,21 +4382,6 @@
               }
             ]
           }
-        },
-        "optional": true
-      },
-      "excerpt": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "string"
-        },
-        "optional": true
-      },
-      "coverImage": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "inline",
-          "name": "cloudinary.asset"
         },
         "optional": true
       },
@@ -4572,6 +4564,14 @@
           "type": "string"
         }
       },
+      "coverImage": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "inline",
+          "name": "cloudinary.asset"
+        },
+        "optional": true
+      },
       "date": {
         "type": "objectAttribute",
         "value": {
@@ -4591,6 +4591,13 @@
         "value": {
           "type": "inline",
           "name": "slug"
+        },
+        "optional": true
+      },
+      "excerpt": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
         },
         "optional": true
       },
@@ -5013,21 +5020,6 @@
               }
             ]
           }
-        },
-        "optional": true
-      },
-      "excerpt": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "string"
-        },
-        "optional": true
-      },
-      "coverImage": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "inline",
-          "name": "cloudinary.asset"
         },
         "optional": true
       }
@@ -5090,6 +5082,13 @@
         },
         "optional": true
       },
+      "excerpt": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": true
+      },
       "content": {
         "type": "objectAttribute",
         "value": {
@@ -5512,18 +5511,18 @@
         },
         "optional": true
       },
-      "excerpt": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "string"
-        },
-        "optional": true
-      },
-      "coverImage": {
+      "videoCloudinary": {
         "type": "objectAttribute",
         "value": {
           "type": "inline",
           "name": "cloudinary.asset"
+        },
+        "optional": true
+      },
+      "youtube": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
         },
         "optional": true
       },
@@ -5648,13 +5647,6 @@
               "name": "tag"
             }
           }
-        },
-        "optional": true
-      },
-      "youtube": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "string"
         },
         "optional": true
       },
@@ -5798,6 +5790,13 @@
         },
         "optional": true
       },
+      "excerpt": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": true
+      },
       "content": {
         "type": "objectAttribute",
         "value": {
@@ -6220,18 +6219,18 @@
         },
         "optional": true
       },
-      "excerpt": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "string"
-        },
-        "optional": true
-      },
-      "coverImage": {
+      "videoCloudinary": {
         "type": "objectAttribute",
         "value": {
           "type": "inline",
           "name": "cloudinary.asset"
+        },
+        "optional": true
+      },
+      "youtube": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
         },
         "optional": true
       },
@@ -6356,13 +6355,6 @@
               "name": "tag"
             }
           }
-        },
-        "optional": true
-      },
-      "youtube": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "string"
         },
         "optional": true
       }

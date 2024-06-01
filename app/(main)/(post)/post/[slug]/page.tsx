@@ -4,7 +4,6 @@ import { notFound } from "next/navigation";
 import { Suspense } from "react";
 
 import Avatar from "@/components/avatar";
-import CoverImage from "@/components/cover-image";
 import DateComponent from "@/components/date";
 import MorePosts from "@/components/more-posts";
 import PortableText from "@/components/portable-text";
@@ -13,6 +12,7 @@ import type { PostQueryResult, PostSlugsResult } from "@/sanity.types";
 import { sanityFetch } from "@/sanity/lib/fetch";
 import { postQuery } from "@/sanity/lib/queries";
 import { resolveOpenGraphImage } from "@/sanity/lib/utils";
+import CoverMedia from "@/components/cover-media";
 
 type Props = {
   params: { slug: string };
@@ -91,7 +91,11 @@ export default async function PostPage({ params }: Props) {
           </div>
         </div>
         <div className="mb-8 sm:mx-0 md:mb-16">
-          <CoverImage image={post.coverImage} priority />
+          <CoverMedia
+            cloudinaryImage={post?.coverImage}
+            cloudinaryVideo={post?.videoCloudinary}
+            youtube={post?.youtube}
+          />
         </div>
         <div className="block md:hidden">
           <div className="max-w-2xl mx-auto">

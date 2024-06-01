@@ -18,6 +18,12 @@ const baseType = defineType({
   type: "object",
   fields: [
     defineField({
+      name: "coverImage",
+      title: "Cover Image",
+      type: "cloudinary.asset",
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
       name: "date",
       title: "Publish Date",
       type: "datetime",
@@ -39,6 +45,12 @@ const baseType = defineType({
         maxLength: 96,
         isUnique: (value, context) => context.defaultIsUnique(value, context),
       },
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
+      name: "excerpt",
+      title: "Excerpt",
+      type: "text",
       validation: (rule) => rule.required(),
     }),
     defineField({
@@ -76,18 +88,6 @@ const baseType = defineType({
         defineArrayMember(codepen),
         defineArrayMember(codesandbox),
       ],
-    }),
-    defineField({
-      name: "excerpt",
-      title: "Excerpt",
-      type: "text",
-      validation: (rule) => rule.required(),
-    }),
-    defineField({
-      name: "coverImage",
-      title: "Cover Image",
-      type: "cloudinary.asset",
-      validation: (rule) => rule.required(),
     }),
   ],
   preview: {

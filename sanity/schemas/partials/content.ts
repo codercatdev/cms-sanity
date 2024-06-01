@@ -17,7 +17,20 @@ const content = defineType({
     },
   ],
   fields: [
-    ...baseType.fields,
+    ...baseType.fields.filter((f) => f.name !== "coverImage"),
+    defineField({
+      name: "videoCloudinary",
+      title: "Cloudinary Video",
+      type: "cloudinary.asset",
+    }),
+    defineField({
+      name: "youtube",
+      title: "YouTube",
+      type: "string",
+      components: {
+        input,
+      },
+    }),
     defineField({
       name: "author",
       title: "Author",
@@ -67,14 +80,6 @@ const content = defineType({
         includeFromRelated: "tags",
       },
       validation: (Rule) => Rule.unique(),
-    }),
-    defineField({
-      name: "youtube",
-      title: "YouTube",
-      type: "string",
-      components: {
-        input,
-      },
     }),
   ],
 });

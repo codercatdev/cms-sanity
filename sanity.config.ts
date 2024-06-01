@@ -13,6 +13,7 @@ import { iconPicker } from "sanity-plugin-icon-picker";
 // import {draftReviewPluginV3} from 'sanity-plugin-draft-review-v3'
 // https://github.com/jamesreaco/inbox-tool-sanity
 // https://www.sanity.io/plugins/vercel-deploy
+// https://github.com/sanity-io/document-internationalization
 
 import {
   presentationTool,

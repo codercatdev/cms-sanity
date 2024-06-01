@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { Suspense } from "react";
 
 import Avatar from "@/components/avatar";
-import CoverImage from "@/components/cover-image";
+import CoverMedia from "@/components/cover-media";
 import DateComponent from "@/components/date";
 import MorePosts from "@/components/more-posts";
 import PortableText from "@/components/portable-text";
@@ -92,7 +92,11 @@ export default async function CoursePage({ params }: Props) {
           </div>
         </div>
         <div className="mb-8 sm:mx-0 md:mb-16">
-          <CoverImage image={post.coverImage} priority />
+          <CoverMedia
+            cloudinaryImage={post.coverImage}
+            cloudinaryVideo={post.videoCloudinary}
+            youtube={post.youtube}
+          />
         </div>
         <div className="block md:hidden">
           <div className="max-w-2xl mx-auto">
