@@ -8,6 +8,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
+import React from "react";
 
 export function BreadcrumbLinks({
   links,
@@ -23,7 +24,7 @@ export function BreadcrumbLinks({
           </BreadcrumbLink>
         </BreadcrumbItem>
         {links?.map((link, i) => (
-          <span key={i}>
+          <React.Fragment key={i}>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
               {link?.href ? (
@@ -34,7 +35,7 @@ export function BreadcrumbLinks({
                 <BreadcrumbPage>{link.title}</BreadcrumbPage>
               )}
             </BreadcrumbItem>
-          </span>
+          </React.Fragment>
         ))}
       </BreadcrumbList>
     </Breadcrumb>
