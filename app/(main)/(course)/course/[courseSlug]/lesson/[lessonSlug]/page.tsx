@@ -65,6 +65,8 @@ export default async function LessonPage({ params }: Props) {
   let defaultLayout;
   if (layout) {
     defaultLayout = JSON.parse(layout.value);
+  } else {
+    defaultLayout = [25, 75];
   }
 
   return (
