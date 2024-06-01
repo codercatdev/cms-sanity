@@ -13,6 +13,7 @@ export default function CoverVideo(props: CoverImageProps) {
 
   const video = source?.public_id ? (
     <CloudinaryVideo
+      id={cloudinaryVideo?.public_id}
       className="w-full h-auto"
       width={1920}
       height={1080}

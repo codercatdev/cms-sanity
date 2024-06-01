@@ -19,7 +19,7 @@ import CoverMedia from "@/components/cover-media";
 export default function LessonPanel({
   lesson,
   course,
-  defaultLayout = [25, 75],
+  defaultLayout,
 }: {
   lesson: LessonQueryResult;
   course: LessonsInCourseQueryResult;

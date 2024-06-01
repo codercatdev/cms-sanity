@@ -1,10 +1,9 @@
 import type { Metadata, ResolvingMetadata } from "next";
-import { groq, type PortableTextBlock } from "next-sanity";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 
 import type {
-  LessonSlugsResult,
+  // LessonSlugsResult,
   LessonQueryResult,
   LessonsInCourseQueryResult,
 } from "@/sanity.types";
@@ -20,17 +19,6 @@ import MoreHeader from "@/components/more-header";
 type Props = {
   params: { lessonSlug: string; courseSlug: string };
 };
-
-const lessonSlugs = groq`*[_type == "lesson"]{slug}`;
-
-export async function generateStaticParams() {
-  const params = await sanityFetch<LessonSlugsResult>({
-    query: lessonSlugs,
-    perspective: "published",
-    stega: false,
-  });
-  return params.map(({ slug }) => ({ slug: slug?.current }));
-}
 
 export async function generateMetadata(
   { params }: Props,
