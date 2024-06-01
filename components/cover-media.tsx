@@ -18,7 +18,7 @@ export default function CoverMedia(props: CoverMediaProps) {
     return <CoverVideo cloudinaryVideo={cloudinaryVideo} />;
   }
   if (youtube) {
-    return <YouTube youtube={youtube} />;
+    return <YouTube youtube={youtube} image={cloudinaryImage} />;
   }
   return <CoverImage image={cloudinaryImage} priority={true} />;
 }
