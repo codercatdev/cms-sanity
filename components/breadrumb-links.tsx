@@ -22,8 +22,8 @@ export function BreadcrumbLinks({
             <Link href="/">Home</Link>
           </BreadcrumbLink>
         </BreadcrumbItem>
-        {links?.map((link) => (
-          <>
+        {links?.map((link, i) => (
+          <span key={i}>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
               {link?.href ? (
@@ -34,7 +34,7 @@ export function BreadcrumbLinks({
                 <BreadcrumbPage>{link.title}</BreadcrumbPage>
               )}
             </BreadcrumbItem>
-          </>
+          </span>
         ))}
       </BreadcrumbList>
     </Breadcrumb>
