@@ -1,6 +1,5 @@
 import React from "react";
-import { RenderPreviewCallbackProps } from "sanity";
-
+// TODO: Add stronger typing
 const CodePenPreview = (props: any) => {
   const { url } = props;
   if (!url) {
@@ -19,8 +18,6 @@ const CodePenPreview = (props: any) => {
   );
 };
 
-const preview = (props: RenderPreviewCallbackProps) => (
-  <CodePenPreview {...props} />
-);
+const preview = (props: any) => <CodePenPreview {...props} />;
 
 export default preview;

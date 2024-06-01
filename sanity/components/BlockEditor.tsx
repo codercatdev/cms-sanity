@@ -2,7 +2,6 @@ import { toPlainText } from "@portabletext/react";
 import {
   BlockEditor as DefaultBlockEditor,
   PortableTextInputProps,
-  PortableTextInput,
 } from "sanity";
 import { handlePaste } from "./pastehandler";
 
@@ -35,7 +34,7 @@ function BlockEditor(props: any, ref: any) {
     </div>
   );
 }
-const input = (props: PortableTextInputProps) => (
-  <BlockEditor {...props} onPaste={handlePaste} />
-);
+// TODO: Add stronger typing
+
+const input = (props: any) => <BlockEditor {...props} onPaste={handlePaste} />;
 export default input;
