@@ -1177,7 +1177,7 @@ export type SanityAssistSchemaTypeField = {
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./sanity/lib/queries.ts
 // Variable: docCount
-// Query: count(*[_type == "$type"])
+// Query: count(*[_type == $type])
 export type DocCountResult = number;
 // Variable: settingsQuery
 // Query: *[_type == "settings"][0]
