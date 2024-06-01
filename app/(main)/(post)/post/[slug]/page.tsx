@@ -14,6 +14,7 @@ import { postQuery } from "@/sanity/lib/queries";
 import { resolveOpenGraphImage } from "@/sanity/lib/utils";
 import CoverMedia from "@/components/cover-media";
 import MoreHeader from "@/components/more-header";
+import { BreadcrumbLinks } from "@/components/breadrumb-links";
 
 type Props = {
   params: { slug: string };
@@ -69,6 +70,9 @@ export default async function PostPage({ params }: Props) {
 
   return (
     <div className="container px-5 mx-auto">
+      <BreadcrumbLinks
+        links={[{ title: "Blog", href: "/blog" }, { title: post.title }]}
+      />
       <article>
         <h1 className="mb-12 text-4xl font-bold leading-tight tracking-tighter text-balance md:text-7xl md:leading-none lg:text-8xl">
           {post.title}

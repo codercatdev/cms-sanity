@@ -14,6 +14,7 @@ import { podcastQuery } from "@/sanity/lib/queries";
 import { resolveOpenGraphImage } from "@/sanity/lib/utils";
 import CoverMedia from "@/components/cover-media";
 import MoreHeader from "@/components/more-header";
+import { BreadcrumbLinks } from "@/components/breadrumb-links";
 
 type Props = {
   params: { slug: string };
@@ -55,7 +56,7 @@ export async function generateMetadata(
   } satisfies Metadata;
 }
 
-export default async function PostPage({ params }: Props) {
+export default async function PodcastPage({ params }: Props) {
   const [podcast] = await Promise.all([
     sanityFetch<PodcastQueryResult>({
       query: podcastQuery,
@@ -69,6 +70,12 @@ export default async function PostPage({ params }: Props) {
 
   return (
     <div className="container px-5 mx-auto">
+      <BreadcrumbLinks
+        links={[
+          { title: "Podcasts", href: "/podcasts" },
+          { title: podcast.title },
+        ]}
+      />
       <article>
         <h1 className="mb-12 text-4xl font-bold leading-tight tracking-tighter text-balance md:text-7xl md:leading-none lg:text-8xl">
           {podcast.title}

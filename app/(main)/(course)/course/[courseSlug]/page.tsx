@@ -15,6 +15,7 @@ import { courseQuery } from "@/sanity/lib/queries";
 import { resolveOpenGraphImage } from "@/sanity/lib/utils";
 import Lessons from "./lessons";
 import MoreHeader from "@/components/more-header";
+import { BreadcrumbLinks } from "@/components/breadrumb-links";
 
 type Props = {
   params: { courseSlug: string };
@@ -35,21 +36,21 @@ export async function generateMetadata(
   { params }: Props,
   parent: ResolvingMetadata
 ): Promise<Metadata> {
-  const post = await sanityFetch<CourseQueryResult>({
+  const course = await sanityFetch<CourseQueryResult>({
     query: courseQuery,
     params,
     stega: false,
   });
   const previousImages = (await parent).openGraph?.images || [];
-  const ogImage = resolveOpenGraphImage(post?.coverImage);
+  const ogImage = resolveOpenGraphImage(course?.coverImage);
 
   return {
     authors:
-      post?.author?.map((a) => {
+      course?.author?.map((a) => {
         return { name: a.title };
       }) || [],
-    title: post?.title,
-    description: post?.excerpt,
+    title: course?.title,
+    description: course?.excerpt,
     openGraph: {
       images: ogImage ? [ogImage, ...previousImages] : previousImages,
     },
@@ -57,28 +58,34 @@ export async function generateMetadata(
 }
 
 export default async function CoursePage({ params }: Props) {
-  const [post] = await Promise.all([
+  const [course] = await Promise.all([
     sanityFetch<CourseQueryResult>({
       query: courseQuery,
       params,
     }),
   ]);
 
-  if (!post?._id) {
+  if (!course?._id) {
     return notFound();
   }
 
   return (
     <div className="container px-5 mx-auto">
+      <BreadcrumbLinks
+        links={[
+          { title: "Courses", href: "/courses" },
+          { title: course.title },
+        ]}
+      />
       <article>
         <h1 className="mb-12 text-4xl font-bold leading-tight tracking-tighter text-balance md:text-7xl md:leading-none lg:text-8xl">
-          {post.title}
+          {course.title}
         </h1>
         <div className="hidden md:mb-12 md:block">
           <div className="flex flex-col gap-8">
-            {post?.author && (
+            {course?.author && (
               <div className="flex">
-                {post.author.map((a) => (
+                {course.author.map((a) => (
                   <Avatar
                     key={a._id}
                     name={a.title}
@@ -88,23 +95,23 @@ export default async function CoursePage({ params }: Props) {
               </div>
             )}
             <div className="text-lg">
-              <DateComponent dateString={post.date} />
+              <DateComponent dateString={course.date} />
             </div>
           </div>
         </div>
         <div className="mb-8 sm:mx-0 md:mb-16">
           <CoverMedia
-            cloudinaryImage={post.coverImage}
-            cloudinaryVideo={post.videoCloudinary}
-            youtube={post.youtube}
+            cloudinaryImage={course.coverImage}
+            cloudinaryVideo={course.videoCloudinary}
+            youtube={course.youtube}
           />
         </div>
         <div className="block md:hidden">
           <div className="max-w-2xl mx-auto">
             <div className="mb-6">
-              {post.author && (
+              {course.author && (
                 <div className="flex">
-                  {post.author.map((a) => (
+                  {course.author.map((a) => (
                     <Avatar
                       key={a._id}
                       name={a.title}
@@ -115,14 +122,14 @@ export default async function CoursePage({ params }: Props) {
               )}
             </div>
             <div className="mb-4 text-lg">
-              <DateComponent dateString={post.date} />
+              <DateComponent dateString={course.date} />
             </div>
           </div>
         </div>
-        {post.content?.length && (
+        {course.content?.length && (
           <PortableText
             className="mx-auto prose-violet lg:prose-xl dark:prose-invert"
-            value={post.content as PortableTextBlock[]}
+            value={course.content as PortableTextBlock[]}
           />
         )}
       </article>
@@ -132,7 +139,7 @@ export default async function CoursePage({ params }: Props) {
       <aside>
         <MoreHeader title="Recent Courses" href="/courses/page/1" />
         <Suspense>
-          <MorePosts type={post._type} skip={post._id} limit={2} />
+          <MorePosts type={course._type} skip={course._id} limit={2} />
         </Suspense>
       </aside>
     </div>
