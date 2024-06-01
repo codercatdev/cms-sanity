@@ -7,7 +7,7 @@ import {
 import "next-cloudinary/dist/cld-video-player.css";
 
 const CldVideoPlayer = (props: CldVideoPlayerProps) => {
-  return <CldVideoPlayerDefault {...props} />;
+  return <CldVideoPlayerDefault {...props} analytics={false} />;
 };
 
 export default CldVideoPlayer;

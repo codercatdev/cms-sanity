@@ -200,6 +200,7 @@ export type Lesson = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
+  coverImage?: CloudinaryAsset;
   date?: string;
   title?: string;
   slug?: Slug;
@@ -378,6 +379,7 @@ export type Post = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
+  coverImage?: CloudinaryAsset;
   date?: string;
   title?: string;
   slug?: Slug;
@@ -466,6 +468,7 @@ export type Podcast = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
+  coverImage?: CloudinaryAsset;
   date?: string;
   title?: string;
   slug?: Slug;
@@ -744,6 +747,7 @@ export type Course = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
+  coverImage?: CloudinaryAsset;
   date?: string;
   title?: string;
   slug?: Slug;
@@ -844,6 +848,7 @@ export type Page = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
+  coverImage?: CloudinaryAsset;
   date?: string;
   title?: string;
   slug?: Slug;
@@ -1244,7 +1249,7 @@ export type BlogQueryResult = {
   title: string | "Untitled";
   slug: string | null;
   excerpt: string | null;
-  coverImage: null;
+  coverImage: CloudinaryAsset | null;
   date: string;
   author: Array<{
     _id: string;
@@ -1344,7 +1349,7 @@ export type MorePostQueryResult = Array<{
   title: string | "Untitled";
   slug: string | null;
   excerpt: string | null;
-  coverImage: null;
+  coverImage: CloudinaryAsset | null;
   date: string;
   author: Array<{
     _id: string;
@@ -1444,7 +1449,7 @@ export type PostQueryResult = {
   title: string | "Untitled";
   slug: string | null;
   excerpt: string | null;
-  coverImage: null;
+  coverImage: CloudinaryAsset | null;
   date: string;
   content: Array<({
     _key: string;
@@ -1674,7 +1679,7 @@ export type PodcastsQueryResult = {
   title: string | "Untitled";
   slug: string | null;
   excerpt: string | null;
-  coverImage: null;
+  coverImage: CloudinaryAsset | null;
   date: string;
   author: Array<{
     _id: string;
@@ -1774,7 +1779,7 @@ export type MorePodcastQueryResult = Array<{
   title: string | "Untitled";
   slug: string | null;
   excerpt: string | null;
-  coverImage: null;
+  coverImage: CloudinaryAsset | null;
   date: string;
   author: Array<{
     _id: string;
@@ -1874,7 +1879,7 @@ export type PodcastQueryResult = {
   title: string | "Untitled";
   slug: string | null;
   excerpt: string | null;
-  coverImage: null;
+  coverImage: CloudinaryAsset | null;
   date: string;
   content: Array<({
     _key: string;
@@ -2201,7 +2206,7 @@ export type CoursesQueryResult = {
   title: string | "Untitled";
   slug: string | null;
   excerpt: string | null;
-  coverImage: null;
+  coverImage: CloudinaryAsset | null;
   date: string;
   author: Array<{
     _id: string;
@@ -2301,7 +2306,7 @@ export type MoreCourseQueryResult = Array<{
   title: string | "Untitled";
   slug: string | null;
   excerpt: string | null;
-  coverImage: null;
+  coverImage: CloudinaryAsset | null;
   date: string;
   author: Array<{
     _id: string;
@@ -2401,7 +2406,7 @@ export type CourseQueryResult = {
   title: string | "Untitled";
   slug: string | null;
   excerpt: string | null;
-  coverImage: null;
+  coverImage: CloudinaryAsset | null;
   date: string;
   content: Array<({
     _key: string;
@@ -2642,7 +2647,7 @@ export type LessonsInCourseQueryResult = {
       title: string | "Untitled";
       slug: string | null;
       excerpt: string | null;
-      coverImage: null;
+      coverImage: CloudinaryAsset | null;
       date: string;
       locked: boolean | null;
       videoCloudinary: CloudinaryAsset | null;
@@ -2658,7 +2663,7 @@ export type LessonQueryResult = {
   title: string | "Untitled";
   slug: string | null;
   excerpt: string | null;
-  coverImage: null;
+  coverImage: CloudinaryAsset | null;
   date: string;
   content: Array<({
     _key: string;

@@ -11,19 +11,19 @@ export default function CoverVideo(props: CoverImageProps) {
 
   const source = stegaClean(cloudinaryVideo);
 
-  console.log(source?.public_id);
-  const image = source?.public_id ? (
+  const video = source?.public_id ? (
     <CloudinaryVideo
       className="w-full h-auto"
       width={1920}
       height={1080}
-      src="main-codingcatdev-photo/courses/sveltekit-firebase/sveltekit-firebase-welcome/welcome"
+      src={source?.public_id}
       config={{
         url: {
           secureDistribution: "media.codingcat.dev",
           privateCdn: true,
         },
       }}
+      analytics={false}
     />
   ) : (
     <div className="bg-slate-50" style={{ paddingTop: "50%" }} />
@@ -31,7 +31,7 @@ export default function CoverVideo(props: CoverImageProps) {
 
   return (
     <div className="transition-shadow duration-200 shadow-md group-hover:shadow-lg sm:mx-0">
-      {image}
+      {video}
     </div>
   );
 }

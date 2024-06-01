@@ -17,7 +17,7 @@ const content = defineType({
     },
   ],
   fields: [
-    ...baseType.fields.filter((f) => f.name !== "coverImage"),
+    ...baseType.fields,
     defineField({
       name: "videoCloudinary",
       title: "Cloudinary Video",
