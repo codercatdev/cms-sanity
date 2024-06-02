@@ -73,7 +73,7 @@ export default async function CoursePage({ params }: Props) {
     <div className="container px-5 mx-auto">
       <BreadcrumbLinks
         links={[
-          { title: "Courses", href: "/courses" },
+          { title: "Courses", href: "/courses/page/1" },
           { title: course.title },
         ]}
       />
