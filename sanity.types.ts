@@ -136,6 +136,7 @@ export type Sponsor = {
   title?: string;
   slug?: Slug;
   excerpt?: string;
+  featured?: boolean;
   content?: Array<{
     children?: Array<{
       marks?: Array<string>;
@@ -205,6 +206,7 @@ export type Lesson = {
   title?: string;
   slug?: Slug;
   excerpt?: string;
+  featured?: boolean;
   content?: Array<{
     children?: Array<{
       marks?: Array<string>;
@@ -295,6 +297,7 @@ export type Author = {
   title?: string;
   slug?: Slug;
   excerpt?: string;
+  featured?: boolean;
   content?: Array<{
     children?: Array<{
       marks?: Array<string>;
@@ -384,6 +387,7 @@ export type Post = {
   title?: string;
   slug?: Slug;
   excerpt?: string;
+  featured?: boolean;
   content?: Array<{
     children?: Array<{
       marks?: Array<string>;
@@ -473,6 +477,7 @@ export type Podcast = {
   title?: string;
   slug?: Slug;
   excerpt?: string;
+  featured?: boolean;
   content?: Array<{
     children?: Array<{
       marks?: Array<string>;
@@ -595,6 +600,7 @@ export type Guest = {
   title?: string;
   slug?: Slug;
   excerpt?: string;
+  featured?: boolean;
   content?: Array<{
     children?: Array<{
       marks?: Array<string>;
@@ -684,6 +690,7 @@ export type PodcastType = {
   title?: string;
   slug?: Slug;
   excerpt?: string;
+  featured?: boolean;
   content?: Array<{
     children?: Array<{
       marks?: Array<string>;
@@ -752,6 +759,7 @@ export type Course = {
   title?: string;
   slug?: Slug;
   excerpt?: string;
+  featured?: boolean;
   content?: Array<{
     children?: Array<{
       marks?: Array<string>;
@@ -853,6 +861,7 @@ export type Page = {
   title?: string;
   slug?: Slug;
   excerpt?: string;
+  featured?: boolean;
   content?: Array<{
     children?: Array<{
       marks?: Array<string>;
@@ -1262,6 +1271,7 @@ export type BlogQueryResult = {
     title: string | "Anonymous";
     slug?: Slug;
     excerpt?: string;
+    featured?: boolean;
     content?: Array<({
       _key: string;
     } & CloudinaryAsset) | ({
@@ -1362,6 +1372,7 @@ export type MorePostQueryResult = Array<{
     title: string | "Anonymous";
     slug?: Slug;
     excerpt?: string;
+    featured?: boolean;
     content?: Array<({
       _key: string;
     } & CloudinaryAsset) | ({
@@ -1517,6 +1528,7 @@ export type PostQueryResult = {
     title: string | "Anonymous";
     slug?: Slug;
     excerpt?: string;
+    featured?: boolean;
     content?: Array<({
       _key: string;
     } & CloudinaryAsset) | ({
@@ -1607,6 +1619,7 @@ export type PostQueryResult = {
     title: string | "Anonymous";
     slug?: Slug;
     excerpt?: string;
+    featured?: boolean;
     content?: Array<({
       _key: string;
     } & CloudinaryAsset) | ({
@@ -1692,6 +1705,7 @@ export type PodcastsQueryResult = {
     title: string | "Anonymous";
     slug?: Slug;
     excerpt?: string;
+    featured?: boolean;
     content?: Array<({
       _key: string;
     } & CloudinaryAsset) | ({
@@ -1792,6 +1806,7 @@ export type MorePodcastQueryResult = Array<{
     title: string | "Anonymous";
     slug?: Slug;
     excerpt?: string;
+    featured?: boolean;
     content?: Array<({
       _key: string;
     } & CloudinaryAsset) | ({
@@ -1947,6 +1962,7 @@ export type PodcastQueryResult = {
     title: string | "Anonymous";
     slug?: Slug;
     excerpt?: string;
+    featured?: boolean;
     content?: Array<({
       _key: string;
     } & CloudinaryAsset) | ({
@@ -2037,6 +2053,7 @@ export type PodcastQueryResult = {
     title: string | "Anonymous";
     slug?: Slug;
     excerpt?: string;
+    featured?: boolean;
     content?: Array<({
       _key: string;
     } & CloudinaryAsset) | ({
@@ -2114,6 +2131,7 @@ export type PodcastQueryResult = {
     title: string | "Anonymous";
     slug?: Slug;
     excerpt?: string;
+    featured?: boolean;
     content?: Array<({
       _key: string;
     } & CloudinaryAsset) | ({
@@ -2219,6 +2237,7 @@ export type CoursesQueryResult = {
     title: string | "Anonymous";
     slug?: Slug;
     excerpt?: string;
+    featured?: boolean;
     content?: Array<({
       _key: string;
     } & CloudinaryAsset) | ({
@@ -2319,6 +2338,7 @@ export type MoreCourseQueryResult = Array<{
     title: string | "Anonymous";
     slug?: Slug;
     excerpt?: string;
+    featured?: boolean;
     content?: Array<({
       _key: string;
     } & CloudinaryAsset) | ({
@@ -2474,6 +2494,7 @@ export type CourseQueryResult = {
     title: string | "Anonymous";
     slug?: Slug;
     excerpt?: string;
+    featured?: boolean;
     content?: Array<({
       _key: string;
     } & CloudinaryAsset) | ({
@@ -2564,6 +2585,7 @@ export type CourseQueryResult = {
     title: string | "Anonymous";
     slug?: Slug;
     excerpt?: string;
+    featured?: boolean;
     content?: Array<({
       _key: string;
     } & CloudinaryAsset) | ({
@@ -2731,6 +2753,7 @@ export type LessonQueryResult = {
     title: string | "Anonymous";
     slug?: Slug;
     excerpt?: string;
+    featured?: boolean;
     content?: Array<({
       _key: string;
     } & CloudinaryAsset) | ({
@@ -2821,6 +2844,7 @@ export type LessonQueryResult = {
     title: string | "Anonymous";
     slug?: Slug;
     excerpt?: string;
+    featured?: boolean;
     content?: Array<({
       _key: string;
     } & CloudinaryAsset) | ({

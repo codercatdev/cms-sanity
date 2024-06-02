@@ -54,6 +54,11 @@ const baseType = defineType({
       validation: (rule) => rule.required(),
     }),
     defineField({
+      name: "featured",
+      title: "Featured",
+      type: "boolean",
+    }),
+    defineField({
       name: "content",
       title: "Content",
       type: "array",
