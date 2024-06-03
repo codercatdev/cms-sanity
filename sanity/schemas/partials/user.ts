@@ -105,8 +105,7 @@ const content = defineType({
       type: "array",
       of: [
         defineField({
-          name: "websites",
-          title: "Websites",
+          name: "site",
           type: "object",
           fields: [
             defineField({

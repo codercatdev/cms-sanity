@@ -380,7 +380,7 @@ export type Author = {
       href?: string;
       blank?: boolean;
     };
-    _type: "websites";
+    _type: "site";
     _key: string;
   }>;
 };
@@ -692,7 +692,7 @@ export type Guest = {
       href?: string;
       blank?: boolean;
     };
-    _type: "websites";
+    _type: "site";
     _key: string;
   }>;
 };
@@ -1402,7 +1402,7 @@ export type BlogQueryResult = {
         href?: string;
         blank?: boolean;
       };
-      _type: "websites";
+      _type: "site";
       _key: string;
     }>;
   }> | null;
@@ -1512,7 +1512,7 @@ export type MorePostQueryResult = Array<{
         href?: string;
         blank?: boolean;
       };
-      _type: "websites";
+      _type: "site";
       _key: string;
     }>;
   }> | null;
@@ -1677,7 +1677,7 @@ export type PostQueryResult = {
         href?: string;
         blank?: boolean;
       };
-      _type: "websites";
+      _type: "site";
       _key: string;
     }>;
   }> | null;
@@ -1863,7 +1863,7 @@ export type PodcastsQueryResult = {
         href?: string;
         blank?: boolean;
       };
-      _type: "websites";
+      _type: "site";
       _key: string;
     }>;
   }> | null;
@@ -1973,7 +1973,7 @@ export type MorePodcastQueryResult = Array<{
         href?: string;
         blank?: boolean;
       };
-      _type: "websites";
+      _type: "site";
       _key: string;
     }>;
   }> | null;
@@ -2138,7 +2138,7 @@ export type PodcastQueryResult = {
         href?: string;
         blank?: boolean;
       };
-      _type: "websites";
+      _type: "site";
       _key: string;
     }>;
   }> | null;
@@ -2316,7 +2316,7 @@ export type PodcastQueryResult = {
         href?: string;
         blank?: boolean;
       };
-      _type: "websites";
+      _type: "site";
       _key: string;
     }>;
   }> | null;
@@ -2431,7 +2431,7 @@ export type CoursesQueryResult = {
         href?: string;
         blank?: boolean;
       };
-      _type: "websites";
+      _type: "site";
       _key: string;
     }>;
   }> | null;
@@ -2541,7 +2541,7 @@ export type MoreCourseQueryResult = Array<{
         href?: string;
         blank?: boolean;
       };
-      _type: "websites";
+      _type: "site";
       _key: string;
     }>;
   }> | null;
@@ -2706,7 +2706,7 @@ export type CourseQueryResult = {
         href?: string;
         blank?: boolean;
       };
-      _type: "websites";
+      _type: "site";
       _key: string;
     }>;
   }> | null;
@@ -2974,7 +2974,7 @@ export type LessonQueryResult = {
         href?: string;
         blank?: boolean;
       };
-      _type: "websites";
+      _type: "site";
       _key: string;
     }>;
   }> | null;
@@ -3062,15 +3062,15 @@ export type LessonQueryResult = {
 export type CourseSlugsResult = Array<{
   slug: Slug | null;
 }>;
-// Source: ./app/(main)/(podcast)/podcast/[slug]/page.tsx
-// Variable: podcastSlugs
-// Query: *[_type == "podcast"]{slug}
-export type PodcastSlugsResult = Array<{
-  slug: Slug | null;
-}>;
 // Source: ./app/(main)/(post)/post/[slug]/page.tsx
 // Variable: postSlugs
 // Query: *[_type == "post"]{slug}
 export type PostSlugsResult = Array<{
+  slug: Slug | null;
+}>;
+// Source: ./app/(main)/(podcast)/podcast/[slug]/page.tsx
+// Variable: podcastSlugs
+// Query: *[_type == "podcast"]{slug}
+export type PodcastSlugsResult = Array<{
   slug: Slug | null;
 }>;
