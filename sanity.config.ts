@@ -114,10 +114,6 @@ export default defineConfig({
           title: "CodingCat.dev",
           url: "https://anchor.fm/s/115b203c/podcast/rss",
         },
-        {
-          title: "Syntax.fm",
-          url: "https://feed.syntax.fm/",
-        },
       ],
     }),
     // Vision lets you query your content with GROQ in the studio

@@ -586,7 +586,7 @@ export type Podcast = {
     site?: string;
     _key: string;
   }>;
-  spotify?: string;
+  spotify?: PodcastRssEpisode;
 };
 
 export type Guest = {
@@ -1000,6 +1000,36 @@ export type Settings = {
     _key: string;
   }>;
   ogImage?: CloudinaryAsset;
+};
+
+export type PodcastRssEpisode = {
+  _type: "podcastRssEpisode";
+  title?: string;
+  description?: string;
+  link?: string;
+  guid?: {
+    id?: string;
+    isPermaLink?: boolean;
+  };
+  pubDate?: string;
+  enclosures?: Array<{
+    url?: string;
+    length?: number;
+    type?: string;
+    _type: "enclosure";
+    _key: string;
+  }>;
+  itunes?: {
+    summary?: string;
+    explicit?: string;
+    duration?: string;
+    season?: string;
+    episode?: string;
+    episodeType?: string;
+    image?: {
+      href?: string;
+    };
+  };
 };
 
 export type IconPicker = {
