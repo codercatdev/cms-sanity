@@ -14,6 +14,7 @@
     "typecheck": "tsc"
   },
   "dependencies": {
+    "@codingcatdev/sanity-plugin-podcast-rss": "^1.0.0",
     "@hookform/resolvers": "^3.4.2",
     "@portabletext/react": "^3.1.0",
     "@radix-ui/react-accordion": "^1.1.2",

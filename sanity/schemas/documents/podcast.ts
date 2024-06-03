@@ -122,7 +122,8 @@ export default defineType({
     defineField({
       name: "spotify",
       title: "Spotify",
-      type: "string",
+      type: "podcastRssEpisode",
+      validation: (rule) => [rule.required()],
     }),
   ],
   orderings: [

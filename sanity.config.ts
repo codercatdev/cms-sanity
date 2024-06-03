@@ -8,6 +8,7 @@ import { cloudinarySchemaPlugin } from "sanity-plugin-cloudinary";
 import { tags } from "sanity-plugin-tags";
 import { codeInput } from "@sanity/code-input";
 import { iconPicker } from "sanity-plugin-icon-picker";
+import { podcastRss } from "@codingcatdev/sanity-plugin-podcast-rss";
 
 // TODO: Review for possible plugins
 // import {draftReviewPluginV3} from 'sanity-plugin-draft-review-v3'
@@ -107,6 +108,18 @@ export default defineConfig({
     tags(),
     codeInput(),
     iconPicker(),
+    podcastRss({
+      podcasts: [
+        {
+          title: "CodingCat.dev",
+          url: "https://anchor.fm/s/115b203c/podcast/rss",
+        },
+        {
+          title: "Syntax.fm",
+          url: "https://feed.syntax.fm/",
+        },
+      ],
+    }),
     // Vision lets you query your content with GROQ in the studio
     // https://www.sanity.io/docs/the-vision-plugin
     process.env.NODE_ENV === "development" &&
