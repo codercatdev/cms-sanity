@@ -374,6 +374,15 @@ export type Author = {
     twitter?: string;
     youtube?: string;
   };
+  websites?: Array<{
+    site?: string;
+    link?: {
+      href?: string;
+      blank?: boolean;
+    };
+    _type: "websites";
+    _key: string;
+  }>;
 };
 
 export type Post = {
@@ -677,6 +686,15 @@ export type Guest = {
     twitter?: string;
     youtube?: string;
   };
+  websites?: Array<{
+    site?: string;
+    link?: {
+      href?: string;
+      blank?: boolean;
+    };
+    _type: "websites";
+    _key: string;
+  }>;
 };
 
 export type PodcastType = {
@@ -1378,6 +1396,15 @@ export type BlogQueryResult = {
       twitter?: string;
       youtube?: string;
     };
+    websites?: Array<{
+      site?: string;
+      link?: {
+        href?: string;
+        blank?: boolean;
+      };
+      _type: "websites";
+      _key: string;
+    }>;
   }> | null;
 } | null;
 // Variable: morePostQuery
@@ -1479,6 +1506,15 @@ export type MorePostQueryResult = Array<{
       twitter?: string;
       youtube?: string;
     };
+    websites?: Array<{
+      site?: string;
+      link?: {
+        href?: string;
+        blank?: boolean;
+      };
+      _type: "websites";
+      _key: string;
+    }>;
   }> | null;
 }>;
 // Variable: postQuery
@@ -1635,6 +1671,15 @@ export type PostQueryResult = {
       twitter?: string;
       youtube?: string;
     };
+    websites?: Array<{
+      site?: string;
+      link?: {
+        href?: string;
+        blank?: boolean;
+      };
+      _type: "websites";
+      _key: string;
+    }>;
   }> | null;
   devto: string | null;
   hashnode: string | null;
@@ -1812,6 +1857,15 @@ export type PodcastsQueryResult = {
       twitter?: string;
       youtube?: string;
     };
+    websites?: Array<{
+      site?: string;
+      link?: {
+        href?: string;
+        blank?: boolean;
+      };
+      _type: "websites";
+      _key: string;
+    }>;
   }> | null;
 } | null;
 // Variable: morePodcastQuery
@@ -1913,6 +1967,15 @@ export type MorePodcastQueryResult = Array<{
       twitter?: string;
       youtube?: string;
     };
+    websites?: Array<{
+      site?: string;
+      link?: {
+        href?: string;
+        blank?: boolean;
+      };
+      _type: "websites";
+      _key: string;
+    }>;
   }> | null;
 }>;
 // Variable: podcastQuery
@@ -2069,6 +2132,15 @@ export type PodcastQueryResult = {
       twitter?: string;
       youtube?: string;
     };
+    websites?: Array<{
+      site?: string;
+      link?: {
+        href?: string;
+        blank?: boolean;
+      };
+      _type: "websites";
+      _key: string;
+    }>;
   }> | null;
   devto: string | null;
   hashnode: string | null;
@@ -2238,6 +2310,15 @@ export type PodcastQueryResult = {
       twitter?: string;
       youtube?: string;
     };
+    websites?: Array<{
+      site?: string;
+      link?: {
+        href?: string;
+        blank?: boolean;
+      };
+      _type: "websites";
+      _key: string;
+    }>;
   }> | null;
   pick: Array<{
     user: null;
@@ -2344,6 +2425,15 @@ export type CoursesQueryResult = {
       twitter?: string;
       youtube?: string;
     };
+    websites?: Array<{
+      site?: string;
+      link?: {
+        href?: string;
+        blank?: boolean;
+      };
+      _type: "websites";
+      _key: string;
+    }>;
   }> | null;
 } | null;
 // Variable: moreCourseQuery
@@ -2445,6 +2535,15 @@ export type MoreCourseQueryResult = Array<{
       twitter?: string;
       youtube?: string;
     };
+    websites?: Array<{
+      site?: string;
+      link?: {
+        href?: string;
+        blank?: boolean;
+      };
+      _type: "websites";
+      _key: string;
+    }>;
   }> | null;
 }>;
 // Variable: courseQuery
@@ -2601,6 +2700,15 @@ export type CourseQueryResult = {
       twitter?: string;
       youtube?: string;
     };
+    websites?: Array<{
+      site?: string;
+      link?: {
+        href?: string;
+        blank?: boolean;
+      };
+      _type: "websites";
+      _key: string;
+    }>;
   }> | null;
   devto: string | null;
   hashnode: string | null;
@@ -2860,6 +2968,15 @@ export type LessonQueryResult = {
       twitter?: string;
       youtube?: string;
     };
+    websites?: Array<{
+      site?: string;
+      link?: {
+        href?: string;
+        blank?: boolean;
+      };
+      _type: "websites";
+      _key: string;
+    }>;
   }> | null;
   devto: string | null;
   hashnode: string | null;

@@ -1,7 +1,7 @@
-import { format, parseISO } from "date-fns";
 import { defineField, defineType } from "sanity";
 
 import baseType from "./base";
+import externalLink from "../custom/externalLink";
 
 const content = defineType({
   ...baseType,
@@ -96,6 +96,25 @@ const content = defineType({
         defineField({
           name: "youtube",
           type: "string",
+        }),
+      ],
+    }),
+    defineField({
+      name: "websites",
+      title: "Websites",
+      type: "array",
+      of: [
+        defineField({
+          name: "websites",
+          title: "Websites",
+          type: "object",
+          fields: [
+            defineField({
+              name: "site",
+              type: "string",
+            }),
+            defineField(externalLink),
+          ],
         }),
       ],
     }),
