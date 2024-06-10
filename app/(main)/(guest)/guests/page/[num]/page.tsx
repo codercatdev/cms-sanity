@@ -10,7 +10,7 @@ export async function generateStaticParams() {
   const count = await sanityFetch<DocCountResult>({
     query: docCount,
     params: {
-      type: "course",
+      type: "guest",
     },
     perspective: "published",
     stega: false,
@@ -31,7 +31,7 @@ export default async function Page({ params }: Props) {
     sanityFetch<DocCountResult>({
       query: docCount,
       params: {
-        type: "course",
+        type: "guest",
       },
     }),
   ]);
@@ -43,9 +43,9 @@ export default async function Page({ params }: Props) {
 
   return (
     <div className="container px-5 mx-auto mb-32">
-      <MoreContent type="course" limit={limit} offset={offset} showHeader />
+      <MoreContent type="guest" limit={limit} offset={offset} showHeader />
       <PaginateList
-        base="podcasts"
+        base="guests"
         num={Number(num)}
         limit={LIMIT}
         count={count}

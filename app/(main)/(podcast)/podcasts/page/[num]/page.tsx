@@ -43,7 +43,7 @@ export default async function Page({ params }: Props) {
 
   return (
     <div className="container px-5 mx-auto mb-32">
-      <MoreContent type="podcast" limit={limit} offset={offset} />
+      <MoreContent type="podcast" limit={limit} offset={offset} showHeader />
       <PaginateList
         base="podcasts"
         num={Number(num)}

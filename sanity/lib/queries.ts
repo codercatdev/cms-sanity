@@ -66,6 +66,20 @@ const userFields = `
   websites
 `;
 
+const userRelated = `
+  "related":{
+    "course": *[_type == "course" && (^._id in author[]._ref || ^._id in guest[]._ref)] | order(date desc) [0...4] {
+      ${baseFieldsNoContent}
+    },
+    "podcast": *[_type == "podcast" && (^._id in author[]._ref || ^._id in guest[]._ref)] | order(date desc) [0...4] {
+      ${baseFieldsNoContent}
+    },
+    "post": *[_type == "post" && (^._id in author[]._ref || ^._id in guest[]._ref)] | order(date desc) [0...4] {
+      ${baseFieldsNoContent}
+    },
+  }
+`;
+
 // Post
 
 export const blogQuery = groq`*[_type == "post" && defined(slug.current)] | order(date desc, _updatedAt desc) [0] {
@@ -102,6 +116,10 @@ export const podcastsQuery = groq`*[_type == "podcast" && defined(slug.current)]
 export const morePodcastQuery = groq`*[_type == "podcast" && _id != $skip && defined(slug.current)] | order(date desc, _updatedAt desc) [$offset...$limit] {
   ${baseFieldsNoContent},
   author[]->{
+    ...,
+    "title": coalesce(title, "Anonymous"),
+  },
+  guest[]->{
     ...,
     "title": coalesce(title, "Anonymous"),
   }
@@ -171,4 +189,34 @@ export const authorQuery = groq`*[_type == "author" && slug.current == $slug] [0
   ${baseFieldsNoContent},
   ${contentFields},
   ${userFields}
+}`;
+
+export const authorQueryWithRelated = groq`*[_type == "author" && slug.current == $slug] [0] {
+  ${baseFieldsNoContent},
+  ${contentFields},
+  ${userFields},
+  ${userRelated}
+}`;
+
+// Guest
+
+export const guestsQuery = groq`*[_type == "guest" && defined(slug.current)] | order(title) [0] {
+  ${baseFieldsNoContent}
+}`;
+
+export const moreGuestQuery = groq`*[_type == "guest" && _id != $skip && defined(slug.current)] | order(title) [$offset...$limit] {
+  ${baseFieldsNoContent}
+}`;
+
+export const guestQuery = groq`*[_type == "guest" && slug.current == $slug] [0] {
+  ${baseFieldsNoContent},
+  ${contentFields},
+  ${userFields}
+}`;
+
+export const guestQueryWithRelated = groq`*[_type == "guest" && slug.current == $slug] [0] {
+  ${baseFieldsNoContent},
+  ${contentFields},
+  ${userFields},
+  ${userRelated}
 }`;

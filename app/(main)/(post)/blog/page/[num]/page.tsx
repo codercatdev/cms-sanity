@@ -44,7 +44,7 @@ export default async function Page({ params }: Props) {
 
   return (
     <div className="container px-5 mx-auto mb-32">
-      <MoreContent type="post" limit={limit} offset={offset} />
+      <MoreContent type="post" limit={limit} offset={offset} showHeader />
       <PaginateList base="blog" num={Number(num)} limit={LIMIT} count={count} />
     </div>
   );

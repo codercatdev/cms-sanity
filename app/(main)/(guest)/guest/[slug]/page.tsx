@@ -5,12 +5,12 @@ import { notFound } from "next/navigation";
 import PortableText from "@/components/portable-text";
 
 import type {
-  AuthorQueryResult,
-  AuthorQueryWithRelatedResult,
-  AuthorSlugsResult,
+  GuestQueryResult,
+  GuestQueryWithRelatedResult,
+  GuestSlugsResult,
 } from "@/sanity.types";
 import { sanityFetch } from "@/sanity/lib/fetch";
-import { authorQuery, authorQueryWithRelated } from "@/sanity/lib/queries";
+import { guestQuery, guestQueryWithRelated } from "@/sanity/lib/queries";
 import { resolveOpenGraphImage } from "@/sanity/lib/utils";
 import CoverMedia from "@/components/cover-media";
 import { BreadcrumbLinks } from "@/components/breadrumb-links";
@@ -22,11 +22,11 @@ type Props = {
   params: { slug: string };
 };
 
-const authorSlugs = groq`*[_type == "author"]{slug}`;
+const guestSlugs = groq`*[_type == "guest"]{slug}`;
 
 export async function generateStaticParams() {
-  const params = await sanityFetch<AuthorSlugsResult>({
-    query: authorSlugs,
+  const params = await sanityFetch<GuestSlugsResult>({
+    query: guestSlugs,
     perspective: "published",
     stega: false,
   });
@@ -37,32 +37,32 @@ export async function generateMetadata(
   { params }: Props,
   parent: ResolvingMetadata
 ): Promise<Metadata> {
-  const author = await sanityFetch<AuthorQueryResult>({
-    query: authorQuery,
+  const guest = await sanityFetch<GuestQueryResult>({
+    query: guestQuery,
     params,
     stega: false,
   });
   const previousImages = (await parent).openGraph?.images || [];
-  const ogImage = resolveOpenGraphImage(author?.coverImage);
+  const ogImage = resolveOpenGraphImage(guest?.coverImage);
 
   return {
-    title: author?.title,
-    description: author?.excerpt,
+    title: guest?.title,
+    description: guest?.excerpt,
     openGraph: {
       images: ogImage ? [ogImage, ...previousImages] : previousImages,
     },
   } satisfies Metadata;
 }
 
-export default async function AuthorPage({ params }: Props) {
-  const [author] = await Promise.all([
-    sanityFetch<AuthorQueryWithRelatedResult>({
-      query: authorQueryWithRelated,
+export default async function GuestPage({ params }: Props) {
+  const [guest] = await Promise.all([
+    sanityFetch<GuestQueryWithRelatedResult>({
+      query: guestQueryWithRelated,
       params,
     }),
   ]);
 
-  if (!author?._id) {
+  if (!guest?._id) {
     return notFound();
   }
 
@@ -70,40 +70,40 @@ export default async function AuthorPage({ params }: Props) {
     <div className="container px-5 mx-auto">
       <BreadcrumbLinks
         links={[
-          { title: "Authors", href: "/authors/page/1" },
-          { title: author.title },
+          { title: " Guests", href: "/ guests/page/1" },
+          { title: guest.title },
         ]}
       />
       <div className="w-full flex flex-col gap-4 md:gap-8">
         <div className="flex gap-2 md:gap-8">
           <div>
             <CoverMedia
-              cloudinaryImage={author?.coverImage}
-              cloudinaryVideo={author?.videoCloudinary}
-              youtube={author?.youtube}
+              cloudinaryImage={guest?.coverImage}
+              cloudinaryVideo={guest?.videoCloudinary}
+              youtube={guest?.youtube}
             />
           </div>
           <div className="flex flex-col gap-2 md:gap-">
             <h1 className="text-xl font-bold leading-tight tracking-tighter text-balance md:text-2xl md:leading-none lg:text-4xl">
-              {author.title}
+              {guest.title}
             </h1>
-            {author?.socials && (
+            {guest?.socials && (
               <div className="flex flex-wrap gap-2">
-                <UserSocials socials={author.socials} />
+                <UserSocials socials={guest.socials} />
               </div>
             )}
           </div>
         </div>
         <article>
-          {author.content?.length && (
+          {guest.content?.length && (
             <PortableText
               className="prose-violet lg:prose-xl dark:prose-invert"
-              value={author.content as PortableTextBlock[]}
+              value={guest.content as PortableTextBlock[]}
             />
           )}
         </article>
       </div>
-      <UserRelated {...author?.related} />
+      <UserRelated {...guest?.related} />
     </div>
   );
 }
