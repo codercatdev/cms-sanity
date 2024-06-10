@@ -12,7 +12,7 @@ export default async function Page() {
     sanityFetch<AuthorsQueryResult>({ query: authorsQuery }),
   ]);
   return (
-    <div className="container px-5 mx-auto">
+    <div className="container p-5 mx-auto">
       <MoreHeader title="Authors" href="/authors/page/1" showHr={false} />
       <Suspense fallback={<p>Loading feed...</p>}>
         <MoreContent

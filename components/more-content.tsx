@@ -13,6 +13,8 @@ import {
   moreCourseQuery,
   moreAuthorQuery,
 } from "@/sanity/lib/queries";
+import { ContentType } from "@/lib/types";
+import { pluralize } from "@/lib/utils";
 
 export default async function MoreContent(params: {
   type: string;
@@ -26,14 +28,12 @@ export default async function MoreContent(params: {
 }) {
   const whichQuery = () => {
     switch (params.type) {
-      case "author":
+      case ContentType.author:
         return moreAuthorQuery;
-      case "course":
+      case ContentType.course:
         return moreCourseQuery;
-      case "podcast":
+      case ContentType.podcast:
         return morePodcastQuery;
-      case "post":
-        return morePostQuery;
       default:
         return morePostQuery;
     }
@@ -50,7 +50,12 @@ export default async function MoreContent(params: {
   });
 
   return (
-    <>
+    <div className="flex flex-col">
+      <h2 className="mb-8 text-4xl font-bold mt-10 capitalize">
+        {pluralize(params.type)}
+      </h2>
+      <hr className="mb-24 border-accent-2 " />
+
       <div className="mb-32 grid grid-cols-1 gap-y-20 md:grid-cols-2 md:gap-x-16 md:gap-y-32 lg:gap-x-32">
         {data?.map((post) => {
           const { _id, _type, title, slug, coverImage, excerpt, author } = post;
@@ -96,6 +101,6 @@ export default async function MoreContent(params: {
           <Link href={params?.showMore?.href}>{params?.showMore?.text}</Link>
         </Button>
       )}
-    </>
+    </div>
   );
 }
