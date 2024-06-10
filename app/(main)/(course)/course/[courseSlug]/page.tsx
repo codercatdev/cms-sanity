@@ -6,7 +6,7 @@ import { Suspense } from "react";
 import Avatar from "@/components/avatar";
 import CoverMedia from "@/components/cover-media";
 import DateComponent from "@/components/date";
-import MorePosts from "@/components/more-posts";
+import MoreContent from "@/components/more-content";
 import PortableText from "@/components/portable-text";
 
 import type { CourseSlugsResult, CourseQueryResult } from "@/sanity.types";
@@ -88,6 +88,7 @@ export default async function CoursePage({ params }: Props) {
                 {course.author.map((a) => (
                   <Avatar
                     key={a._id}
+                    href={`/author/${a?.slug?.current}`}
                     name={a.title}
                     coverImage={a?.coverImage}
                   />
@@ -114,6 +115,7 @@ export default async function CoursePage({ params }: Props) {
                   {course.author.map((a) => (
                     <Avatar
                       key={a._id}
+                      href={`/author/${a?.slug?.current}`}
                       name={a.title}
                       coverImage={a?.coverImage}
                     />
@@ -139,7 +141,7 @@ export default async function CoursePage({ params }: Props) {
       <aside>
         <MoreHeader title="Recent Courses" href="/courses/page/1" />
         <Suspense>
-          <MorePosts type={course._type} skip={course._id} limit={2} />
+          <MoreContent type={course._type} skip={course._id} limit={2} />
         </Suspense>
       </aside>
     </div>

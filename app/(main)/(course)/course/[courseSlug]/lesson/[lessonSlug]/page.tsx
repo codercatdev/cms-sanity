@@ -12,7 +12,7 @@ import { lessonQuery, lessonsInCourseQuery } from "@/sanity/lib/queries";
 import { resolveOpenGraphImage } from "@/sanity/lib/utils";
 import Lessons from "../../lessons";
 import LessonPanel from "./lesson-panel";
-import MorePosts from "@/components/more-posts";
+import MoreContent from "@/components/more-content";
 import { cookies } from "next/headers";
 import MoreHeader from "@/components/more-header";
 
@@ -82,7 +82,7 @@ export default async function LessonPage({ params }: Props) {
       <aside>
         <MoreHeader title="Recent Courses" href="/courses/page/1" />
         <Suspense>
-          <MorePosts type="course" skip={lesson._id} limit={2} />
+          <MoreContent type="course" skip={lesson._id} limit={2} />
         </Suspense>
       </aside>
     </div>

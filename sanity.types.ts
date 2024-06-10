@@ -3056,6 +3056,146 @@ export type LessonQueryResult = {
   youtube: string | null;
   locked: boolean | null;
 } | null;
+// Variable: authorsQuery
+// Query: *[_type == "author" && defined(slug.current)] | order(title) [0] {    _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(date, _createdAt)}
+export type AuthorsQueryResult = {
+  _id: string;
+  _type: "author";
+  status: "draft" | "published";
+  title: string | "Untitled";
+  slug: string | null;
+  excerpt: string | null;
+  coverImage: CloudinaryAsset | null;
+  date: string;
+} | null;
+// Variable: moreAuthorQuery
+// Query: *[_type == "author" && _id != $skip && defined(slug.current)] | order(title) [$offset...$limit] {    _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(date, _createdAt)}
+export type MoreAuthorQueryResult = Array<{
+  _id: string;
+  _type: "author";
+  status: "draft" | "published";
+  title: string | "Untitled";
+  slug: string | null;
+  excerpt: string | null;
+  coverImage: CloudinaryAsset | null;
+  date: string;
+}>;
+// Variable: authorQuery
+// Query: *[_type == "author" && slug.current == $slug] [0] {    _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(date, _createdAt),    content,  author[]->{    ...,    "title": coalesce(title, "Anonymous"),  },  devto,  hashnode,  sponsor[]->{    ...,    "title": coalesce(title, "Anonymous"),  },  tags,  videoCloudinary,  youtube,    socials,  websites}
+export type AuthorQueryResult = {
+  _id: string;
+  _type: "author";
+  status: "draft" | "published";
+  title: string | "Untitled";
+  slug: string | null;
+  excerpt: string | null;
+  coverImage: CloudinaryAsset | null;
+  date: string;
+  content: Array<({
+    _key: string;
+  } & CloudinaryAsset) | ({
+    _key: string;
+  } & Code) | {
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+    listItem?: "bullet" | "number";
+    markDefs?: Array<{
+      href?: string;
+      blank?: boolean;
+      _type: "link";
+      _key: string;
+    } | {
+      reference?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "course";
+      } | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "page";
+      } | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "podcast";
+      } | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "post";
+      };
+      _type: "internalLink";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  } | {
+    url?: string;
+    _type: "codepen";
+    _key: string;
+  } | {
+    url?: string;
+    _type: "codesandbox";
+    _key: string;
+  }> | null;
+  author: null;
+  devto: null;
+  hashnode: null;
+  sponsor: null;
+  tags: null;
+  videoCloudinary: null;
+  youtube: null;
+  socials: {
+    codepen?: string;
+    devto?: string;
+    discord?: string;
+    dribble?: string;
+    facebook?: string;
+    github?: string;
+    instagram?: string;
+    lastfm?: string;
+    linkedin?: string;
+    email?: string;
+    mastodon?: string;
+    medium?: string;
+    polywork?: string;
+    stackoverflow?: string;
+    substack?: string;
+    tiktok?: string;
+    twitch?: string;
+    twitter?: string;
+    youtube?: string;
+  } | null;
+  websites: Array<{
+    site?: string;
+    link?: {
+      href?: string;
+      blank?: boolean;
+    };
+    _type: "site";
+    _key: string;
+  }> | null;
+} | null;
+// Source: ./app/(main)/(author)/author/[slug]/page.tsx
+// Variable: authorSlugs
+// Query: *[_type == "author"]{slug}
+export type AuthorSlugsResult = Array<{
+  slug: Slug | null;
+}>;
+// Source: ./app/(main)/(podcast)/podcast/[slug]/page.tsx
+// Variable: podcastSlugs
+// Query: *[_type == "podcast"]{slug}
+export type PodcastSlugsResult = Array<{
+  slug: Slug | null;
+}>;
 // Source: ./app/(main)/(course)/course/[courseSlug]/page.tsx
 // Variable: courseSlugs
 // Query: *[_type == "course"]{slug}
@@ -3066,11 +3206,5 @@ export type CourseSlugsResult = Array<{
 // Variable: postSlugs
 // Query: *[_type == "post"]{slug}
 export type PostSlugsResult = Array<{
-  slug: Slug | null;
-}>;
-// Source: ./app/(main)/(podcast)/podcast/[slug]/page.tsx
-// Variable: podcastSlugs
-// Query: *[_type == "podcast"]{slug}
-export type PodcastSlugsResult = Array<{
   slug: Slug | null;
 }>;

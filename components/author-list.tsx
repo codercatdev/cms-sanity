@@ -10,7 +10,12 @@ export default function AuthorList({
   return (
     <div className="flex gap-8">
       {author.map((a) => (
-        <Avatar key={a._id} name={a.title} coverImage={a?.coverImage} />
+        <Avatar
+          key={a._id}
+          href={`/author/${a?.slug?.current}`}
+          name={a.title}
+          coverImage={a?.coverImage}
+        />
       ))}
     </div>
   );

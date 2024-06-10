@@ -5,7 +5,7 @@ import { Suspense } from "react";
 
 import AvatarList from "@/components/author-list";
 import DateComponent from "@/components/date";
-import MorePosts from "@/components/more-posts";
+import MoreContent from "@/components/more-content";
 import PortableText from "@/components/portable-text";
 
 import type { PodcastQueryResult, PodcastSlugsResult } from "@/sanity.types";
@@ -119,7 +119,7 @@ export default async function PodcastPage({ params }: Props) {
       <aside>
         <MoreHeader title="Recent Podcasts" href="/podcasts/page/1" />
         <Suspense>
-          <MorePosts type={podcast._type} skip={podcast._id} limit={2} />
+          <MoreContent type={podcast._type} skip={podcast._id} limit={2} />
         </Suspense>
       </aside>
     </div>

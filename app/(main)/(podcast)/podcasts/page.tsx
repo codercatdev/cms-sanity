@@ -4,7 +4,7 @@ import { Suspense } from "react";
 import Avatar from "@/components/avatar";
 import CoverImage from "@/components/cover-image";
 import DateComponent from "@/components/date";
-import MorePosts from "@/components/more-posts";
+import MoreContent from "@/components/more-content";
 import Onboarding from "@/components/onboarding";
 
 import type { PodcastsQueryResult } from "@/sanity.types";
@@ -50,7 +50,12 @@ function HeroPodcast({
           {author && (
             <div className="flex">
               {author.map((a) => (
-                <Avatar key={a._id} name={a.title} coverImage={a?.coverImage} />
+                <Avatar
+                  key={a._id}
+                  href={`/author/${a?.slug?.current}`}
+                  name={a.title}
+                  coverImage={a?.coverImage}
+                />
               ))}
             </div>
           )}
@@ -82,7 +87,7 @@ export default async function Page() {
         <aside>
           <MoreHeader title="Latest Podcasts" href="/podcasts/page/1" />
           <Suspense fallback={<p>Loading feed...</p>}>
-            <MorePosts type={heroPost._type} skip={heroPost._id} limit={4} />
+            <MoreContent type={heroPost._type} skip={heroPost._id} limit={4} />
           </Suspense>
         </aside>
       )}

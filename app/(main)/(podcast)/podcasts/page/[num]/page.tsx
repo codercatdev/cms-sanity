@@ -1,4 +1,4 @@
-import MorePosts from "@/components/more-posts";
+import MoreContent from "@/components/more-content";
 import { DocCountResult } from "@/sanity.types";
 import { sanityFetch } from "@/sanity/lib/fetch";
 
@@ -43,7 +43,7 @@ export default async function Page({ params }: Props) {
 
   return (
     <div className="container px-5 mx-auto mb-32">
-      <MorePosts type="podcast" limit={limit} offset={offset} />
+      <MoreContent type="podcast" limit={limit} offset={offset} />
       <PaginateList
         base="podcasts"
         num={Number(num)}

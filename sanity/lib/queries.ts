@@ -4,6 +4,8 @@ export const docCount = groq`count(*[_type == $type])`;
 
 export const settingsQuery = groq`*[_type == "settings"][0]`;
 
+// Partials
+
 const baseFieldsNoContent = `
   _id,
   _type,
@@ -57,6 +59,11 @@ const podcastFields = `
 const lessonFields = `
   locked,
   videoCloudinary
+`;
+
+const userFields = `
+  socials,
+  websites
 `;
 
 // Post
@@ -148,4 +155,20 @@ export const lessonQuery = groq`*[_type == "lesson" && slug.current == $lessonSl
   ${baseFieldsNoContent},
   ${contentFields},
   ${lessonFields}
+}`;
+
+// Author
+
+export const authorsQuery = groq`*[_type == "author" && defined(slug.current)] | order(title) [0] {
+  ${baseFieldsNoContent}
+}`;
+
+export const moreAuthorQuery = groq`*[_type == "author" && _id != $skip && defined(slug.current)] | order(title) [$offset...$limit] {
+  ${baseFieldsNoContent}
+}`;
+
+export const authorQuery = groq`*[_type == "author" && slug.current == $slug] [0] {
+  ${baseFieldsNoContent},
+  ${contentFields},
+  ${userFields}
 }`;

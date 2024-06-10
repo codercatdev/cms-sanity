@@ -1,20 +1,20 @@
-import { NonNull } from "@/lib/types";
-import { PodcastQueryResult } from "@/sanity.types";
-import { Button } from "./ui/button";
+import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
 export default function MoreHeader({
   title,
   href,
   text = "View More",
+  showHr = true,
 }: {
   title: string;
   href: string;
   text?: string;
+  showHr?: boolean;
 }) {
   return (
     <>
-      <hr className="mb-24 border-accent-2 mt-28" />
+      {showHr && <hr className="mb-24 border-accent-2 mt-28" />}
 
       <div className="flex flex-col md:flex-row md:justify-between">
         <h2 className="mb-8 text-6xl font-bold leading-tight tracking-tighter md:text-7xl">

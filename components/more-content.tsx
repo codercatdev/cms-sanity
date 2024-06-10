@@ -3,6 +3,7 @@ import Link from "next/link";
 import Avatar from "@/components/avatar";
 import CoverImage from "@/components/cover-image";
 import DateComponent from "@/components/date";
+import { Button } from "@/components/ui/button";
 
 import type { MorePostQueryResult } from "@/sanity.types";
 import { sanityFetch } from "@/sanity/lib/fetch";
@@ -10,22 +11,29 @@ import {
   morePodcastQuery,
   morePostQuery,
   moreCourseQuery,
+  moreAuthorQuery,
 } from "@/sanity/lib/queries";
 
-export default async function MorePosts(params: {
+export default async function MoreContent(params: {
   type: string;
   skip?: string;
   limit?: number;
   offset?: number;
+  showMore?: {
+    href: string;
+    text: string;
+  };
 }) {
   const whichQuery = () => {
     switch (params.type) {
-      case "post":
-        return morePostQuery;
-      case "podcast":
-        return morePodcastQuery;
+      case "author":
+        return moreAuthorQuery;
       case "course":
         return moreCourseQuery;
+      case "podcast":
+        return morePodcastQuery;
+      case "post":
+        return morePostQuery;
       default:
         return morePostQuery;
     }
@@ -70,15 +78,24 @@ export default async function MorePosts(params: {
                     <Avatar
                       key={a._id}
                       name={a.title}
+                      href={`/author/${a?.slug?.current}`}
                       coverImage={a?.coverImage}
                     />
                   ))}
                 </div>
-              )}{" "}
+              )}
             </article>
           );
         })}
       </div>
+      {params?.showMore && params?.showMore.href && (
+        <Button
+          asChild
+          className="mb-8 text-3xl font-bold md:text-4xl p-2 md:p-8"
+        >
+          <Link href={params?.showMore?.href}>{params?.showMore?.text}</Link>
+        </Button>
+      )}
     </>
   );
 }

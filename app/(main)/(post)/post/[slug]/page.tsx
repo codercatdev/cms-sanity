@@ -5,7 +5,7 @@ import { Suspense } from "react";
 
 import Avatar from "@/components/avatar";
 import DateComponent from "@/components/date";
-import MorePosts from "@/components/more-posts";
+import MoreContent from "@/components/more-content";
 import PortableText from "@/components/portable-text";
 
 import type { PostQueryResult, PostSlugsResult } from "@/sanity.types";
@@ -85,6 +85,7 @@ export default async function PostPage({ params }: Props) {
                   <Avatar
                     key={a._id}
                     name={a.title}
+                    href={`/author/${a?.slug?.current}`}
                     coverImage={a?.coverImage}
                   />
                 ))}
@@ -111,6 +112,7 @@ export default async function PostPage({ params }: Props) {
                     <Avatar
                       key={a._id}
                       name={a.title}
+                      href={`/author/${a?.slug?.current}`}
                       coverImage={a?.coverImage}
                     />
                   ))}
@@ -132,7 +134,7 @@ export default async function PostPage({ params }: Props) {
       <aside>
         <MoreHeader title="Recent Posts" href="/blog/page/1" />
         <Suspense>
-          <MorePosts type={post._type} skip={post._id} limit={2} />
+          <MoreContent type={post._type} skip={post._id} limit={2} />
         </Suspense>
       </aside>
     </div>

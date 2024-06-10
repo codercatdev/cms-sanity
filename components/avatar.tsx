@@ -3,17 +3,19 @@
 import { CldImage } from "next-cloudinary";
 import { stegaClean } from "@sanity/client/stega";
 import type { Author } from "@/sanity.types";
+import Link from "next/link";
 
 interface Props {
   name: string;
+  href: string;
   coverImage: Exclude<Author["coverImage"], undefined> | undefined;
 }
 
-export default function Avatar({ name, coverImage }: Props) {
+export default function Avatar({ name, href, coverImage }: Props) {
   const source = stegaClean(coverImage);
 
   return (
-    <div className="flex items-center text-xl">
+    <Link className="flex items-center text-xl" href={href}>
       {source?.public_id ? (
         <div className="w-12 h-12 mr-4">
           <CldImage
@@ -33,7 +35,9 @@ export default function Avatar({ name, coverImage }: Props) {
       ) : (
         <div className="mr-1">By </div>
       )}
-      <div className="text-xl font-bold text-pretty">{name}</div>
-    </div>
+      <div className="text-xl font-bold text-pretty hover:underline">
+        {name}
+      </div>
+    </Link>
   );
 }
