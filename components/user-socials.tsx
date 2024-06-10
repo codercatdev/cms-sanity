@@ -37,55 +37,123 @@ export default function UserSocials({
   const renderIcon = (icon: string) => {
     switch (icon) {
       case "codepen":
-        return <FaCodepen />;
+        return (
+          <>
+            <FaCodepen /> <span className="sr-only">Codepen</span>
+          </>
+        );
 
       case "devto":
-        return <FaDev />;
+        return (
+          <>
+            <FaDev /> <span className="sr-only">Dev.to</span>
+          </>
+        );
 
       case "discord":
-        return <FaDiscord />;
+        return (
+          <>
+            <FaDiscord /> <span className="sr-only">Discord</span>
+          </>
+        );
 
       case "dribble":
-        return <Dribble />;
+        return (
+          <>
+            <Dribble /> <span className="sr-only">Dribble</span>
+          </>
+        );
 
       case "facebook":
-        return <FaFacebook />;
+        return (
+          <>
+            <FaFacebook /> <span className="sr-only">Facebook</span>
+          </>
+        );
 
       case "github":
-        return <FaGithub />;
+        return (
+          <>
+            <FaGithub /> <span className="sr-only">GitHub</span>
+          </>
+        );
 
       case "instagram":
-        return <FaInstagram />;
+        return (
+          <>
+            <FaInstagram /> <span className="sr-only">Instagram</span>
+          </>
+        );
 
       case "lastfm":
-        return <FaLastfm />;
+        return (
+          <>
+            <FaLastfm /> <span className="sr-only">Last.fm</span>
+          </>
+        );
 
       case "linkedin":
-        return <FaLinkedin />;
+        return (
+          <>
+            <FaLinkedin /> <span className="sr-only">LinkedIn</span>
+          </>
+        );
 
       case "mastodon":
-        return <FaMastodon />;
+        return (
+          <>
+            <FaMastodon /> <span className="sr-only">Mastodon</span>
+          </>
+        );
 
       case "medium":
-        return <FaMedium />;
+        return (
+          <>
+            <FaMedium /> <span className="sr-only">Medium</span>
+          </>
+        );
 
       case "stackoverflow":
-        return <FaStackOverflow />;
+        return (
+          <>
+            <FaStackOverflow /> <span className="sr-only">Stack Overflow</span>
+          </>
+        );
 
       case "substack":
-        return <BsSubstack />;
+        return (
+          <>
+            <BsSubstack /> <span className="sr-only">Substack</span>
+          </>
+        );
 
       case "tiktok":
-        return <FaTiktok />;
+        return (
+          <>
+            <FaTiktok /> <span className="sr-only">TikTok</span>
+          </>
+        );
 
       case "twitch":
-        return <FaTwitch />;
+        return (
+          <>
+            <FaTwitch /> <span className="sr-only">Twitch</span>
+          </>
+        );
 
       case "twitter":
-        return <FaSquareXTwitter />;
+        return (
+          <>
+            <FaSquareXTwitter /> <span className="sr-only">X (Twitter)</span>
+          </>
+        );
 
       case "youtube":
-        return <FaYoutube />;
+        return (
+          <>
+            <FaYoutube /> <span className="sr-only">YouTube</span>
+          </>
+        );
     }
   };
 

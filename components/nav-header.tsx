@@ -7,9 +7,10 @@ import { useActivePath } from "@/lib/hooks";
 
 interface Props {
   navLinks: Exclude<Settings["navLinks"], undefined> | undefined;
+  className?: string;
 }
 
-export default function NavHeader({ navLinks }: Props) {
+export default function NavHeader({ navLinks, className }: Props) {
   const checkActivePath = useActivePath();
 
   return (
@@ -17,7 +18,7 @@ export default function NavHeader({ navLinks }: Props) {
       {navLinks?.map((l) => (
         <Link
           key={l._key}
-          className={`${checkActivePath(l.path) ? "underline decoration-primary" : ""}`}
+          className={`${className || ""} ${checkActivePath(l.path) ? "underline decoration-primary" : ""}`}
           href={l?.path || "/"}
         >
           {l.title}

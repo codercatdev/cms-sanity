@@ -80,6 +80,13 @@ const userRelated = `
   }
 `;
 
+// Pages
+
+export const pageQuery = groq`*[_type == "page" && slug.current == $slug] [0] {
+  ${baseFieldsNoContent},
+  ${contentFields}
+}`;
+
 // Post
 
 export const blogQuery = groq`*[_type == "post" && defined(slug.current)] | order(date desc, _updatedAt desc) [0] {

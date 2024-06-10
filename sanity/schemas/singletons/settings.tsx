@@ -50,34 +50,6 @@ export default defineType({
       ],
     }),
     defineField({
-      name: "footer",
-      description:
-        "This is a block of text that will be displayed at the bottom of the page.",
-      title: "Footer Info",
-      type: "array",
-      of: [
-        defineArrayMember({
-          type: "block",
-          marks: {
-            annotations: [
-              {
-                name: "link",
-                type: "object",
-                title: "Link",
-                fields: [
-                  {
-                    name: "href",
-                    type: "url",
-                    title: "Url",
-                  },
-                ],
-              },
-            ],
-          },
-        }),
-      ],
-    }),
-    defineField({
       name: "navLinks",
       description:
         "This is an array of links that will be displayed at the top of the page.",
@@ -98,46 +70,6 @@ export default defineType({
               type: "string",
               title: "Link Path",
               initialValue: "/",
-              validation: (rule) => rule.required(),
-            },
-          ],
-        }),
-      ],
-    }),
-    defineField({
-      name: "socialLinks",
-      description: "This is an array of socials that will appear in the footer",
-      title: "Socials",
-      type: "array",
-      of: [
-        defineArrayMember({
-          type: "object",
-          preview: {
-            select: {
-              icon: "icon",
-              href: "href",
-            },
-            prepare({ icon, href }) {
-              return {
-                title: href,
-                media: () => <SVG src={icon.svg} />,
-              };
-            },
-          },
-          fields: [
-            {
-              name: "href",
-              type: "url",
-              title: "Url",
-              validation: (rule) => rule.required(),
-            },
-            {
-              name: "icon",
-              type: "iconPicker",
-              title: "Icon",
-              options: {
-                storeSvg: true,
-              },
               validation: (rule) => rule.required(),
             },
           ],
