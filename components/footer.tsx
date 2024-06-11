@@ -15,7 +15,7 @@ export default async function Footer() {
         <p className="text-xs text-gray-500 dark:text-gray-400">
           &copy; {new Date().getFullYear()} CodingCat.dev. All rights reserved.
         </p>
-        <nav className="flex gap-4 sm:gap-6">
+        <nav className="flex flex-wrap items-center justify-center gap-4 sm:gap-6">
           <NavLink
             href="/ftc-disclosure"
             className="text-xs hover:underline underline-offset-4"
@@ -36,6 +36,13 @@ export default async function Footer() {
             prefetch={false}
           >
             Privacy Policy
+          </NavLink>
+          <NavLink
+            href="/sponsorships"
+            className="text-xs hover:underline underline-offset-4"
+            prefetch={false}
+          >
+            Sponsorships
           </NavLink>
         </nav>
       </div>
@@ -80,6 +87,8 @@ export default async function Footer() {
           <FaYoutube />
           <span className="sr-only">YouTube</span>
         </NavLink>
+      </div>
+      <div className="flex items-center gap-4">
         <div className="flex-1 max-w-[300px]">
           <form className="flex space-x-2">
             <Input
