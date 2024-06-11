@@ -18,7 +18,20 @@ const baseFieldsNoContent = `
 `;
 
 const contentFields = `
-  content,
+  content[]{
+    ...,
+    markDefs[]{
+      ...,
+      _type == "internalLink" => {
+        @.reference->_type == "page" => {
+          "href": "/" + @.reference->slug.current
+        },
+        @.reference->_type != "page" => {
+          "href": "/" + @.reference->_type + "/" + @.reference->slug.current
+        }
+      },
+    }
+  },
   author[]->{
     ...,
     "title": coalesce(title, "Anonymous"),

@@ -16,6 +16,7 @@ import {
 
 import BlockImage from "@/components/block-image";
 import BlockCode from "@/components/block-code";
+import Link from "next/link";
 
 export default function CustomPortableText({
   className,
@@ -41,10 +42,13 @@ export default function CustomPortableText({
     marks: {
       link: ({ children, value }) => {
         return (
-          <a href={value?.href} rel="noreferrer noopener">
+          <Link href={value?.href} rel="noreferrer noopener" target="_blank">
             {children}
-          </a>
+          </Link>
         );
+      },
+      internalLink: ({ children, value }) => {
+        return <Link href={value?.href}>{children}</Link>;
       },
     },
   };
