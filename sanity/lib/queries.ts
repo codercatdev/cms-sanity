@@ -35,12 +35,14 @@ const contentFields = `
   author[]->{
     ...,
     "title": coalesce(title, "Anonymous"),
+    "slug": slug.current,
   },
   devto,
   hashnode,
   sponsor[]->{
     ...,
     "title": coalesce(title, "Anonymous"),
+    "slug": slug.current,
   },
   tags,
   videoCloudinary,

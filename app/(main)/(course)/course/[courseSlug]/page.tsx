@@ -88,7 +88,7 @@ export default async function CoursePage({ params }: Props) {
                 {course.author.map((a) => (
                   <Avatar
                     key={a._id}
-                    href={`/author/${a?.slug?.current}`}
+                    href={`/author/${a?.slug}`}
                     name={a.title}
                     coverImage={a?.coverImage}
                   />
@@ -115,7 +115,7 @@ export default async function CoursePage({ params }: Props) {
                   {course.author.map((a) => (
                     <Avatar
                       key={a._id}
-                      href={`/author/${a?.slug?.current}`}
+                      href={`/author/${a?.slug}`}
                       name={a.title}
                       coverImage={a?.coverImage}
                     />

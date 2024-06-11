@@ -15,6 +15,7 @@ import { resolveOpenGraphImage } from "@/sanity/lib/utils";
 import CoverMedia from "@/components/cover-media";
 import MoreHeader from "@/components/more-header";
 import { BreadcrumbLinks } from "@/components/breadrumb-links";
+import SponsorCard from "@/components/sponsor-card";
 
 type Props = {
   params: { slug: string };
@@ -109,7 +110,16 @@ export default async function PodcastPage({ params }: Props) {
             </div>
           </div>
         </div>
-        {podcast.content?.length && (
+        {podcast?.sponsor?.length && (
+          <section className="flex flex-col mx-auto max-w-[100ch]">
+            <h2 className="mb-4 text-2xl font-bold">Sponsors</h2>
+            <hr className="mb-10 border-accent-2 mt-10" />
+            <div className="my-12 ">
+              <SponsorCard sponsors={podcast.sponsor} />
+            </div>
+          </section>
+        )}
+        {podcast?.content?.length && (
           <PortableText
             className="mx-auto prose-violet lg:prose-xl dark:prose-invert"
             value={podcast.content as PortableTextBlock[]}

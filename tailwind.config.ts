@@ -113,6 +113,7 @@ const config = {
             "--tw-prose-invert-pre-bg": "rgb(0 0 0 / 50%)",
             "--tw-prose-invert-th-borders": theme("colors.zinc[600]"),
             "--tw-prose-invert-td-borders": theme("colors.zinc[700]"),
+            maxWidth: "100ch",
           },
         },
       }),

@@ -12,7 +12,7 @@ export default function AuthorList({
       {author.map((a) => (
         <Avatar
           key={a._id}
-          href={`/author/${a?.slug?.current}`}
+          href={`/author/${a?.slug}`}
           name={a.title}
           coverImage={a?.coverImage}
         />

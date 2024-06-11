@@ -26,7 +26,7 @@ export default async function CoverImage(props: CoverImageProps) {
     const dataUrl = `data:${response.type};base64,${base64}`;
     image = (
       <CloudinaryImage
-        className="w-full h-auto"
+        className="w-full h-auto aspect-video"
         width={1920}
         height={1080}
         priority={priority}
