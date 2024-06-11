@@ -1,6 +1,4 @@
 import { CloudinaryAsset } from "@/sanity.types";
-import CloudinaryVideo from "@/components/cloudinary-video";
-import { stegaClean } from "@sanity/client/stega";
 import { YouTube } from "@/components/youtube";
 import CoverImage from "@/components/cover-image";
 import CoverVideo from "@/components/cover-video";
