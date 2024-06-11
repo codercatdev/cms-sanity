@@ -6818,6 +6818,13 @@
                   "type": "string"
                 },
                 "optional": true
+              },
+              "sideOnly": {
+                "type": "objectAttribute",
+                "value": {
+                  "type": "boolean"
+                },
+                "optional": true
               }
             },
             "rest": {

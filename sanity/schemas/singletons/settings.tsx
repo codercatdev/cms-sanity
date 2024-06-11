@@ -72,6 +72,11 @@ export default defineType({
               initialValue: "/",
               validation: (rule) => rule.required(),
             },
+            {
+              name: "sideOnly",
+              type: "boolean",
+              title: "Show on Side Drawer Only",
+            },
           ],
         }),
       ],
