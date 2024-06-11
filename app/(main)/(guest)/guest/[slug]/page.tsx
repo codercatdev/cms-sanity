@@ -17,6 +17,7 @@ import { BreadcrumbLinks } from "@/components/breadrumb-links";
 
 import UserSocials from "@/components/user-socials";
 import UserRelated from "@/components/user-related";
+import Avatar from "@/components/avatar";
 
 type Props = {
   params: { slug: string };
@@ -70,19 +71,22 @@ export default async function GuestPage({ params }: Props) {
     <div className="container px-5 mx-auto">
       <BreadcrumbLinks
         links={[
-          { title: " Guests", href: "/ guests/page/1" },
+          { title: "Guests", href: "/guests/page/1" },
           { title: guest.title },
         ]}
       />
       <div className="w-full flex flex-col gap-4 md:gap-8">
         <div className="flex gap-2 md:gap-8">
-          <div>
-            <CoverMedia
-              cloudinaryImage={guest?.coverImage}
-              cloudinaryVideo={guest?.videoCloudinary}
-              youtube={guest?.youtube}
-            />
-          </div>
+          {guest?.coverImage && (
+            <div>
+              <Avatar
+                coverImage={guest?.coverImage}
+                imgSize="w-24 h-24 mr-4"
+                height={96}
+                width={96}
+              />
+            </div>
+          )}
           <div className="flex flex-col gap-2 md:gap-">
             <h1 className="text-xl font-bold leading-tight tracking-tighter text-balance md:text-2xl md:leading-none lg:text-4xl">
               {guest.title}

@@ -80,7 +80,17 @@ export default async function MoreContent(params: {
           return (
             <article key={_id}>
               <Link href={`/${_type}/${slug}`} className="block mb-5 group">
-                <CoverImage image={coverImage} priority={false} />
+                {["author", "guest"].includes(_type) && coverImage ? (
+                  <Avatar
+                    href={`/${_type}/${slug}`}
+                    coverImage={coverImage}
+                    imgSize=" w-full h-full"
+                    height={256}
+                    width={256}
+                  />
+                ) : (
+                  <CoverImage image={coverImage} priority={false} />
+                )}
               </Link>
               <h3 className="mb-3 text-3xl leading-snug text-balance">
                 <Link href={`/${_type}/${slug}`} className="hover:underline">
