@@ -21,9 +21,10 @@ function HeroPodcast({
   coverImage,
   date,
   author,
+  guest,
 }: Pick<
   Exclude<PodcastsQueryResult, null>,
-  "title" | "coverImage" | "date" | "excerpt" | "author" | "slug"
+  "title" | "coverImage" | "date" | "excerpt" | "author" | "slug" | "guest"
 >) {
   return (
     <article>
@@ -47,13 +48,21 @@ function HeroPodcast({
               {excerpt}
             </p>
           )}
-          {author && (
-            <div className="flex">
-              {author.map((a) => (
+          {(author || guest) && (
+            <div className="flex flex-wrap gap-2">
+              {author?.map((a) => (
                 <Avatar
                   key={a._id}
-                  href={`/author/${a?.slug?.current}`}
                   name={a.title}
+                  href={`/author/${a?.slug}`}
+                  coverImage={a?.coverImage}
+                />
+              ))}
+              {guest?.map((a) => (
+                <Avatar
+                  key={a._id}
+                  name={a.title}
+                  href={`/guest/${a?.slug}`}
                   coverImage={a?.coverImage}
                 />
               ))}
@@ -79,6 +88,7 @@ export default async function Page() {
           excerpt={heroPost.excerpt}
           date={heroPost.date}
           author={heroPost.author}
+          guest={heroPost.guest}
         />
       ) : (
         <Onboarding />

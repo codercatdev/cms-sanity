@@ -60,6 +60,7 @@ const podcastFields = `
   guest[]->{
     ...,
     "title": coalesce(title, "Anonymous"),
+    "slug": slug.current,
   },
   pick[]{
     user[]->{
@@ -123,6 +124,7 @@ export const blogQuery = groq`*[_type == "post" && defined(slug.current)] | orde
   author[]->{
     ...,
     "title": coalesce(title, "Anonymous"),
+    "slug": slug.current,
   }
 }`;
 
@@ -131,6 +133,7 @@ export const morePostQuery = groq`*[_type == "post" && _id != $skip && defined(s
   author[]->{
     ...,
     "title": coalesce(title, "Anonymous"),
+    "slug": slug.current,
   }
 }`;
 
@@ -146,6 +149,12 @@ export const podcastsQuery = groq`*[_type == "podcast" && defined(slug.current)]
   author[]->{
     ...,
     "title": coalesce(title, "Anonymous"),
+    "slug": slug.current,
+  },
+  guest[]->{
+    ...,
+    "title": coalesce(title, "Anonymous"),
+    "slug": slug.current,
   }
 }`;
 
@@ -154,10 +163,12 @@ export const morePodcastQuery = groq`*[_type == "podcast" && _id != $skip && def
   author[]->{
     ...,
     "title": coalesce(title, "Anonymous"),
+    "slug": slug.current,
   },
   guest[]->{
     ...,
     "title": coalesce(title, "Anonymous"),
+    "slug": slug.current,
   }
 }`;
 
@@ -174,6 +185,7 @@ export const coursesQuery = groq`*[_type == "course" && defined(slug.current)] |
   author[]->{
     ...,
     "title": coalesce(title, "Anonymous"),
+    "slug": slug.current,
   }
 }`;
 
@@ -182,6 +194,7 @@ export const moreCourseQuery = groq`*[_type == "course" && _id != $skip && defin
   author[]->{
     ...,
     "title": coalesce(title, "Anonymous"),
+    "slug": slug.current,
   }
 }`;
 

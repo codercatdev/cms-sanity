@@ -103,7 +103,7 @@ export default async function MoreContent(params: {
                     <Avatar
                       key={a._id}
                       name={a.title}
-                      href={`/author/${a?.slug?.current}`}
+                      href={`/author/${a?.slug}`}
                       coverImage={a?.coverImage}
                     />
                   ))}
@@ -111,7 +111,7 @@ export default async function MoreContent(params: {
                     <Avatar
                       key={a._id}
                       name={a.title}
-                      href={`/author/${a?.slug?.current}`}
+                      href={`/guest/${a?.slug}`}
                       coverImage={a?.coverImage}
                     />
                   ))}

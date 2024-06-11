@@ -3,7 +3,6 @@ import { groq, type PortableTextBlock } from "next-sanity";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 
-import AvatarList from "@/components/author-list";
 import DateComponent from "@/components/date";
 import MoreContent from "@/components/more-content";
 import PortableText from "@/components/portable-text";
@@ -16,6 +15,7 @@ import CoverMedia from "@/components/cover-media";
 import MoreHeader from "@/components/more-header";
 import { BreadcrumbLinks } from "@/components/breadrumb-links";
 import SponsorCard from "@/components/sponsor-card";
+import Avatar from "@/components/avatar";
 
 type Props = {
   params: { slug: string };
@@ -83,7 +83,26 @@ export default async function PodcastPage({ params }: Props) {
         </h1>
         <div className="hidden md:mb-12 md:block">
           <div className="flex flex-col gap-8">
-            {podcast?.author && <AvatarList author={podcast.author} />}
+            {(podcast?.author || podcast?.guest) && (
+              <div className="flex flex-wrap gap-2">
+                {podcast?.author?.map((a) => (
+                  <Avatar
+                    key={a._id}
+                    name={a.title}
+                    href={`/author/${a?.slug}`}
+                    coverImage={a?.coverImage}
+                  />
+                ))}
+                {podcast?.guest?.map((a) => (
+                  <Avatar
+                    key={a._id}
+                    name={a.title}
+                    href={`/guest/${a?.slug}`}
+                    coverImage={a?.coverImage}
+                  />
+                ))}
+              </div>
+            )}
             <div className="text-lg">
               <DateComponent dateString={podcast.date} />
             </div>
@@ -99,9 +118,24 @@ export default async function PodcastPage({ params }: Props) {
         <div className="block md:hidden">
           <div className="max-w-2xl mx-auto">
             <div className="mb-6">
-              {podcast.author && (
-                <div className="flex">
-                  {podcast?.author && <AvatarList author={podcast.author} />}
+              {(podcast?.author || podcast?.guest) && (
+                <div className="flex flex-wrap gap-2">
+                  {podcast?.author?.map((a) => (
+                    <Avatar
+                      key={a._id}
+                      name={a.title}
+                      href={`/author/${a?.slug}`}
+                      coverImage={a?.coverImage}
+                    />
+                  ))}
+                  {podcast?.guest?.map((a) => (
+                    <Avatar
+                      key={a._id}
+                      name={a.title}
+                      href={`/guest/${a?.slug}`}
+                      coverImage={a?.coverImage}
+                    />
+                  ))}
                 </div>
               )}
             </div>
