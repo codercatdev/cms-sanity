@@ -4041,16 +4041,16 @@ export type SponsorQueryWithRelatedResult = {
 export type PageSlugsResult = Array<{
   slug: Slug | null;
 }>;
-// Source: ./app/(main)/(course)/course/[courseSlug]/page.tsx
-// Variable: courseSlugs
-// Query: *[_type == "course"]{slug}
-export type CourseSlugsResult = Array<{
-  slug: Slug | null;
-}>;
 // Source: ./app/(main)/(author)/author/[slug]/page.tsx
 // Variable: authorSlugs
 // Query: *[_type == "author"]{slug}
 export type AuthorSlugsResult = Array<{
+  slug: Slug | null;
+}>;
+// Source: ./app/(main)/(course)/course/[courseSlug]/page.tsx
+// Variable: courseSlugs
+// Query: *[_type == "course"]{slug}
+export type CourseSlugsResult = Array<{
   slug: Slug | null;
 }>;
 // Source: ./app/(main)/(guest)/guest/[slug]/page.tsx

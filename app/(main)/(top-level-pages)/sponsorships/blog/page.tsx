@@ -1,8 +1,5 @@
 import type { Metadata, ResolvingMetadata } from "next";
-import { type PortableTextBlock } from "next-sanity";
 import { notFound } from "next/navigation";
-
-import PortableText from "@/components/portable-text";
 
 import type { PageQueryResult } from "@/sanity.types";
 import { sanityFetch } from "@/sanity/lib/fetch";
@@ -13,7 +10,12 @@ import SponsorshipCards from "../sponsorship-cards";
 import SponsorshipForm from "../sponsorship-form";
 import AJPrimary from "@/components/icons/aj-primary";
 
+type Props = {
+  params: false;
+};
+
 export async function generateMetadata(
+  { params }: Props,
   parent: ResolvingMetadata
 ): Promise<Metadata> {
   const page = await sanityFetch<PageQueryResult>({
