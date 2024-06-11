@@ -18,9 +18,13 @@ export default function SponsorCard({
   return (
     <div className="p-4 grid gap-6 md:p-6 grid-flow-col auto-cols-[1fr]">
       {sponsors?.map((sponsor) => {
-        const { slug, _id, title, excerpt, coverImage } = sponsor;
+        const { slug, _id, title, excerpt, coverImage, url } = sponsor;
         return (
-          <Link href={`/sponsor/${slug}`} key={_id}>
+          <Link
+            href={url || `/sponsor/${slug}`}
+            key={_id}
+            target={url ? "_blank" : "_self"}
+          >
             <Card
               key={_id}
               className="overflow-hidden shadow-md transition-all hover:scale-[1.02] hover:shadow-lg relative flex flex-col"
