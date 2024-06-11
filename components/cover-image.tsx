@@ -6,10 +6,21 @@ import { getCldImageUrl } from "next-cloudinary";
 interface CoverImageProps {
   image: CloudinaryAsset | null | undefined;
   priority?: boolean;
+  className?: string;
+  width?: number;
+  height?: number;
+  quality?: number;
 }
 
 export default async function CoverImage(props: CoverImageProps) {
-  const { image: originalImage, priority } = props;
+  const {
+    image: originalImage,
+    priority,
+    className,
+    width,
+    height,
+    quality,
+  } = props;
 
   const source = stegaClean(originalImage);
 
@@ -26,10 +37,11 @@ export default async function CoverImage(props: CoverImageProps) {
     const dataUrl = `data:${response.type};base64,${base64}`;
     image = (
       <CloudinaryImage
-        className="w-full h-auto aspect-video"
-        width={1920}
-        height={1080}
+        className={className || "w-full h-auto aspect-video"}
+        width={width || 1920}
+        height={height || 1080}
         priority={priority}
+        quality={quality || "auto"}
         sizes="100vw"
         alt={source?.context?.custom?.alt || ""}
         src={source?.public_id}

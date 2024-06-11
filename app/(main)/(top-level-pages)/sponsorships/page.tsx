@@ -1,37 +1,25 @@
 import type { Metadata, ResolvingMetadata } from "next";
-import { groq, type PortableTextBlock } from "next-sanity";
+import { type PortableTextBlock } from "next-sanity";
 import { notFound } from "next/navigation";
 
 import PortableText from "@/components/portable-text";
 
-import type { PageQueryResult, PageSlugsResult } from "@/sanity.types";
+import type { PageQueryResult } from "@/sanity.types";
 import { sanityFetch } from "@/sanity/lib/fetch";
 import { pageQuery } from "@/sanity/lib/queries";
 import { resolveOpenGraphImage } from "@/sanity/lib/utils";
 import { BreadcrumbLinks } from "@/components/breadrumb-links";
-
-type Props = {
-  params: { slug: string };
-};
-
-const pageSlugs = groq`*[_type == "page"]{slug}`;
-
-export async function generateStaticParams() {
-  const params = await sanityFetch<PageSlugsResult>({
-    query: pageSlugs,
-    perspective: "published",
-    stega: false,
-  });
-  return params.map(({ slug }) => ({ slug: slug?.current }));
-}
+import CoverImage from "@/components/cover-image";
+import SponsorshipCards from "./sponsorship-cards";
 
 export async function generateMetadata(
-  { params }: Props,
   parent: ResolvingMetadata
 ): Promise<Metadata> {
   const page = await sanityFetch<PageQueryResult>({
     query: pageQuery,
-    params,
+    params: {
+      slug: "sponsorships",
+    },
     stega: false,
   });
   const previousImages = (await parent).openGraph?.images || [];
@@ -46,11 +34,13 @@ export async function generateMetadata(
   } satisfies Metadata;
 }
 
-export default async function PagePage({ params }: Props) {
+export default async function SponsorshipsPage() {
   const [page] = await Promise.all([
     sanityFetch<PageQueryResult>({
       query: pageQuery,
-      params,
+      params: {
+        slug: "sponsorships",
+      },
     }),
   ]);
 
@@ -66,6 +56,11 @@ export default async function PagePage({ params }: Props) {
           <h1 className="text-xl font-bold leading-tight tracking-tighter text-balance md:text-2xl md:leading-none lg:text-4xl">
             {page.title}
           </h1>
+        </div>
+        <div className="flex flex-col w-full gap-2 md:gap-8 max-w-7xl">
+          {page?.coverImage && <CoverImage image={page.coverImage} priority />}
+
+          <SponsorshipCards />
         </div>
         <article>
           {page.content?.length && (
