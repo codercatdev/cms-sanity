@@ -66,7 +66,12 @@ export default async function SponsorshipsPodcastPage() {
 
   return (
     <div className="container px-5 mx-auto">
-      <BreadcrumbLinks links={[{ title: page.title }]} />
+      <BreadcrumbLinks
+        links={[
+          { title: "Sponsorships", href: "/sponsorships" },
+          { title: page.title },
+        ]}
+      />
       <div className="w-full flex flex-col gap-4 md:gap-8 my-8 md:my-12">
         <section className="mx-auto prose-violet lg:prose-xl dark:prose-invert">
           <section className="grid grid-cols-1 gap-2 mx-2 md:mx-8 md:gap-8">

@@ -12,6 +12,8 @@ export default function SponsorshipForm() {
         method="POST"
         className="flex flex-col gap-2 card p-4 bg-muted/50"
       >
+        <h2 className="text-2xl font-bold">Sponsorship Request</h2>
+        <hr className="my-2" />
         <input
           type="hidden"
           name="access_key"
@@ -29,7 +31,7 @@ export default function SponsorshipForm() {
             className="px-2"
             type="text"
             name="name"
-            placeholder="Name"
+            placeholder="Alex"
             required
           />
         </label>
@@ -40,7 +42,7 @@ export default function SponsorshipForm() {
             className="px-2"
             type="email"
             name="email"
-            placeholder="Email"
+            placeholder="alex@example.com"
             required
           />
         </label>
