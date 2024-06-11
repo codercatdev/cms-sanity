@@ -16,6 +16,7 @@ import {
   moreCourseQuery,
   moreAuthorQuery,
   moreGuestQuery,
+  moreSponsorQuery,
 } from "@/sanity/lib/queries";
 import { ContentType } from "@/lib/types";
 import { pluralize } from "@/lib/utils";
@@ -37,6 +38,8 @@ export default async function MoreContent(params: {
         return moreGuestQuery;
       case ContentType.podcast:
         return morePodcastQuery;
+      case ContentType.sponsor:
+        return moreSponsorQuery;
       default:
         return morePostQuery;
     }

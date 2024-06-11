@@ -106,16 +106,16 @@ export default async function RootLayout({
 
                 <Sheet>
                   <SheetTrigger asChild>
-                    <Button className="sm:hidden" size="icon" variant="ghost">
+                    <Button className="md:hidden" size="icon" variant="ghost">
                       <MenuIcon className="w-6 h-6" />
                       <span className="sr-only">Toggle navigation menu</span>
                     </Button>
                   </SheetTrigger>
-                  <SheetContent side="left">
+                  <SheetContent side="right">
                     <nav className="py-6 grid gap-2">
                       <Link
                         className="flex items-center w-full py-2 text-lg font-semibold"
-                        href="#"
+                        href="/"
                       >
                         Home
                       </Link>

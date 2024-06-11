@@ -93,6 +93,20 @@ const userRelated = `
   }
 `;
 
+const sponsorRelated = `
+  "related":{
+    "course": *[_type == "course" && ^._id in sponsor[]._ref] | order(date desc) [] {
+      ${baseFieldsNoContent}
+    },
+    "podcast": *[_type == "podcast" && ^._id in sponsor[]._ref] | order(date desc) [] {
+      ${baseFieldsNoContent}
+    },
+    "post": *[_type == "post" && ^._id in sponsor[]._ref] | order(date desc) [] {
+      ${baseFieldsNoContent}
+    },
+  }
+`;
+
 // Pages
 
 export const pageQuery = groq`*[_type == "page" && slug.current == $slug] [0] {
@@ -197,10 +211,6 @@ export const lessonQuery = groq`*[_type == "lesson" && slug.current == $lessonSl
 
 // Author
 
-export const authorsQuery = groq`*[_type == "author" && defined(slug.current)] | order(title) [0] {
-  ${baseFieldsNoContent}
-}`;
-
 export const moreAuthorQuery = groq`*[_type == "author" && _id != $skip && defined(slug.current)] | order(title) [$offset...$limit] {
   ${baseFieldsNoContent}
 }`;
@@ -220,10 +230,6 @@ export const authorQueryWithRelated = groq`*[_type == "author" && slug.current =
 
 // Guest
 
-export const guestsQuery = groq`*[_type == "guest" && defined(slug.current)] | order(title) [0] {
-  ${baseFieldsNoContent}
-}`;
-
 export const moreGuestQuery = groq`*[_type == "guest" && _id != $skip && defined(slug.current)] | order(title) [$offset...$limit] {
   ${baseFieldsNoContent}
 }`;
@@ -239,4 +245,23 @@ export const guestQueryWithRelated = groq`*[_type == "guest" && slug.current == 
   ${contentFields},
   ${userFields},
   ${userRelated}
+}`;
+
+// Sponsor
+
+export const moreSponsorQuery = groq`*[_type == "sponsor" && _id != $skip && defined(slug.current)] | order(date desc) [$offset...$limit] {
+  ${baseFieldsNoContent}
+}`;
+
+export const sponsorQuery = groq`*[_type == "sponsor" && slug.current == $slug] [0] {
+  ${baseFieldsNoContent},
+  ${contentFields},
+  ${userFields}
+}`;
+
+export const sponsorQueryWithRelated = groq`*[_type == "sponsor" && slug.current == $slug] [0] {
+  ${baseFieldsNoContent},
+  ${contentFields},
+  ${userFields},
+  ${sponsorRelated}
 }`;

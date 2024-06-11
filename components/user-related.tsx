@@ -1,6 +1,6 @@
 import type {
   AuthorQueryWithRelatedResult,
-  GuestsQueryResult,
+  GuestQueryResult,
 } from "@/sanity.types";
 
 import Link from "next/link";
@@ -21,7 +21,7 @@ export default async function UserRelated(
 
   const contentLinks = (
     _type: string,
-    contents: NonNullable<GuestsQueryResult>[]
+    contents: NonNullable<GuestQueryResult>[]
   ) => {
     return (
       <div className="grid grid-cols-1 gap-y-20 md:grid-cols-2 md:gap-x-16 md:gap-y-32 lg:gap-x-32">
@@ -47,9 +47,9 @@ export default async function UserRelated(
   return (
     <aside>
       {Object.entries(related).map(
-        (r: [string, NonNullable<GuestsQueryResult>[]]) => {
+        (r: [string, NonNullable<GuestQueryResult>[]]) => {
           const _type = r.at(0) as string;
-          const contents = r.at(1) as NonNullable<GuestsQueryResult>[];
+          const contents = r.at(1) as NonNullable<GuestQueryResult>[];
           if (!contents.length) return <span key={_type} />;
           return (
             <section key={_type} className="flex flex-col">
