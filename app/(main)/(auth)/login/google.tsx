@@ -17,7 +17,8 @@ export default function GoogleAuth() {
   const login = async () => {
     try {
       await ccdSignInWithPopUp(provider);
-    } catch (err) {
+      window.location.reload();
+    } catch (err: any) {
       if (err instanceof FirebaseError) {
         if (err.code === "auth/account-exists-with-different-credential") {
           toast({
@@ -32,6 +33,10 @@ export default function GoogleAuth() {
           });
         }
       } else {
+        toast({
+          variant: "destructive",
+          description: JSON.stringify(err),
+        });
         console.error(err);
       }
     }

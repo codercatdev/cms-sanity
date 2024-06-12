@@ -31,6 +31,7 @@ import {
 } from "firebase/analytics";
 
 import { getStorage, type FirebaseStorage } from "firebase/storage";
+import { redirect } from "next/dist/server/api-utils";
 
 export const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FB_API_KEY,
@@ -66,7 +67,9 @@ if (
   // setPersistence(auth, browserSessionPersistence);
   firestore = initializeFirestore(app, { ignoreUndefinedProperties: true });
   functions = getFunctions(app);
-  analytics = getAnalytics(app);
+  if (typeof window !== "undefined") {
+    analytics = getAnalytics(app);
+  }
   storage = getStorage(app);
 } else {
   if (
@@ -87,16 +90,18 @@ const setCookies = async (idToken: string) => {
   document.cookie = "app.idt=" + idToken + ";max-age=3600";
 
   // Sets HttpOnly cookie app.csrf
-  await fetch("/api/auth/csrf");
+  const csrfResp = await fetch("/api/auth/csrf");
+  if (csrfResp.status !== 200) throw "Failed Fetch for CSRF";
 
   // Sets HttpOnly cookie app.at (aka session cookie)
-  await fetch("/api/auth/session", {
+  const sessionResp = await fetch("/api/auth/session", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ idToken }),
+    body: JSON.stringify({ idToken, redirectUrl: window.location.href }),
   });
+  if (sessionResp.status !== 200) throw "Failed Fetch for Session Token";
 };
 
 export const ccdSignInWithEmailAndPassword = async ({
@@ -108,7 +113,7 @@ export const ccdSignInWithEmailAndPassword = async ({
 }) => {
   const userResponse = await signInWithEmailAndPassword(auth, email, password);
   const idToken = await userResponse.user.getIdToken();
-  setCookies(idToken);
+  await setCookies(idToken);
 };
 
 export const ccdSignUpWithEmailAndPassword = async ({
@@ -124,7 +129,7 @@ export const ccdSignUpWithEmailAndPassword = async ({
     password
   );
   const idToken = await userCredential.user.getIdToken();
-  setCookies(idToken);
+  await setCookies(idToken);
 };
 
 export const ccdSignInWithPopUp = async (provider: AuthProvider) => {
@@ -132,7 +137,7 @@ export const ccdSignInWithPopUp = async (provider: AuthProvider) => {
   const idToken = await result.user.getIdToken();
 
   if (!idToken) throw "Missing id Token";
-  setCookies(idToken);
+  await setCookies(idToken);
 };
 
 /* DB */

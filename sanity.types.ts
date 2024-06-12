@@ -4065,15 +4065,15 @@ export type GuestSlugsResult = Array<{
 export type PodcastSlugsResult = Array<{
   slug: Slug | null;
 }>;
-// Source: ./app/(main)/(post)/post/[slug]/page.tsx
-// Variable: postSlugs
-// Query: *[_type == "post"]{slug}
-export type PostSlugsResult = Array<{
-  slug: Slug | null;
-}>;
 // Source: ./app/(main)/(sponsor)/sponsor/[slug]/page.tsx
 // Variable: sponsorSlugs
 // Query: *[_type == "sponsor"]{slug}
 export type SponsorSlugsResult = Array<{
+  slug: Slug | null;
+}>;
+// Source: ./app/(main)/(post)/post/[slug]/page.tsx
+// Variable: postSlugs
+// Query: *[_type == "post"]{slug}
+export type PostSlugsResult = Array<{
   slug: Slug | null;
 }>;

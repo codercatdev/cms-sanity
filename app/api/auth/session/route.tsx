@@ -3,10 +3,11 @@ import { getAuth } from "firebase-admin/auth";
 import { cookies } from "next/headers";
 import { app } from "@/lib/server/firebase";
 import { jwtDecode } from "jwt-decode";
+import { NextRequest } from "next/server";
 
 const csrf = new Tokens();
-export async function POST(req: Request) {
-  const data = await req.json();
+export async function POST(request: NextRequest) {
+  const data = await request.json();
   const { idToken } = data;
 
   if (!idToken)
