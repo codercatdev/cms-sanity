@@ -22,6 +22,7 @@ import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import NavHeader from "@/components/nav-header";
 import Footer from "@/components/footer";
+import { Toaster } from "@/components/ui/toaster";
 
 const nunito = Nunito({
   subsets: ["latin"],
@@ -118,6 +119,7 @@ export default async function RootLayout({
             </header>
 
             <main className="mt-20">{children}</main>
+            <Toaster />
             <Suspense>
               <Footer />
             </Suspense>
