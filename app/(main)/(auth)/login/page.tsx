@@ -6,6 +6,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import GoogleAuth from "./google";
+import GitHubAuth from "./github";
 
 export default function LoginForm() {
   return (
@@ -20,6 +21,7 @@ export default function LoginForm() {
           </CardHeader>
           <CardContent className="grid gap-4">
             <GoogleAuth />
+            <GitHubAuth />
           </CardContent>
         </Card>
       </div>

@@ -2,17 +2,17 @@
 
 //Firebase
 import { ccdSignInWithPopUp } from "@/lib/firebase";
-import { GoogleAuthProvider } from "firebase/auth";
-const provider = new GoogleAuthProvider();
+import { GithubAuthProvider } from "firebase/auth";
+const provider = new GithubAuthProvider();
 
 // Display
 import { FirebaseError } from "firebase/app";
 import { useToast } from "@/components/ui/use-toast";
 import { Button } from "@/components/ui/button";
-import { FaGoogle } from "react-icons/fa";
+import { FaGithub } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 
-export default function GoogleAuth() {
+export default function GitHubAuth() {
   const router = useRouter();
   const { toast } = useToast();
 
@@ -45,8 +45,8 @@ export default function GoogleAuth() {
   };
 
   return (
-    <Button onClick={login} variant="outline">
-      <FaGoogle className="mr-2 h-4 w-4" /> Login with Google
+    <Button onClick={login} variant="secondary">
+      <FaGithub className="mr-2 h-4 w-4" /> Login with GitHub
     </Button>
   );
 }

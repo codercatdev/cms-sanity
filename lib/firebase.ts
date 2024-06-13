@@ -6,6 +6,10 @@ import {
   type AuthProvider,
   type Auth,
   createUserWithEmailAndPassword,
+  setPersistence,
+  inMemoryPersistence,
+  signOut,
+  getIdToken,
 } from "firebase/auth";
 import {
   getFirestore,
@@ -17,6 +21,9 @@ import {
   setDoc,
   type DocumentData,
   initializeFirestore,
+  where,
+  query,
+  getDocs,
 } from "firebase/firestore";
 import {
   httpsCallable,
@@ -31,7 +38,7 @@ import {
 } from "firebase/analytics";
 
 import { getStorage, type FirebaseStorage } from "firebase/storage";
-import { redirect } from "next/dist/server/api-utils";
+import { jwtDecode } from "jwt-decode";
 
 export const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FB_API_KEY,
@@ -64,7 +71,7 @@ if (
   auth = getAuth(app);
 
   // As httpOnly cookies are to be used, do not persist any state client side.
-  // setPersistence(auth, browserSessionPersistence);
+  // setPersistence(auth, inMemoryPersistence);
   firestore = initializeFirestore(app, { ignoreUndefinedProperties: true });
   functions = getFunctions(app);
   if (typeof window !== "undefined") {
@@ -86,14 +93,22 @@ if (
 
 /* AUTH */
 
+const getUidFromIdtCookie = (): string | undefined => {
+  const cookies = document.cookie.split(";");
+  for (let i = 0; i < cookies.length; i++) {
+    const cookie = cookies[i].trim();
+    if (cookie.startsWith("app.idt" + "=")) {
+      const cookieJwt = cookie.substring("app.idt".length + 1);
+      const jwt = jwtDecode(cookieJwt);
+      return jwt.sub;
+    }
+  }
+  return undefined;
+};
+
 const setCookies = async (idToken: string) => {
-  document.cookie = "app.idt=" + idToken + ";max-age=3600";
-
-  // Sets HttpOnly cookie app.csrf
-  const csrfResp = await fetch("/api/auth/csrf");
-  if (csrfResp.status !== 200) throw "Failed Fetch for CSRF";
-
   // Sets HttpOnly cookie app.at (aka session cookie)
+  // and JS available app.idt
   const sessionResp = await fetch("/api/auth/session", {
     method: "POST",
     headers: {
@@ -140,18 +155,53 @@ export const ccdSignInWithPopUp = async (provider: AuthProvider) => {
   await setCookies(idToken);
 };
 
+export const ccdSignOut = async () => {
+  const auth = getAuth(app);
+  await signOut(auth);
+};
+
 /* DB */
 export const updateUser = async (docRef: string, data: DocumentData) => {
   return setDoc(doc(firestore, docRef), data, { merge: true });
 };
 
 /* STRIPE */
-export const addSubscription = async (price: string, uid: string) => {
+export const addSubscription = async (productRole: string) => {
+  //Get app.idt cookie
+  const uid = getUidFromIdtCookie();
+  if (!uid) throw "Missing User ID";
+
+  // Get Product
+  const productsQuery = await query(
+    collection(firestore, "stripe-products"),
+    where("active", "==", true),
+    where("role", "==", productRole)
+  );
+  const productsSnapshot = await getDocs(productsQuery);
+  const productId = productsSnapshot.docs[0].id;
+
+  if (!productId) throw "Missing Product ID";
+
+  // Get Price
+  const pricesQuery = await query(
+    collection(
+      doc(collection(firestore, "stripe-products"), productId),
+      "prices"
+    ),
+    where("active", "==", true)
+  );
+  const pricesSnapshot = await getDocs(pricesQuery);
+  const price = pricesSnapshot.docs[0].id;
+
+  if (!price) throw "Missing Price ID";
+
+  // Create Checkout Session
+
   const userDoc = doc(collection(firestore, "stripe-customers"), uid);
   return await addDoc(collection(userDoc, "checkout_sessions"), {
     price,
-    success_url: window.location.href,
-    cancel_url: window.location.href,
+    success_url: window.location.origin + "/stripe", // Forces session update
+    cancel_url: window.location.origin,
   });
 };
 
@@ -162,7 +212,7 @@ export const openStripePortal = async () => {
     "ext-firestore-stripe-payments-createPortalLink"
   );
   const { data } = (await functionRef({
-    returnUrl: window.location.href,
+    returnUrl: window.location.origin + "/stripe", // Forces session update
   })) as { data: { url: string } };
   window.location.assign(data.url);
 };

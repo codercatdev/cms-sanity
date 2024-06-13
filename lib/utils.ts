@@ -20,3 +20,9 @@ export const pluralize = (_type: string) => {
 export const unpluralize = (_type: string) => {
   return `${_type === "blog" ? ContentType.post : _type.slice(0, -1)}` as ContentType;
 };
+
+export const publicURL = () => {
+  return process.env.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL
+    ? "https://" + process.env.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL
+    : "http://localhost:3000";
+};
