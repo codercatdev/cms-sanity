@@ -1,23 +1,18 @@
 import { initializeApp, getApps } from "firebase/app";
 import {
   getAuth,
-  signInWithEmailAndPassword,
   signInWithPopup,
   type AuthProvider,
-  type Auth,
-  createUserWithEmailAndPassword,
   setPersistence,
-  inMemoryPersistence,
   signOut,
-  getIdToken,
+  browserLocalPersistence,
+  onAuthStateChanged,
 } from "firebase/auth";
 import {
   getFirestore,
   collection,
   doc,
   addDoc,
-  onSnapshot,
-  Firestore,
   setDoc,
   type DocumentData,
   initializeFirestore,
@@ -25,19 +20,14 @@ import {
   query,
   getDocs,
 } from "firebase/firestore";
-import {
-  httpsCallable,
-  getFunctions,
-  type Functions,
-} from "firebase/functions";
+import { httpsCallable, getFunctions } from "firebase/functions";
 import {
   getAnalytics,
-  type Analytics,
   logEvent,
   type AnalyticsCallOptions,
 } from "firebase/analytics";
 
-import { getStorage, type FirebaseStorage } from "firebase/storage";
+import { getStorage } from "firebase/storage";
 import { jwtDecode } from "jwt-decode";
 
 export const firebaseConfig = {
@@ -51,11 +41,6 @@ export const firebaseConfig = {
 };
 
 export let app = getApps().at(0);
-export let auth: Auth;
-export let firestore: Firestore;
-export let functions: Functions;
-export let analytics: Analytics;
-export let storage: FirebaseStorage;
 
 if (
   !app &&
@@ -68,16 +53,31 @@ if (
   firebaseConfig.measurementId
 ) {
   app = initializeApp(firebaseConfig);
-  auth = getAuth(app);
 
   // As httpOnly cookies are to be used, do not persist any state client side.
   // setPersistence(auth, inMemoryPersistence);
-  firestore = initializeFirestore(app, { ignoreUndefinedProperties: true });
-  functions = getFunctions(app);
+
+  // Using both httpOnly cookies and local state in auth.
+  //Indicates that the state will be persisted even when the browser window is closed or the activity is destroyed in React Native. An explicit sign out is needed to clear that state. Note that Firebase Auth web sessions are single host origin and will be persisted for a single domain only.
+  setPersistence(getAuth(app), browserLocalPersistence);
+
+  // If the client idToken changes lets make sure to update our cookie
+  // TODO: Validate if expiration should change based on new token
+  onAuthStateChanged(getAuth(app), async (user) => {
+    const currentUser = getAuth(app).currentUser;
+    if (currentUser) {
+      const idToken = await currentUser.getIdToken(true);
+      if (idToken) {
+        await setCookies(idToken);
+      }
+    }
+  });
+
+  initializeFirestore(app, { ignoreUndefinedProperties: true });
   if (typeof window !== "undefined") {
-    analytics = getAnalytics(app);
+    getAnalytics(app);
   }
-  storage = getStorage(app);
+  getStorage(app);
 } else {
   if (
     !firebaseConfig.apiKey ||
@@ -119,36 +119,9 @@ const setCookies = async (idToken: string) => {
   if (sessionResp.status !== 200) throw "Failed Fetch for Session Token";
 };
 
-export const ccdSignInWithEmailAndPassword = async ({
-  email,
-  password,
-}: {
-  email: string;
-  password: string;
-}) => {
-  const userResponse = await signInWithEmailAndPassword(auth, email, password);
-  const idToken = await userResponse.user.getIdToken();
-  await setCookies(idToken);
-};
-
-export const ccdSignUpWithEmailAndPassword = async ({
-  email,
-  password,
-}: {
-  email: string;
-  password: string;
-}) => {
-  const userCredential = await createUserWithEmailAndPassword(
-    auth,
-    email,
-    password
-  );
-  const idToken = await userCredential.user.getIdToken();
-  await setCookies(idToken);
-};
-
 export const ccdSignInWithPopUp = async (provider: AuthProvider) => {
-  const result = await signInWithPopup(auth, provider);
+  const appAuth = getAuth(app);
+  const result = await signInWithPopup(appAuth, provider);
   const idToken = await result.user.getIdToken();
 
   if (!idToken) throw "Missing id Token";
@@ -156,13 +129,13 @@ export const ccdSignInWithPopUp = async (provider: AuthProvider) => {
 };
 
 export const ccdSignOut = async () => {
-  const auth = getAuth(app);
-  await signOut(auth);
+  const appAuth = getAuth(app);
+  await signOut(appAuth);
 };
 
 /* DB */
 export const updateUser = async (docRef: string, data: DocumentData) => {
-  return setDoc(doc(firestore, docRef), data, { merge: true });
+  return setDoc(doc(getFirestore(), docRef), data, { merge: true });
 };
 
 /* STRIPE */
@@ -173,7 +146,7 @@ export const addSubscription = async (productRole: string) => {
 
   // Get Product
   const productsQuery = await query(
-    collection(firestore, "stripe-products"),
+    collection(getFirestore(), "stripe-products"),
     where("active", "==", true),
     where("role", "==", productRole)
   );
@@ -185,7 +158,7 @@ export const addSubscription = async (productRole: string) => {
   // Get Price
   const pricesQuery = await query(
     collection(
-      doc(collection(firestore, "stripe-products"), productId),
+      doc(collection(getFirestore(), "stripe-products"), productId),
       "prices"
     ),
     where("active", "==", true)
@@ -197,22 +170,22 @@ export const addSubscription = async (productRole: string) => {
 
   // Create Checkout Session
 
-  const userDoc = doc(collection(firestore, "stripe-customers"), uid);
+  const userDoc = doc(collection(getFirestore(), "stripe-customers"), uid);
   return await addDoc(collection(userDoc, "checkout_sessions"), {
     price,
-    success_url: window.location.origin + "/stripe", // Forces session update
-    cancel_url: window.location.origin,
+    success_url: window.location.href,
+    cancel_url: window.location.href,
   });
 };
 
 /* FUNCTIONS */
 export const openStripePortal = async () => {
   const functionRef = httpsCallable(
-    functions,
+    getFunctions(app),
     "ext-firestore-stripe-payments-createPortalLink"
   );
   const { data } = (await functionRef({
-    returnUrl: window.location.origin + "/stripe", // Forces session update
+    returnUrl: window.location.href,
   })) as { data: { url: string } };
   window.location.assign(data.url);
 };
@@ -228,7 +201,7 @@ export const analyticsLogPageView = async (
   options?: AnalyticsCallOptions
 ) => {
   if (firebaseConfig.apiKey) {
-    logEvent(analytics, "page_view", eventParams, options);
+    logEvent(getAnalytics(app), "page_view", eventParams, options);
   } else {
     console.debug("Skipping Firebase Analytics, no key specified.");
   }

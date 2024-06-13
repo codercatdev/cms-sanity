@@ -52,6 +52,12 @@ export default function Profile() {
     router.replace("/");
   };
 
+  const onShowStripePortal = async (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+    setShowStripePortal(true);
+    await openStripePortal();
+  };
+
   return (
     <>
       {jwt ? (
@@ -92,7 +98,7 @@ export default function Profile() {
                 {jwt?.stripeRole ? (
                   <DropdownMenuItem
                     className="hover:cursor-pointer"
-                    onClick={() => openStripePortal()}
+                    onClick={onShowStripePortal}
                   >
                     {showStripePortal ? "Redirecting..." : "Billing"}
                   </DropdownMenuItem>
