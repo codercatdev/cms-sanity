@@ -111,8 +111,7 @@ const sponsorRelated = `
 `;
 
 // Pages
-
-export const pageQuery = groq`*[_type == "page" && slug.current == $slug] [0] {
+export const pageQuery = groq`*[_type == "page" && slug.current == $slug && !(slug.current in ["sponsorships", "blog", "podcast", "code-with-codingcatdev"])] [0] {
   ${baseFieldsNoContent},
   ${contentFields}
 }`;
