@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 import {
   Card,
@@ -10,7 +11,7 @@ import {
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { doc, getFirestore, setDoc } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { app } from "@/lib/firebase";
@@ -18,11 +19,27 @@ import { User } from "@/lib/firebase.types";
 import { useToast } from "@/components/ui/use-toast";
 import { Button } from "@/components/ui/button";
 import { useFirestoreUser } from "@/lib/firebase.hooks";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { useCookies } from "react-cookie";
+import { jwtDecode } from "jwt-decode";
+import UploadProfileImage from "./upload-profile-image";
 
-export default function Component() {
+export default function ProfilePage() {
   const { user } = useFirestoreUser();
   const [saving, setSaving] = useState(false);
   const { toast } = useToast();
+  const [cookies] = useCookies(["app.idt"]);
+  const [jwt, setJwt] = useState<any | null>(null);
+
+  useEffect(() => {
+    const session = cookies?.["app.idt"];
+    if (session) {
+      const jwtPalyoad = jwtDecode(session);
+      setJwt(jwtPalyoad);
+    } else {
+      setJwt(null);
+    }
+  }, [cookies]);
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -70,6 +87,28 @@ export default function Component() {
           </CardHeader>
           <CardContent>
             <div className="grid gap-4">
+              <div className="flex gap-2 sm:gap-4">
+                <Avatar>
+                  {user?.settings?.profile?.picture ? (
+                    <img
+                      src={user?.settings?.profile?.picture}
+                      alt={jwt.email || jwt.name}
+                      referrerPolicy="no-referrer"
+                      loading="lazy"
+                    />
+                  ) : (
+                    <img
+                      src={jwt?.picture}
+                      alt={jwt?.email || jwt?.name}
+                      referrerPolicy="no-referrer"
+                      loading="lazy"
+                    />
+                  )}
+                  <AvatarFallback>CC</AvatarFallback>
+                </Avatar>
+
+                <UploadProfileImage />
+              </div>
               <div className="grid gap-2">
                 <Label htmlFor="name">Name</Label>
                 <Input
