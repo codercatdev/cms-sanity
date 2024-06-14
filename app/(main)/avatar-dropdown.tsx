@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -19,33 +19,22 @@ import {
 import { ModeToggle } from "@/components/mode-toggle";
 import GoPro from "@/components/user-go-pro";
 import { useRouter } from "next/navigation";
-import { app, ccdSignOut, openStripePortal } from "@/lib/firebase";
-import { User } from "@/lib/firebase.types";
-import {
-  getAuth,
-  onAuthStateChanged,
-  type User as FirebaseUser,
-} from "firebase/auth";
-import { onSnapshot, doc, collection, getFirestore } from "firebase/firestore";
+import { ccdSignOut, openStripePortal } from "@/lib/firebase";
+import { useFirestoreUser } from "@/lib/firebase.hooks";
 
 export default function AvatarDropdown() {
   const [isClient, setIsClient] = useState(false);
-  const [cookies, setCookie] = useCookies(["app.idt"]);
+  const [cookies] = useCookies(["app.idt"]);
   const [jwt, setJwt] = useState<any | null>(null);
   const [showGoPro, setShowGoPro] = useState(false);
   const [showStripePortal, setShowStripePortal] = useState(false);
   const router = useRouter();
 
   // Firebase
-  const [user, setUser] = useState<User | undefined>(undefined);
-  const [currentUser, setCurrentUser] = useState<FirebaseUser | null>(null);
+  const { user } = useFirestoreUser();
 
   useEffect(() => {
     setIsClient(true);
-    const unsub = onAuthStateChanged(getAuth(app), async (user) => {
-      setCurrentUser(user);
-    });
-    return () => unsub();
   }, []);
 
   useEffect(() => {
@@ -57,17 +46,6 @@ export default function AvatarDropdown() {
       setJwt(null);
     }
   }, [cookies]);
-
-  useEffect(() => {
-    if (!currentUser?.uid) return;
-    const unsub = onSnapshot(
-      doc(collection(getFirestore(), "users"), currentUser?.uid),
-      (doc) => {
-        setUser(doc.data() as User | undefined);
-      }
-    );
-    return () => unsub();
-  }, [currentUser]);
 
   // Only show after window is loaded
   if (!isClient) return null;

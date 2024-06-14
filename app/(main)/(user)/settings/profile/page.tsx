@@ -10,47 +10,19 @@ import {
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { FormEvent, useEffect, useState } from "react";
-import {
-  collection,
-  doc,
-  getFirestore,
-  onSnapshot,
-  setDoc,
-} from "firebase/firestore";
-import {
-  getAuth,
-  onAuthStateChanged,
-  type User as FirebaseUser,
-} from "firebase/auth";
+import { FormEvent, useState } from "react";
+import { doc, getFirestore, setDoc } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
 import { app } from "@/lib/firebase";
 import { User } from "@/lib/firebase.types";
 import { useToast } from "@/components/ui/use-toast";
 import { Button } from "@/components/ui/button";
+import { useFirestoreUser } from "@/lib/firebase.hooks";
 
 export default function Component() {
-  const [currentUser, setCurrentUser] = useState<FirebaseUser | null>(null);
-  const [user, setUser] = useState<User | undefined>(undefined);
+  const { user } = useFirestoreUser();
   const [saving, setSaving] = useState(false);
   const { toast } = useToast();
-
-  useEffect(() => {
-    const unsub = onAuthStateChanged(getAuth(app), async (user) => {
-      setCurrentUser(user);
-    });
-    return () => unsub();
-  }, []);
-
-  useEffect(() => {
-    if (!currentUser?.uid) return;
-    const unsub = onSnapshot(
-      doc(collection(getFirestore(), "users"), currentUser?.uid),
-      (doc) => {
-        setUser(doc.data() as User | undefined);
-      }
-    );
-    return () => unsub();
-  }, [currentUser]);
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -68,13 +40,23 @@ export default function Component() {
       return;
     }
     const profile: NonNullable<User["settings"]>["profile"] = values;
-    await setDoc(
-      doc(getFirestore(), "users/" + uid),
-      {
-        settings: { profile },
-      },
-      { merge: true }
-    );
+    try {
+      await setDoc(
+        doc(getFirestore(), "users/" + uid),
+        {
+          settings: { profile },
+        },
+        { merge: true }
+      );
+      toast({
+        description: "Saved.",
+      });
+    } catch (error) {
+      toast({
+        variant: "destructive",
+        description: JSON.stringify(error),
+      });
+    }
     setSaving(false);
   };
 
