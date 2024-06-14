@@ -206,6 +206,7 @@ export const courseQuery = groq`*[_type == "course" && slug.current == $courseSl
 // Lessons
 
 export const lessonsInCourseQuery = groq`*[_type == "course" && slug.current == $courseSlug] [0] {
+  _id,
   "title": coalesce(title, "Untitled"),
   "slug": slug.current,
   sections[]{

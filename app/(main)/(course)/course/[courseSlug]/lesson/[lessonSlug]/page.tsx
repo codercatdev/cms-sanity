@@ -10,11 +10,12 @@ import type {
 import { sanityFetch } from "@/sanity/lib/fetch";
 import { lessonQuery, lessonsInCourseQuery } from "@/sanity/lib/queries";
 import { resolveOpenGraphImage } from "@/sanity/lib/utils";
-import Lessons from "../../lessons";
 import LessonPanel from "./lesson-panel";
 import MoreContent from "@/components/more-content";
 import { cookies } from "next/headers";
 import MoreHeader from "@/components/more-header";
+import PortableText from "@/components/portable-text";
+import { type PortableTextBlock } from "next-sanity";
 
 type Props = {
   params: { lessonSlug: string; courseSlug: string };
@@ -57,7 +58,7 @@ export default async function LessonPage({ params }: Props) {
     }),
   ]);
 
-  if (!lesson?._id) {
+  if (!lesson && !course) {
     return notFound();
   }
 
@@ -70,19 +71,28 @@ export default async function LessonPage({ params }: Props) {
   }
 
   return (
-    <div className="container px-5 mx-auto">
-      <LessonPanel
-        lesson={lesson}
-        course={course}
-        defaultLayout={defaultLayout}
-      />
-
-      <aside>
-        <MoreHeader title="Recent Courses" href="/courses/page/1" />
-        <Suspense>
-          <MoreContent type="course" skip={lesson._id} limit={2} />
-        </Suspense>
-      </aside>
-    </div>
+    <>
+      {lesson?._id && course?._id && (
+        <div className="container px-5 mx-auto grid gap-2">
+          <LessonPanel
+            lesson={lesson}
+            course={course}
+            defaultLayout={defaultLayout}
+          />
+          {lesson?.content?.length && (
+            <PortableText
+              className="mx-auto prose-violet lg:prose-xl dark:prose-invert"
+              value={lesson.content as PortableTextBlock[]}
+            />
+          )}
+          <aside>
+            <MoreHeader title="Recent Courses" href="/courses/page/1" />
+            <Suspense>
+              <MoreContent type="course" skip={lesson._id} limit={2} />
+            </Suspense>
+          </aside>
+        </div>
+      )}
+    </>
   );
 }

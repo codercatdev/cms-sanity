@@ -1,6 +1,8 @@
 export interface User {
   idt: Idt;
   settings?: Settings;
+  bookmarks?: Location[];
+  completed?: Location[];
 }
 
 export interface Settings {
@@ -38,4 +40,10 @@ export interface Firebase {
 export interface Identities {
   "google.com": string[];
   email: string[];
+}
+
+export interface Location {
+  _id: string;
+  _type: string;
+  slug: string;
 }

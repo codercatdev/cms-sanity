@@ -12,29 +12,94 @@ import type {
 } from "@/sanity.types";
 import BadgePro from "@/components/badge-pro";
 import NavLesson from "./nav-lesson";
-import PortableText from "@/components/portable-text";
-import { type PortableTextBlock } from "next-sanity";
 import CoverMedia from "@/components/cover-media";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { Button } from "@/components/ui/button";
+import {
+  FaCircleArrowLeft,
+  FaCircleArrowRight,
+  FaHouse,
+} from "react-icons/fa6";
+import LessonComplete from "./lesson-complete";
 
 export default function LessonPanel({
   lesson,
   course,
   defaultLayout,
 }: {
-  lesson: LessonQueryResult;
-  course: LessonsInCourseQueryResult;
+  lesson: NonNullable<LessonQueryResult>;
+  course: NonNullable<LessonsInCourseQueryResult>;
   defaultLayout: number[];
 }) {
   const onLayout = (sizes: number[]) => {
     document.cookie = `react-resizable-panels:layout=${JSON.stringify(sizes)}`;
   };
+
+  const getLessons = () => {
+    const lessons: NonNullable<
+      NonNullable<LessonsInCourseQueryResult>["sections"]
+    >[0]["lesson"] = [];
+    course?.sections?.map((section) =>
+      section.lesson?.map((lesson) => lessons.push(lesson))
+    );
+    return lessons;
+  };
+
+  const lessonIndex = getLessons().findIndex((l) => l.slug === lesson.slug);
+
+  const main = () => {
+    return (
+      <div className="flex flex-col">
+        <header className="flex h-14 lg:h-[60px] items-center gap-4 border-b  px-6 dark:bg-gray-800/40">
+          <div className="flex-1 w-full">
+            <h1>{lesson?.title}</h1>
+          </div>
+          <BadgePro locked={lesson?.locked} />
+        </header>
+        <main className="flex-1 overflow-auto">
+          <CoverMedia
+            cloudinaryImage={lesson?.coverImage}
+            cloudinaryVideo={lesson?.videoCloudinary}
+            youtube={lesson?.youtube}
+          />
+        </main>
+        <footer className="grid grid-cols-3 h-14 lg:h-[60px] items-center gap-4 border-b  px-6 dark:bg-gray-800/40">
+          <div className=""></div>
+          <div className="flex justify-center items-center">
+            {lessonIndex > 0 && (
+              <Button variant="ghost" asChild>
+                <Link href={getLessons()[lessonIndex - 1].slug || ""}>
+                  <FaCircleArrowLeft />
+                </Link>
+              </Button>
+            )}
+            <Button variant="ghost" asChild>
+              <Link href={`/course/${course.slug}`}>
+                <FaHouse />
+              </Link>
+            </Button>
+            {lessonIndex < getLessons().length - 1 && (
+              <Button variant="ghost" asChild>
+                <Link href={getLessons()[lessonIndex + 1].slug || ""}>
+                  <FaCircleArrowRight />
+                </Link>
+              </Button>
+            )}
+          </div>
+          <div className="flex-0 flex justify-end">
+            <LessonComplete lesson={lesson} course={course} />
+          </div>
+        </footer>
+      </div>
+    );
+  };
+
   return (
     <>
       <div className="hidden lg:grid w-full">
         <ResizablePanelGroup
           direction="horizontal"
-          className="hidden border-r lg:flex lg:flex-col lg:gap-2"
+          className="hidden border lg:flex lg:flex-col lg:gap-2"
           onLayout={onLayout}
         >
           <ResizablePanel
@@ -64,50 +129,12 @@ export default function LessonPanel({
           </ResizablePanel>
           <ResizableHandle withHandle />
           <ResizablePanel defaultSize={defaultLayout[1]}>
-            <div className="flex flex-col">
-              <header className="flex h-14 lg:h-[60px] items-center gap-4 border-b  px-6 dark:bg-gray-800/40">
-                <div className="flex-1 w-full">
-                  <h1>{lesson?.title}</h1>
-                </div>
-                <BadgePro locked={lesson?.locked} />
-              </header>
-              <main className="flex-1 overflow-auto">
-                <div className="mb-8 sm:mx-0 md:mb-16">
-                  <CoverMedia
-                    cloudinaryImage={lesson?.coverImage}
-                    cloudinaryVideo={lesson?.videoCloudinary}
-                    youtube={lesson?.youtube}
-                  />
-                </div>
-              </main>
-            </div>
-            {lesson?.content?.length && (
-              <PortableText
-                className="mx-auto prose-violet lg:prose-xl dark:prose-invert"
-                value={lesson.content as PortableTextBlock[]}
-              />
-            )}
+            {main()}
           </ResizablePanel>
         </ResizablePanelGroup>
       </div>
       <section className="grid gap-2 lg:hidden">
-        <div className="flex flex-col">
-          <header className="flex h-14 lg:h-[60px] items-center gap-4 border-b  px-6 dark:bg-gray-800/40">
-            <div className="flex-1 w-full">
-              <h1>{lesson?.title}</h1>
-            </div>
-            <BadgePro locked={lesson?.locked} />
-          </header>
-          <main className="flex-1 overflow-auto">
-            <div className="mb-8 sm:mx-0 md:mb-16">
-              <CoverMedia
-                cloudinaryImage={lesson?.coverImage}
-                cloudinaryVideo={lesson?.videoCloudinary}
-                youtube={lesson?.youtube}
-              />
-            </div>
-          </main>
-        </div>
+        {main()}
         <ScrollArea className="rounded-md border h-[calc(100vh/4)]">
           {course?.sections && (
             <>
@@ -119,12 +146,6 @@ export default function LessonPanel({
             </>
           )}
         </ScrollArea>
-        {lesson?.content?.length && (
-          <PortableText
-            className="mx-auto prose-violet lg:prose-xl dark:prose-invert"
-            value={lesson.content as PortableTextBlock[]}
-          />
-        )}
       </section>
     </>
   );

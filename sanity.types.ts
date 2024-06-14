@@ -3175,8 +3175,9 @@ export type CourseQueryResult = {
   pick: null;
 } | null;
 // Variable: lessonsInCourseQuery
-// Query: *[_type == "course" && slug.current == $courseSlug] [0] {  "title": coalesce(title, "Untitled"),  "slug": slug.current,  sections[]{    title,    lesson[]->{        _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(date, _createdAt),        locked,  videoCloudinary    }  }}
+// Query: *[_type == "course" && slug.current == $courseSlug] [0] {  _id,  "title": coalesce(title, "Untitled"),  "slug": slug.current,  sections[]{    title,    lesson[]->{        _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(date, _createdAt),        locked,  videoCloudinary    }  }}
 export type LessonsInCourseQueryResult = {
+  _id: string;
   title: string | "Untitled";
   slug: string | null;
   sections: Array<{
@@ -4053,27 +4054,27 @@ export type AuthorSlugsResult = Array<{
 export type CourseSlugsResult = Array<{
   slug: Slug | null;
 }>;
-// Source: ./app/(main)/(guest)/guest/[slug]/page.tsx
-// Variable: guestSlugs
-// Query: *[_type == "guest"]{slug}
-export type GuestSlugsResult = Array<{
-  slug: Slug | null;
-}>;
-// Source: ./app/(main)/(post)/post/[slug]/page.tsx
-// Variable: postSlugs
-// Query: *[_type == "post"]{slug}
-export type PostSlugsResult = Array<{
-  slug: Slug | null;
-}>;
 // Source: ./app/(main)/(podcast)/podcast/[slug]/page.tsx
 // Variable: podcastSlugs
 // Query: *[_type == "podcast"]{slug}
 export type PodcastSlugsResult = Array<{
   slug: Slug | null;
 }>;
+// Source: ./app/(main)/(guest)/guest/[slug]/page.tsx
+// Variable: guestSlugs
+// Query: *[_type == "guest"]{slug}
+export type GuestSlugsResult = Array<{
+  slug: Slug | null;
+}>;
 // Source: ./app/(main)/(sponsor)/sponsor/[slug]/page.tsx
 // Variable: sponsorSlugs
 // Query: *[_type == "sponsor"]{slug}
 export type SponsorSlugsResult = Array<{
+  slug: Slug | null;
+}>;
+// Source: ./app/(main)/(post)/post/[slug]/page.tsx
+// Variable: postSlugs
+// Query: *[_type == "post"]{slug}
+export type PostSlugsResult = Array<{
   slug: Slug | null;
 }>;
