@@ -181,18 +181,6 @@ export const addSubscription = async (productRole: string) => {
   });
 };
 
-/* FUNCTIONS */
-export const openStripePortal = async () => {
-  const functionRef = httpsCallable(
-    getFunctions(app),
-    "ext-firestore-stripe-payments-createPortalLink"
-  );
-  const { data } = (await functionRef({
-    returnUrl: window.location.href,
-  })) as { data: { url: string } };
-  window.location.assign(data.url);
-};
-
 /* Analytics */
 export const analyticsLogPageView = async (
   eventParams?: {

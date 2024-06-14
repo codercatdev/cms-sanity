@@ -29,13 +29,13 @@ export async function POST(request: NextRequest) {
     cookieStore.set("app.at", sessionCookie, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
-      sameSite: "strict",
+      sameSite: "lax",
       path: "/",
       maxAge: expiresIn,
     });
 
     cookieStore.set("app.idt", idToken, {
-      sameSite: "strict",
+      sameSite: "lax",
       path: "/",
       maxAge: expiresIn,
     });
@@ -46,7 +46,7 @@ export async function POST(request: NextRequest) {
 
     if (expiration) {
       cookieStore.set("app.at_exp", expiration.toString(), {
-        sameSite: "strict",
+        sameSite: "lax",
         path: "/",
         maxAge: expiresIn,
       });

@@ -1254,7 +1254,7 @@ export type SettingsQueryResult = {
   ogImage?: CloudinaryAsset;
 } | null;
 // Variable: pageQuery
-// Query: *[_type == "page" && slug.current == $slug] [0] {    _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(date, _createdAt),    content[]{    ...,    markDefs[]{      ...,      _type == "internalLink" => {        @.reference->_type == "page" => {          "href": "/" + @.reference->slug.current        },        @.reference->_type != "page" => {          "href": "/" + @.reference->_type + "/" + @.reference->slug.current        }      },    }  },  author[]->{    ...,    "title": coalesce(title, "Anonymous"),    "slug": slug.current,  },  devto,  hashnode,  sponsor[]->{    ...,    "title": coalesce(title, "Anonymous"),    "slug": slug.current,  },  tags,  videoCloudinary,  youtube}
+// Query: *[_type == "page" && slug.current == $slug && !(slug.current in ["sponsorships", "blog", "podcast", "code-with-codingcatdev"])] [0] {    _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(date, _createdAt),    content[]{    ...,    markDefs[]{      ...,      _type == "internalLink" => {        @.reference->_type == "page" => {          "href": "/" + @.reference->slug.current        },        @.reference->_type != "page" => {          "href": "/" + @.reference->_type + "/" + @.reference->slug.current        }      },    }  },  author[]->{    ...,    "title": coalesce(title, "Anonymous"),    "slug": slug.current,  },  devto,  hashnode,  sponsor[]->{    ...,    "title": coalesce(title, "Anonymous"),    "slug": slug.current,  },  tags,  videoCloudinary,  youtube}
 export type PageQueryResult = {
   _id: string;
   _type: "page";
@@ -4037,7 +4037,7 @@ export type SponsorQueryWithRelatedResult = {
 } | null;
 // Source: ./app/(main)/(top-level-pages)/[slug]/page.tsx
 // Variable: pageSlugs
-// Query: *[_type == "page"]{slug}
+// Query: *[_type == "page" && !(slug.current in ["sponsorships","blog", "podcast", "code-with-codingcatdev"])]{slug}
 export type PageSlugsResult = Array<{
   slug: Slug | null;
 }>;
@@ -4053,18 +4053,6 @@ export type AuthorSlugsResult = Array<{
 export type CourseSlugsResult = Array<{
   slug: Slug | null;
 }>;
-// Source: ./app/(main)/(podcast)/podcast/[slug]/page.tsx
-// Variable: podcastSlugs
-// Query: *[_type == "podcast"]{slug}
-export type PodcastSlugsResult = Array<{
-  slug: Slug | null;
-}>;
-// Source: ./app/(main)/(sponsor)/sponsor/[slug]/page.tsx
-// Variable: sponsorSlugs
-// Query: *[_type == "sponsor"]{slug}
-export type SponsorSlugsResult = Array<{
-  slug: Slug | null;
-}>;
 // Source: ./app/(main)/(guest)/guest/[slug]/page.tsx
 // Variable: guestSlugs
 // Query: *[_type == "guest"]{slug}
@@ -4075,5 +4063,17 @@ export type GuestSlugsResult = Array<{
 // Variable: postSlugs
 // Query: *[_type == "post"]{slug}
 export type PostSlugsResult = Array<{
+  slug: Slug | null;
+}>;
+// Source: ./app/(main)/(podcast)/podcast/[slug]/page.tsx
+// Variable: podcastSlugs
+// Query: *[_type == "podcast"]{slug}
+export type PodcastSlugsResult = Array<{
+  slug: Slug | null;
+}>;
+// Source: ./app/(main)/(sponsor)/sponsor/[slug]/page.tsx
+// Variable: sponsorSlugs
+// Query: *[_type == "sponsor"]{slug}
+export type SponsorSlugsResult = Array<{
   slug: Slug | null;
 }>;

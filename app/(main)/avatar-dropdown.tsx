@@ -19,7 +19,7 @@ import {
 import { ModeToggle } from "@/components/mode-toggle";
 import GoPro from "@/components/user-go-pro";
 import { useRouter } from "next/navigation";
-import { ccdSignOut, openStripePortal } from "@/lib/firebase";
+import { ccdSignOut } from "@/lib/firebase";
 import { useFirestoreUser } from "@/lib/firebase.hooks";
 
 export default function AvatarDropdown() {
@@ -54,12 +54,6 @@ export default function AvatarDropdown() {
     await ccdSignOut();
     await fetch("/api/auth/logout", { method: "POST" });
     router.replace("/");
-  };
-
-  const onShowStripePortal = async (e: { preventDefault: () => void }) => {
-    e.preventDefault();
-    setShowStripePortal(true);
-    await openStripePortal();
   };
 
   return (
@@ -114,14 +108,7 @@ export default function AvatarDropdown() {
                 </DropdownMenuItem>
               </DropdownMenuGroup>
               <DropdownMenuGroup>
-                {jwt?.stripeRole ? (
-                  <DropdownMenuItem
-                    className="hover:cursor-pointer"
-                    onClick={onShowStripePortal}
-                  >
-                    {showStripePortal ? "Redirecting..." : "Billing"}
-                  </DropdownMenuItem>
-                ) : (
+                {!jwt?.stripeRole && (
                   <DropdownMenuItem
                     className="bg-primary hover:cursor-pointer"
                     onClick={() => setShowGoPro(true)}

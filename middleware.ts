@@ -27,7 +27,9 @@ export async function middleware(request: NextRequest) {
   if (!sessionCookie || !sessionExpireCookie || !tokenCookie)
     return sendToLogin();
 
-  //Call the authentication endpoint
+  // Call the authentication endpoint
+  // TODO: Do we really need to verify if the JWT is not expired, should we check for
+  // expiration and validity here of just the JWT and only call out to Firebase when needed?
   const responseAPI = await fetch(publicURL() + "/api/auth/session/verify", {
     headers: {
       Cookie: `app.at=${sessionCookie?.value}`,
@@ -39,7 +41,7 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL("/login", request.url));
   }
 
-  //Return to /dashboard if token valid and trying to access login
+  //Return to specified route
   if (responseAPI.status === 200 && login) {
     return NextResponse.redirect(new URL("/dashboard", request.url));
   }
