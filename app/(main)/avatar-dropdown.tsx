@@ -22,7 +22,7 @@ import GoPro from "@/components/user-go-pro";
 import { useRouter } from "next/navigation";
 import { ccdSignOut, openStripePortal } from "@/lib/firebase";
 
-export default function Profile() {
+export default function AvatarDropdown() {
   const [isClient, setIsClient] = useState(false);
   const [cookies, setCookie] = useCookies(["app.idt"]);
   const [jwt, setJwt] = useState<any | null>(null);
@@ -76,11 +76,12 @@ export default function Profile() {
             </DropdownMenuTrigger>
             <DropdownMenuContent className="w-56">
               <DropdownMenuLabel>My Account</DropdownMenuLabel>
-              <Link href="/dashboard">
-                <DropdownMenuItem className="hover:cursor-pointer">
-                  Dashboard
-                </DropdownMenuItem>
-              </Link>
+              <DropdownMenuItem className="hover:cursor-pointer" asChild>
+                <Link href="/settings">Settings</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem className="hover:cursor-pointer" asChild>
+                <Link href="/dashboard">Dashboard</Link>
+              </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuGroup>
                 <ModeToggle />

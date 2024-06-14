@@ -107,6 +107,14 @@ const getUidFromIdtCookie = (): string | undefined => {
 };
 
 const setCookies = async (idToken: string) => {
+  // Update Firestore with latest token id jwt
+  const jwt = jwtDecode(idToken);
+  setDoc(
+    doc(getFirestore(), "users/" + jwt.sub),
+    { idt: jwt },
+    { merge: true }
+  );
+
   // Sets HttpOnly cookie app.at (aka session cookie)
   // and JS available app.idt
   const sessionResp = await fetch("/api/auth/session", {
@@ -131,11 +139,6 @@ export const ccdSignInWithPopUp = async (provider: AuthProvider) => {
 export const ccdSignOut = async () => {
   const appAuth = getAuth(app);
   await signOut(appAuth);
-};
-
-/* DB */
-export const updateUser = async (docRef: string, data: DocumentData) => {
-  return setDoc(doc(getFirestore(), docRef), data, { merge: true });
 };
 
 /* STRIPE */

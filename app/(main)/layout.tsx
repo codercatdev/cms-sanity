@@ -22,7 +22,7 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import NavHeader from "@/components/nav-header";
 import Footer from "@/components/footer";
 import { Toaster } from "@/components/ui/toaster";
-import Profile from "./profile";
+import AvatarDropdown from "./avatar-dropdown";
 
 const nunito = Nunito({
   subsets: ["latin"],
@@ -94,7 +94,7 @@ export default async function RootLayout({
                 </nav>
               </div>
               <div className="flex items-center gap-2">
-                <Profile />
+                <AvatarDropdown />
                 <Sheet>
                   <SheetTrigger asChild>
                     <Button className="md:hidden" size="icon" variant="ghost">

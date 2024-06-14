@@ -2,7 +2,7 @@ import { type NextRequest, NextResponse } from "next/server";
 import { publicURL } from "./lib/utils";
 
 export const config = {
-  matcher: ["/dashboard", "/dashboard/:path*", "/login"],
+  matcher: ["/settings/:path*", "/dashboard", "/dashboard/:path*", "/login"],
 };
 
 export async function middleware(request: NextRequest) {
