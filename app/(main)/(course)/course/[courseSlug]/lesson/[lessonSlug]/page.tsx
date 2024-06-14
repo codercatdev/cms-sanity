@@ -76,9 +76,7 @@ export default async function LessonPage({ params }: Props) {
         course={course}
         defaultLayout={defaultLayout}
       />
-      <Suspense>
-        <Lessons courseSlug={params.courseSlug} />
-      </Suspense>
+
       <aside>
         <MoreHeader title="Recent Courses" href="/courses/page/1" />
         <Suspense>
