@@ -16,12 +16,13 @@ import { sanityFetch } from "@/sanity/lib/fetch";
 import { settingsQuery } from "@/sanity/lib/queries";
 import { cn } from "@/lib/utils";
 import { ThemeProvider } from "@/components/theme-provider";
-import { ModeToggle } from "@/components/mode-toggle";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import NavHeader from "@/components/nav-header";
 import Footer from "@/components/footer";
+import { Toaster } from "@/components/ui/toaster";
+import AvatarDropdown from "./avatar-dropdown";
 
 const nunito = Nunito({
   subsets: ["latin"],
@@ -93,12 +94,7 @@ export default async function RootLayout({
                 </nav>
               </div>
               <div className="flex items-center gap-2">
-                <Button variant="default">Enroll Now</Button>
-                <Button className="hidden md:flex" variant="secondary">
-                  Sign In
-                </Button>
-                <ModeToggle />
-
+                <AvatarDropdown />
                 <Sheet>
                   <SheetTrigger asChild>
                     <Button className="md:hidden" size="icon" variant="ghost">
@@ -118,6 +114,7 @@ export default async function RootLayout({
             </header>
 
             <main className="mt-20">{children}</main>
+            <Toaster />
             <Suspense>
               <Footer />
             </Suspense>

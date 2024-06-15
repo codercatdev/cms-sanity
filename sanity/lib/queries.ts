@@ -111,8 +111,7 @@ const sponsorRelated = `
 `;
 
 // Pages
-
-export const pageQuery = groq`*[_type == "page" && slug.current == $slug] [0] {
+export const pageQuery = groq`*[_type == "page" && slug.current == $slug && !(slug.current in ["sponsorships", "blog", "podcast", "code-with-codingcatdev"])] [0] {
   ${baseFieldsNoContent},
   ${contentFields}
 }`;
@@ -207,6 +206,7 @@ export const courseQuery = groq`*[_type == "course" && slug.current == $courseSl
 // Lessons
 
 export const lessonsInCourseQuery = groq`*[_type == "course" && slug.current == $courseSlug] [0] {
+  _id,
   "title": coalesce(title, "Untitled"),
   "slug": slug.current,
   sections[]{

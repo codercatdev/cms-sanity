@@ -21,7 +21,7 @@ export default function BlockCode(props: CodeProps) {
   }
 
   return (
-    <div className="relative">
+    <div className="relative grid">
       <BlockCodeButton code={code} />
       <SyntaxHighlighter
         language={cleanLanguage}

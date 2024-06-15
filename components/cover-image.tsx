@@ -1,7 +1,9 @@
+"use client";
 import { CloudinaryAsset } from "@/sanity.types";
 import CloudinaryImage from "@/components/cloudinary-image";
 import { stegaClean } from "@sanity/client/stega";
 import { getCldImageUrl } from "next-cloudinary";
+import { useEffect, useState } from "react";
 
 interface CoverImageProps {
   image: CloudinaryAsset | null | undefined;
@@ -12,7 +14,7 @@ interface CoverImageProps {
   quality?: number;
 }
 
-export default async function CoverImage(props: CoverImageProps) {
+export default function CoverImage(props: CoverImageProps) {
   const {
     image: originalImage,
     priority,
@@ -21,20 +23,28 @@ export default async function CoverImage(props: CoverImageProps) {
     height,
     quality,
   } = props;
-
   const source = stegaClean(originalImage);
+  const [dataUrl, setDataUrl] = useState("");
 
-  let image;
-  if (source?.public_id) {
+  useEffect(() => {
+    if (!source?.public_id) return;
+    getImageUrl(source?.public_id);
+  }, [source?.public_id]);
+
+  const getImageUrl = async (src: string) => {
     const imageUrl = getCldImageUrl({
-      src: source.public_id,
+      src,
       width: 100,
     });
     const response = await fetch(imageUrl);
     const arrayBuffer = await response.arrayBuffer();
     const buffer = Buffer.from(arrayBuffer);
     const base64 = buffer.toString("base64");
-    const dataUrl = `data:${response.type};base64,${base64}`;
+    setDataUrl(`data:${response.type};base64,${base64}`);
+  };
+
+  let image;
+  if (source?.public_id && dataUrl) {
     image = (
       <CloudinaryImage
         className={className || "w-full h-auto aspect-video"}
@@ -56,7 +66,7 @@ export default async function CoverImage(props: CoverImageProps) {
       />
     );
   } else {
-    image = <div className="bg-slate-50" style={{ paddingTop: "50%" }} />;
+    image = <div className="bg-background" style={{ paddingTop: "50%" }} />;
   }
 
   return (

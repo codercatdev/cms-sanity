@@ -20,7 +20,7 @@ export default function BlockCodeButton({ code }: { code: string }) {
     <Button
       variant="outline"
       size="icon"
-      className="absolute top-0 right-0 mt-2 mr-2"
+      className="absolute top-0 right-0 mt-4 mr-2"
       onClick={copy}
     >
       {icon}
