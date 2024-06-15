@@ -3,8 +3,8 @@ import { notFound } from "next/navigation";
 import { Suspense } from "react";
 
 import type {
-  // LessonSlugsResult,
   LessonQueryResult,
+  LessonSlugsResult,
   LessonsInCourseQueryResult,
 } from "@/sanity.types";
 import { sanityFetch } from "@/sanity/lib/fetch";
@@ -15,11 +15,22 @@ import MoreContent from "@/components/more-content";
 import { cookies } from "next/headers";
 import MoreHeader from "@/components/more-header";
 import PortableText from "@/components/portable-text";
-import { type PortableTextBlock } from "next-sanity";
+import { groq, type PortableTextBlock } from "next-sanity";
 
 type Props = {
   params: { lessonSlug: string; courseSlug: string };
 };
+
+const lessonSlugs = groq`*[_type == "lesson"]{slug}`;
+
+export async function generateStaticParams() {
+  const params = await sanityFetch<LessonSlugsResult>({
+    query: lessonSlugs,
+    perspective: "published",
+    stega: false,
+  });
+  return params.map(({ slug }) => ({ slug: slug?.current }));
+}
 
 export async function generateMetadata(
   { params }: Props,
@@ -62,23 +73,11 @@ export default async function LessonPage({ params }: Props) {
     return notFound();
   }
 
-  const layout = cookies().get("react-resizable-panels:layout");
-  let defaultLayout;
-  if (layout) {
-    defaultLayout = JSON.parse(layout.value);
-  } else {
-    defaultLayout = [25, 75];
-  }
-
   return (
     <>
       {lesson?._id && course?._id && (
         <div className="container px-5 mx-auto grid gap-2">
-          <LessonPanel
-            lesson={lesson}
-            course={course}
-            defaultLayout={defaultLayout}
-          />
+          <LessonPanel lesson={lesson} course={course} />
           {lesson?.content?.length && (
             <PortableText
               className="mx-auto prose-violet lg:prose-xl dark:prose-invert"

@@ -21,18 +21,22 @@ import {
   FaHouse,
 } from "react-icons/fa6";
 import LessonComplete from "./lesson-complete";
+import { useLocalStorage } from "@uidotdev/usehooks";
 
 export default function LessonPanel({
   lesson,
   course,
-  defaultLayout,
 }: {
   lesson: NonNullable<LessonQueryResult>;
   course: NonNullable<LessonsInCourseQueryResult>;
-  defaultLayout: number[];
 }) {
+  const [defaultLayout, saveDefaultLayout] = useLocalStorage(
+    "react-resizable-panels:layout",
+    [25, 75]
+  );
+
   const onLayout = (sizes: number[]) => {
-    document.cookie = `react-resizable-panels:layout=${JSON.stringify(sizes)}`;
+    saveDefaultLayout(sizes);
   };
 
   const getLessons = () => {
