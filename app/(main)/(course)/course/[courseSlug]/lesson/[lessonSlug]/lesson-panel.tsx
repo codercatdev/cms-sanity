@@ -46,6 +46,7 @@ export default function LessonPanel({
   };
 
   const lessonIndex = getLessons().findIndex((l) => l.slug === lesson.slug);
+  const lessonNoContent = getLessons()[lessonIndex];
 
   const main = () => {
     return (
@@ -87,7 +88,7 @@ export default function LessonPanel({
             )}
           </div>
           <div className="flex-0 flex justify-end">
-            <LessonComplete lesson={lesson} course={course} />
+            <LessonComplete lesson={lessonNoContent} course={course} />
           </div>
         </footer>
       </div>

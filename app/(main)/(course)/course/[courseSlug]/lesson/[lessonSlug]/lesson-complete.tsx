@@ -11,7 +11,13 @@ export default function LessonComplete({
   course,
   showText = true,
 }: {
-  lesson: NonNullable<LessonQueryResult>;
+  lesson: NonNullable<
+    NonNullable<
+      NonNullable<
+        NonNullable<LessonsInCourseQueryResult>["sections"]
+      >[0]["lesson"]
+    >[0]
+  >;
   course: NonNullable<LessonsInCourseQueryResult>;
   showText?: boolean;
 }) {

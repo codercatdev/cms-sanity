@@ -45,7 +45,13 @@ export function useCompletedLesson({
   lesson,
   course,
 }: {
-  lesson: NonNullable<LessonQueryResult>;
+  lesson: NonNullable<
+    NonNullable<
+      NonNullable<
+        NonNullable<LessonsInCourseQueryResult>["sections"]
+      >[0]["lesson"]
+    >[0]
+  >;
   course: NonNullable<LessonsInCourseQueryResult>;
 }) {
   const { currentUser } = useFirestoreUser();
