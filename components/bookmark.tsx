@@ -1,27 +1,18 @@
 "use client";
-import { useCompletedLesson, useFirestoreUser } from "@/lib/firebase.hooks";
+import { useBookmarked, useFirestoreUser } from "@/lib/firebase.hooks";
 import { Checkbox } from "@/components/ui/checkbox";
-import { LessonQueryResult, LessonsInCourseQueryResult } from "@/sanity.types";
 import { useToast } from "@/components/ui/use-toast";
 import { CheckedState } from "@radix-ui/react-checkbox";
+import { BaseBookmarkContent } from "@/lib/types";
 
-export default function LessonComplete({
-  lesson,
-  course,
+export default function Bookmark({
+  content,
 }: {
-  lesson: NonNullable<
-    NonNullable<
-      NonNullable<
-        NonNullable<LessonsInCourseQueryResult>["sections"]
-      >[0]["lesson"]
-    >[0]
-  >;
-  course: NonNullable<LessonsInCourseQueryResult>;
+  content: BaseBookmarkContent;
 }) {
   const { currentUser } = useFirestoreUser();
-  const { completeLesson, addComplete, removeComplete } = useCompletedLesson({
-    lesson,
-    course,
+  const { bookmarked, addBookmark, removeBookmark } = useBookmarked({
+    content,
   });
   const { toast } = useToast();
 
@@ -34,12 +25,12 @@ export default function LessonComplete({
       return;
     }
     if (isChecked) {
-      await addComplete();
+      await addBookmark();
       toast({
-        description: "What a rockstar! 🎉",
+        description: "Bookmark added 〽️",
       });
     } else {
-      await removeComplete();
+      await removeBookmark();
     }
   };
   return (
@@ -47,7 +38,7 @@ export default function LessonComplete({
       {currentUser?.uid ? (
         <div className="flex items-center gap-2">
           <Checkbox
-            checked={completeLesson?._id ? true : false}
+            checked={bookmarked?._id ? true : false}
             onCheckedChange={makeComplete}
           />
         </div>

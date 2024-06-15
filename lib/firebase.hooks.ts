@@ -14,7 +14,13 @@ import {
 import { useEffect, useState } from "react";
 import { app } from "@/lib/firebase";
 import { User } from "./firebase.types";
-import { LessonQueryResult, LessonsInCourseQueryResult } from "@/sanity.types";
+import {
+  LessonQueryResult,
+  LessonsInCourseQueryResult,
+  PageQueryResult,
+} from "@/sanity.types";
+import { usePathname } from "next/navigation";
+import { BaseBookmarkContent, BookmarkPath } from "@/lib/types";
 
 export function useFirestoreUser() {
   const [currentUser, setCurrentUser] = useState<FirebaseUser | null>(null);
@@ -76,28 +82,14 @@ export function useCompletedLesson({
     if (!currentUser?.uid || !lesson || !course) return;
     const unsub = onSnapshot(lessonRef, (doc) => {
       setCompleteLesson(doc.data() as LessonQueryResult);
-      console.log(doc.data());
     });
     return () => unsub();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentUser]);
 
   const addComplete = async () => {
-    await setDoc(
-      courseRef,
-      {
-        course,
-      },
-      { merge: true }
-    );
-
-    await setDoc(
-      lessonRef,
-      {
-        lesson,
-      },
-      { merge: true }
-    );
+    await setDoc(courseRef, course, { merge: true });
+    await setDoc(lessonRef, lesson, { merge: true });
   };
 
   const removeComplete = async () => {
@@ -105,4 +97,44 @@ export function useCompletedLesson({
   };
 
   return { completeLesson, addComplete, removeComplete };
+}
+
+export function useBookmarked({ content }: { content: BaseBookmarkContent }) {
+  const { currentUser } = useFirestoreUser();
+  const [bookmarked, setBookmarked] = useState<BookmarkPath | undefined>(
+    undefined
+  );
+  const pathname = usePathname();
+
+  const contentRef = doc(
+    getFirestore(),
+    "users/" + currentUser?.uid + "/bookmarked/" + content._id
+  );
+
+  useEffect(() => {
+    if (!currentUser?.uid || !content) return;
+    const unsub = onSnapshot(contentRef, (doc) => {
+      const base = doc.data() as BookmarkPath;
+      setBookmarked(base);
+    });
+    return () => unsub();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentUser]);
+
+  const addBookmark = async () => {
+    await setDoc(
+      contentRef,
+      {
+        ...content,
+        pathname,
+      },
+      { merge: true }
+    );
+  };
+
+  const removeBookmark = async () => {
+    await deleteDoc(contentRef);
+  };
+
+  return { bookmarked, addBookmark, removeBookmark };
 }
