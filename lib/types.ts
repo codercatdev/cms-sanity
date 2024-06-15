@@ -37,13 +37,13 @@ export interface BookmarkPath extends BaseBookmarkContent {
   _cc_updated: number;
 }
 
-export interface CompletedLesson
-  extends NonNullable<
+export type BaseCompletedLesson = NonNullable<
+  NonNullable<
     NonNullable<
-      NonNullable<
-        NonNullable<LessonsInCourseQueryResult>["sections"]
-      >[0]["lesson"]
-    >[0]
-  > {
+      NonNullable<LessonsInCourseQueryResult>["sections"]
+    >[0]["lesson"]
+  >[0]
+>;
+export interface CompletedLesson extends BaseCompletedLesson {
   _cc_updated: number;
 }

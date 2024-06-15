@@ -1,21 +1,16 @@
 "use client";
 import { useCompletedLesson, useFirestoreUser } from "@/lib/firebase.hooks";
 import { Checkbox } from "@/components/ui/checkbox";
-import { LessonQueryResult, LessonsInCourseQueryResult } from "@/sanity.types";
+import { LessonsInCourseQueryResult } from "@/sanity.types";
 import { useToast } from "@/components/ui/use-toast";
 import { CheckedState } from "@radix-ui/react-checkbox";
+import { BaseCompletedLesson } from "@/lib/types";
 
 export default function LessonComplete({
   lesson,
   course,
 }: {
-  lesson: NonNullable<
-    NonNullable<
-      NonNullable<
-        NonNullable<LessonsInCourseQueryResult>["sections"]
-      >[0]["lesson"]
-    >[0]
-  >;
+  lesson: BaseCompletedLesson;
   course: NonNullable<LessonsInCourseQueryResult>;
 }) {
   const { currentUser } = useFirestoreUser();

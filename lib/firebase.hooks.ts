@@ -10,14 +10,17 @@ import {
   getFirestore,
   setDoc,
   deleteDoc,
+  query,
+  orderBy,
 } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { app } from "@/lib/firebase";
 import { User } from "./firebase.types";
-import { LessonQueryResult, LessonsInCourseQueryResult } from "@/sanity.types";
+import { LessonsInCourseQueryResult } from "@/sanity.types";
 import { usePathname } from "next/navigation";
 import {
   BaseBookmarkContent,
+  BaseCompletedLesson,
   BookmarkPath,
   CompletedLesson,
 } from "@/lib/types";
@@ -51,7 +54,7 @@ export function useCompletedLesson({
   lesson,
   course,
 }: {
-  lesson: CompletedLesson;
+  lesson: BaseCompletedLesson;
   course: NonNullable<LessonsInCourseQueryResult>;
 }) {
   const { currentUser } = useFirestoreUser();
@@ -137,4 +140,29 @@ export function useBookmarked({ content }: { content: BaseBookmarkContent }) {
   };
 
   return { bookmarked, addBookmark, removeBookmark };
+}
+
+export function useBookmarks() {
+  const { currentUser } = useFirestoreUser();
+  const [bookmarks, setBookmarks] = useState<BookmarkPath[]>([]);
+
+  const contentRef = query(
+    collection(getFirestore(), "users/" + currentUser?.uid + "/bookmarked/"),
+    orderBy("_cc_updated", "desc")
+  );
+
+  useEffect(() => {
+    if (!currentUser?.uid) return;
+    const unsub = onSnapshot(contentRef, (doc) => {
+      doc.docs.forEach((doc) => {
+        const base = doc.data() as BookmarkPath;
+        console.log(base);
+        setBookmarks((prev) => [...prev, base]);
+      });
+    });
+    return () => unsub();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentUser]);
+
+  return { bookmarks };
 }
