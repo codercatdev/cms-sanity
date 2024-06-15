@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { FaUserGear } from "react-icons/fa6";
 import UserNav from "../user-nav";
+import { Suspense } from "react";
 
 export default function SettingsLayout({
   children,
@@ -28,7 +29,9 @@ export default function SettingsLayout({
               <span className="">Settings</span>
             </Link>
           </div>
-          <UserNav paths={paths} />
+          <Suspense fallback={<div>Loading...</div>}>
+            <UserNav paths={paths} />
+          </Suspense>
         </div>
       </div>
       <div className="flex flex-col">
