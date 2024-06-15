@@ -1,4 +1,4 @@
-import { PageQueryResult } from "@/sanity.types";
+import { LessonsInCourseQueryResult, PageQueryResult } from "@/sanity.types";
 
 export type NonNull<T> = Exclude<T, null | undefined>;
 
@@ -33,5 +33,17 @@ export interface BaseBookmarkContent extends BaseContent {
   _type: string;
 }
 export interface BookmarkPath extends BaseBookmarkContent {
-  pathname: string;
+  _cc_pathname: string;
+  _cc_updated: number;
+}
+
+export interface CompletedLesson
+  extends NonNullable<
+    NonNullable<
+      NonNullable<
+        NonNullable<LessonsInCourseQueryResult>["sections"]
+      >[0]["lesson"]
+    >[0]
+  > {
+  _cc_updated: number;
 }

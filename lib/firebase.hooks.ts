@@ -14,13 +14,13 @@ import {
 import { useEffect, useState } from "react";
 import { app } from "@/lib/firebase";
 import { User } from "./firebase.types";
-import {
-  LessonQueryResult,
-  LessonsInCourseQueryResult,
-  PageQueryResult,
-} from "@/sanity.types";
+import { LessonQueryResult, LessonsInCourseQueryResult } from "@/sanity.types";
 import { usePathname } from "next/navigation";
-import { BaseBookmarkContent, BookmarkPath } from "@/lib/types";
+import {
+  BaseBookmarkContent,
+  BookmarkPath,
+  CompletedLesson,
+} from "@/lib/types";
 
 export function useFirestoreUser() {
   const [currentUser, setCurrentUser] = useState<FirebaseUser | null>(null);
@@ -51,17 +51,13 @@ export function useCompletedLesson({
   lesson,
   course,
 }: {
-  lesson: NonNullable<
-    NonNullable<
-      NonNullable<
-        NonNullable<LessonsInCourseQueryResult>["sections"]
-      >[0]["lesson"]
-    >[0]
-  >;
+  lesson: CompletedLesson;
   course: NonNullable<LessonsInCourseQueryResult>;
 }) {
   const { currentUser } = useFirestoreUser();
-  const [completeLesson, setCompleteLesson] = useState<LessonQueryResult>(null);
+  const [completeLesson, setCompleteLesson] = useState<
+    CompletedLesson | undefined
+  >(undefined);
 
   const courseRef = doc(
     getFirestore(),
@@ -81,15 +77,16 @@ export function useCompletedLesson({
   useEffect(() => {
     if (!currentUser?.uid || !lesson || !course) return;
     const unsub = onSnapshot(lessonRef, (doc) => {
-      setCompleteLesson(doc.data() as LessonQueryResult);
+      setCompleteLesson(doc.data() as CompletedLesson);
     });
     return () => unsub();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentUser]);
 
   const addComplete = async () => {
-    await setDoc(courseRef, course, { merge: true });
-    await setDoc(lessonRef, lesson, { merge: true });
+    const _cc_updated = Date.now();
+    await setDoc(courseRef, { ...course, _cc_updated }, { merge: true });
+    await setDoc(lessonRef, { ...lesson, _cc_updated }, { merge: true });
   };
 
   const removeComplete = async () => {
@@ -122,11 +119,14 @@ export function useBookmarked({ content }: { content: BaseBookmarkContent }) {
   }, [currentUser]);
 
   const addBookmark = async () => {
+    const _cc_updated = Date.now();
+
     await setDoc(
       contentRef,
       {
         ...content,
-        pathname,
+        _cc_pathname: pathname,
+        _cc_updated,
       },
       { merge: true }
     );
