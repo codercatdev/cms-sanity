@@ -4048,22 +4048,16 @@ export type PageSlugsResult = Array<{
 export type AuthorSlugsResult = Array<{
   slug: Slug | null;
 }>;
-// Source: ./app/(main)/(guest)/guest/[slug]/page.tsx
-// Variable: guestSlugs
-// Query: *[_type == "guest"]{slug}
-export type GuestSlugsResult = Array<{
-  slug: Slug | null;
-}>;
-// Source: ./app/(main)/(podcast)/podcast/[slug]/page.tsx
-// Variable: podcastSlugs
-// Query: *[_type == "podcast"]{slug}
-export type PodcastSlugsResult = Array<{
-  slug: Slug | null;
-}>;
 // Source: ./app/(main)/(course)/course/[courseSlug]/page.tsx
 // Variable: courseSlugs
 // Query: *[_type == "course"]{slug}
 export type CourseSlugsResult = Array<{
+  slug: Slug | null;
+}>;
+// Source: ./app/(main)/(guest)/guest/[slug]/page.tsx
+// Variable: guestSlugs
+// Query: *[_type == "guest"]{slug}
+export type GuestSlugsResult = Array<{
   slug: Slug | null;
 }>;
 // Source: ./app/(main)/(sponsor)/sponsor/[slug]/page.tsx
@@ -4076,6 +4070,12 @@ export type SponsorSlugsResult = Array<{
 // Variable: postSlugs
 // Query: *[_type == "post"]{slug}
 export type PostSlugsResult = Array<{
+  slug: Slug | null;
+}>;
+// Source: ./app/(main)/(podcast)/podcast/[slug]/page.tsx
+// Variable: podcastSlugs
+// Query: *[_type == "podcast"]{slug}
+export type PodcastSlugsResult = Array<{
   slug: Slug | null;
 }>;
 // Source: ./app/(main)/(course)/course/[courseSlug]/lesson/[lessonSlug]/page.tsx
