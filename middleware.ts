@@ -7,17 +7,21 @@ export const config = {
 
 export async function middleware(request: NextRequest) {
   const login = request.nextUrl.pathname.startsWith("/login");
-  let sessionCookie = request.cookies.get("app.at");
-  let sessionExpireCookie = request.cookies.get("app.at_exp");
-  let tokenCookie = request.cookies.get("app.idt");
+  const sessionCookie = request.cookies.get("app.at");
+  const sessionExpireCookie = request.cookies.get("app.at_exp");
+  const tokenCookie = request.cookies.get("app.idt");
+
+  const clearCookies = () => {
+    // If sending to login, it could mean that cookies are off
+    // so we will delete them all before redirect
+    request.cookies.delete("app.at");
+    request.cookies.delete("app.at_exp");
+    request.cookies.delete("app.idt");
+  };
 
   const sendToLogin = () => {
     if (login) {
-      // If sending to login, it could mean that cookies are off
-      // so we will delete them all before redirect
-      request.cookies.delete("app.at");
-      request.cookies.delete("app.at_exp");
-      request.cookies.delete("app.idt");
+      clearCookies();
       return NextResponse.next();
     }
     return NextResponse.redirect(new URL("/login", request.url));
@@ -38,6 +42,7 @@ export async function middleware(request: NextRequest) {
 
   //Return to /login if token is not authorized
   if (responseAPI.status !== 200 && !login) {
+    clearCookies();
     return NextResponse.redirect(new URL("/login", request.url));
   }
 
