@@ -4,9 +4,11 @@ import { Button } from "@/components/ui/button";
 import AlgoliaSearch from "@/components/algolia-search";
 import { FaMagnifyingGlass } from "react-icons/fa6";
 import { useState } from "react";
+import { useKeyPress } from "@/lib/hooks";
 
 export default function AlgoliaDialog() {
   const [open, setOpen] = useState(false);
+  useKeyPress(() => setOpen && setOpen(true), "KeyK");
 
   return (
     <Dialog

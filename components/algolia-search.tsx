@@ -3,7 +3,6 @@
 import algoliasearch from "algoliasearch/lite";
 import { Hit as AlgoliaHit, SearchClient } from "instantsearch.js";
 import { useEffect, useState } from "react";
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { FaCat } from "react-icons/fa";
 import {
@@ -11,7 +10,6 @@ import {
   Highlight,
   SearchBox,
   RefinementList,
-  DynamicWidgets,
   UseDynamicWidgetsProps,
 } from "react-instantsearch";
 import { InstantSearchNext } from "react-instantsearch-nextjs";
@@ -111,6 +109,9 @@ export default function AlgoliaSearch({
             searchClient={client}
             indexName={indexName}
             routing
+            future={{
+              preserveSharedStateOnUnmount: true,
+            }}
             // initialUiState={{
             //   [indexName]: {
             //     refinementList: {
