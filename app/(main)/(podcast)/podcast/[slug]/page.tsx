@@ -16,6 +16,7 @@ import MoreHeader from "@/components/more-header";
 import { BreadcrumbLinks } from "@/components/breadrumb-links";
 import SponsorCard from "@/components/sponsor-card";
 import Avatar from "@/components/avatar";
+import Picks from "./picks";
 
 type Props = {
   params: { slug: string };
@@ -149,6 +150,22 @@ export default async function PodcastPage({ params }: Props) {
           />
         )}
       </article>
+      {podcast?.pick?.length && (
+        <>
+          <hr className="mb-8 sm:mb-24 border-accent-2 mt-8 sm:mt-28" />
+          <div className="flex flex-col md:flex-row md:justify-between">
+            <h2 className="mb-8 text-6xl font-bold leading-tight tracking-tighter md:text-7xl">
+              Picks
+            </h2>
+          </div>
+
+          <section className="p-0 sm:p-12">
+            <div className="grid gap-2 sm:gap-8">
+              <Picks picks={podcast.pick} />
+            </div>
+          </section>
+        </>
+      )}
       <aside>
         <MoreHeader title="Recent Podcasts" href="/podcasts/page/1" />
         <Suspense>

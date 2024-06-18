@@ -63,10 +63,7 @@ const podcastFields = `
     "slug": slug.current,
   },
   pick[]{
-    user[]->{
-      ...,
-      "title": coalesce(title, "Anonymous"),
-    },
+    user->,
     name,
     site
   }

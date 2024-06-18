@@ -14,9 +14,9 @@ export default function MoreHeader({
 }) {
   return (
     <>
-      {showHr && <hr className="mb-24 border-accent-2 mt-28" />}
+      {showHr && <hr className="mb-8 sm:mb-24 border-accent-2 mt-8 sm:mt-28" />}
 
-      <div className="flex flex-col md:flex-row md:justify-between mb-24">
+      <div className="flex flex-col md:flex-row md:justify-between mb-8 sm:mb-24">
         <h2 className="mb-8 text-6xl font-bold leading-tight tracking-tighter md:text-7xl">
           {title}
         </h2>
