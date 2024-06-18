@@ -8,7 +8,7 @@ import DateComponent from "@/components/date";
 import MoreContent from "@/components/more-content";
 import PortableText from "@/components/portable-text";
 
-import type { PostQueryResult, PostSlugsResult } from "@/sanity.types";
+import type { PostQueryResult } from "@/sanity.types";
 import { sanityFetch } from "@/sanity/lib/fetch";
 import { postQuery } from "@/sanity/lib/queries";
 import { resolveOpenGraphImage } from "@/sanity/lib/utils";
@@ -19,17 +19,6 @@ import { BreadcrumbLinks } from "@/components/breadrumb-links";
 type Props = {
   params: { slug: string };
 };
-
-const postSlugs = groq`*[_type == "post"]{slug}`;
-
-export async function generateStaticParams() {
-  const params = await sanityFetch<PostSlugsResult>({
-    query: postSlugs,
-    perspective: "published",
-    stega: false,
-  });
-  return params.map(({ slug }) => ({ slug: slug?.current }));
-}
 
 export async function generateMetadata(
   { params }: Props,

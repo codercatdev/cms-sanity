@@ -4,7 +4,6 @@ import { Suspense } from "react";
 
 import type {
   LessonQueryResult,
-  LessonSlugsResult,
   LessonsInCourseQueryResult,
 } from "@/sanity.types";
 import { sanityFetch } from "@/sanity/lib/fetch";
@@ -20,17 +19,6 @@ import { groq, type PortableTextBlock } from "next-sanity";
 type Props = {
   params: { lessonSlug: string; courseSlug: string };
 };
-
-const lessonSlugs = groq`*[_type == "lesson"]{slug}`;
-
-export async function generateStaticParams() {
-  const params = await sanityFetch<LessonSlugsResult>({
-    query: lessonSlugs,
-    perspective: "published",
-    stega: false,
-  });
-  return params.map(({ slug }) => ({ slug: slug?.current }));
-}
 
 export async function generateMetadata(
   { params }: Props,

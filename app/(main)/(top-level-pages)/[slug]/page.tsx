@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 
 import PortableText from "@/components/portable-text";
 
-import type { PageQueryResult, PageSlugsResult } from "@/sanity.types";
+import type { PageQueryResult } from "@/sanity.types";
 import { sanityFetch } from "@/sanity/lib/fetch";
 import { pageQuery } from "@/sanity/lib/queries";
 import { resolveOpenGraphImage } from "@/sanity/lib/utils";
@@ -13,17 +13,6 @@ import { BreadcrumbLinks } from "@/components/breadrumb-links";
 type Props = {
   params: { slug: string };
 };
-
-const pageSlugs = groq`*[_type == "page" && !(slug.current in ["sponsorships","blog", "podcast", "code-with-codingcatdev"])]{slug}`;
-
-export async function generateStaticParams() {
-  const params = await sanityFetch<PageSlugsResult>({
-    query: pageSlugs,
-    perspective: "published",
-    stega: false,
-  });
-  return params.map(({ slug }) => ({ slug: slug?.current }));
-}
 
 export async function generateMetadata(
   { params }: Props,

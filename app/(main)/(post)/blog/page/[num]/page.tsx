@@ -7,22 +7,6 @@ import { docCount } from "@/sanity/lib/queries";
 
 const LIMIT = 10;
 
-export async function generateStaticParams() {
-  const count = await sanityFetch<DocCountResult>({
-    query: docCount,
-    params: {
-      type: "post",
-    },
-    perspective: "published",
-    stega: false,
-  });
-  return new Array(Math.ceil((count || 1) / LIMIT)).fill(0).map((_, i) => ({
-    params: {
-      number: i + 1,
-    },
-  }));
-}
-
 type Props = {
   params: { num: string };
 };

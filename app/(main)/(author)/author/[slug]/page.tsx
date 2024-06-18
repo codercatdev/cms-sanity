@@ -7,7 +7,6 @@ import PortableText from "@/components/portable-text";
 import type {
   AuthorQueryResult,
   AuthorQueryWithRelatedResult,
-  AuthorSlugsResult,
 } from "@/sanity.types";
 import { sanityFetch } from "@/sanity/lib/fetch";
 import { authorQuery, authorQueryWithRelated } from "@/sanity/lib/queries";
@@ -21,17 +20,6 @@ import UserRelated from "@/components/user-related";
 type Props = {
   params: { slug: string };
 };
-
-const authorSlugs = groq`*[_type == "author"]{slug}`;
-
-export async function generateStaticParams() {
-  const params = await sanityFetch<AuthorSlugsResult>({
-    query: authorSlugs,
-    perspective: "published",
-    stega: false,
-  });
-  return params.map(({ slug }) => ({ slug: slug?.current }));
-}
 
 export async function generateMetadata(
   { params }: Props,

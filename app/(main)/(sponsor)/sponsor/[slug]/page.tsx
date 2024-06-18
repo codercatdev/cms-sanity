@@ -7,7 +7,6 @@ import PortableText from "@/components/portable-text";
 import type {
   SponsorQueryResult,
   SponsorQueryWithRelatedResult,
-  SponsorSlugsResult,
 } from "@/sanity.types";
 import { sanityFetch } from "@/sanity/lib/fetch";
 import { sponsorQuery, sponsorQueryWithRelated } from "@/sanity/lib/queries";
@@ -21,17 +20,6 @@ import UserRelated from "@/components/user-related";
 type Props = {
   params: { slug: string };
 };
-
-const sponsorSlugs = groq`*[_type == "sponsor"]{slug}`;
-
-export async function generateStaticParams() {
-  const params = await sanityFetch<SponsorSlugsResult>({
-    query: sponsorSlugs,
-    perspective: "published",
-    stega: false,
-  });
-  return params.map(({ slug }) => ({ slug: slug?.current }));
-}
 
 export async function generateMetadata(
   { params }: Props,
