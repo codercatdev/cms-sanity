@@ -9,7 +9,7 @@ import DateComponent from "@/components/date";
 import MoreContent from "@/components/more-content";
 import PortableText from "@/components/portable-text";
 
-import type { CourseSlugsResult, CourseQueryResult } from "@/sanity.types";
+import type { CourseQueryResult } from "@/sanity.types";
 import { sanityFetch } from "@/sanity/lib/fetch";
 import { courseQuery } from "@/sanity/lib/queries";
 import { resolveOpenGraphImage } from "@/sanity/lib/utils";
@@ -20,17 +20,6 @@ import { BreadcrumbLinks } from "@/components/breadrumb-links";
 type Props = {
   params: { courseSlug: string };
 };
-
-const courseSlugs = groq`*[_type == "course"]{slug}`;
-
-export async function generateStaticParams() {
-  const params = await sanityFetch<CourseSlugsResult>({
-    query: courseSlugs,
-    perspective: "published",
-    stega: false,
-  });
-  return params.map(({ slug }) => ({ slug: slug?.current }));
-}
 
 export async function generateMetadata(
   { params }: Props,

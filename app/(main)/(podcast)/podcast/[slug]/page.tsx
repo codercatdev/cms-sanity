@@ -7,7 +7,7 @@ import DateComponent from "@/components/date";
 import MoreContent from "@/components/more-content";
 import PortableText from "@/components/portable-text";
 
-import type { PodcastQueryResult, PodcastSlugsResult } from "@/sanity.types";
+import type { PodcastQueryResult } from "@/sanity.types";
 import { sanityFetch } from "@/sanity/lib/fetch";
 import { podcastQuery } from "@/sanity/lib/queries";
 import { resolveOpenGraphImage } from "@/sanity/lib/utils";
@@ -20,17 +20,6 @@ import Avatar from "@/components/avatar";
 type Props = {
   params: { slug: string };
 };
-
-const podcastSlugs = groq`*[_type == "podcast"]{slug}`;
-
-export async function generateStaticParams() {
-  const params = await sanityFetch<PodcastSlugsResult>({
-    query: podcastSlugs,
-    perspective: "published",
-    stega: false,
-  });
-  return params.map(({ slug }) => ({ slug: slug?.current }));
-}
 
 export async function generateMetadata(
   { params }: Props,
