@@ -46,7 +46,6 @@ export async function POST(request: Request) {
   //   "content": pt::text(content),
   //   "guest": null,
   //   "spotify": null,
-  //   "coverImage": coverImage.secure_url,
   //   "created": select(before() == null && after() != null => _id),
   //   "deleted": select(before() != null && after() == null => _id),
   //   "updated": select(before() != null && after() != null => _id),

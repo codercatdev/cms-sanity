@@ -23,6 +23,7 @@ import NavHeader from "@/components/nav-header";
 import Footer from "@/components/footer";
 import { Toaster } from "@/components/ui/toaster";
 import AvatarDropdown from "./avatar-dropdown";
+import AlgoliaDialog from "@/components/algolia-dialog";
 
 const nunito = Nunito({
   subsets: ["latin"],
@@ -94,6 +95,7 @@ export default async function RootLayout({
                 </nav>
               </div>
               <div className="flex items-center gap-2">
+                <AlgoliaDialog />
                 <AvatarDropdown />
                 <Sheet>
                   <SheetTrigger asChild>
