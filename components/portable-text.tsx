@@ -17,6 +17,7 @@ import {
 import BlockImage from "@/components/block-image";
 import BlockCode from "@/components/block-code";
 import Link from "next/link";
+import TwitterEmbed from "@/components/twitter-embed";
 
 export default function CustomPortableText({
   className,
@@ -30,6 +31,7 @@ export default function CustomPortableText({
     types: {
       "cloudinary.asset": ({ value }) => <BlockImage image={value} />,
       code: ({ value }) => <BlockCode {...value} />,
+      twitter: ({ value }) => <TwitterEmbed {...value} />,
     },
     block: {
       h5: ({ children }) => (
