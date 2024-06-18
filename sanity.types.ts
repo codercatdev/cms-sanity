@@ -4060,12 +4060,6 @@ export type CourseSlugsResult = Array<{
 export type GuestSlugsResult = Array<{
   slug: Slug | null;
 }>;
-// Source: ./app/(main)/(post)/post/[slug]/page.tsx
-// Variable: postSlugs
-// Query: *[_type == "post"]{slug}
-export type PostSlugsResult = Array<{
-  slug: Slug | null;
-}>;
 // Source: ./app/(main)/(podcast)/podcast/[slug]/page.tsx
 // Variable: podcastSlugs
 // Query: *[_type == "podcast"]{slug}
@@ -4076,6 +4070,12 @@ export type PodcastSlugsResult = Array<{
 // Variable: sponsorSlugs
 // Query: *[_type == "sponsor"]{slug}
 export type SponsorSlugsResult = Array<{
+  slug: Slug | null;
+}>;
+// Source: ./app/(main)/(post)/post/[slug]/page.tsx
+// Variable: postSlugs
+// Query: *[_type == "post"]{slug}
+export type PostSlugsResult = Array<{
   slug: Slug | null;
 }>;
 // Source: ./app/(main)/(course)/course/[courseSlug]/lesson/[lessonSlug]/page.tsx
