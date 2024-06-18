@@ -68,8 +68,9 @@ export default function AlgoliaSearch({
         <li className="flex items-center space-x-2 border rounded-lg py-1 px-4">
           <FaCat className="h-5 w-5 text-gray-400" />
           <Link
-            href={`${hit._type}/${hit.slug}`}
+            href={`/${hit._type}/${hit.slug}`}
             className="hover:underline flex-1"
+            onClick={() => setOpen && setOpen(false)}
           >
             <div className="flex flex-col gap-1">
               <Highlight
