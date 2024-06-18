@@ -280,3 +280,24 @@ export const sponsorQueryWithRelated = groq`*[_type == "sponsor" && slug.current
   ${userFields},
   ${sponsorRelated}
 }`;
+
+// RSS
+
+export const rssQuery = groq`*[_type == $type && _id != $skip && defined(slug.current)] | order(date desc) [$offset...$limit] {
+  ${baseFieldsNoContent},
+  ${contentFields},
+}`;
+
+// Sitemaps
+export const sitemapQuery = groq`*[_type in ["author", "course", "guest", "page", "podcast", "post", "sponsor"] && defined(slug.current)] | order(_type asc) | order(_updated desc) {
+  _type,
+  _updatedAt,
+  "slug": slug.current,
+  sections[]{
+    lesson[]->{
+      _type,
+      _updatedAt,
+      "slug": slug.current,
+    }
+  }
+}`;

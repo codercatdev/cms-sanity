@@ -4036,3 +4036,1565 @@ export type SponsorQueryWithRelatedResult = {
     post: Array<never>;
   };
 } | null;
+// Variable: rssQuery
+// Query: *[_type == $type && _id != $skip && defined(slug.current)] | order(date desc) [$offset...$limit] {    _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(date, _createdAt),    content[]{    ...,    markDefs[]{      ...,      _type == "internalLink" => {        @.reference->_type == "page" => {          "href": "/" + @.reference->slug.current        },        @.reference->_type != "page" => {          "href": "/" + @.reference->_type + "/" + @.reference->slug.current        }      },    }  },  author[]->{    ...,    "title": coalesce(title, "Anonymous"),    "slug": slug.current,  },  devto,  hashnode,  sponsor[]->{    ...,    "title": coalesce(title, "Anonymous"),    "slug": slug.current,  },  tags,  videoCloudinary,  youtube,}
+export type RssQueryResult = Array<{
+  _id: string;
+  _type: "assist.instruction.context";
+  status: "draft" | "published";
+  title: string | "Untitled";
+  slug: null;
+  excerpt: null;
+  coverImage: null;
+  date: null | string;
+  content: null;
+  author: null;
+  devto: null;
+  hashnode: null;
+  sponsor: null;
+  tags: null;
+  videoCloudinary: null;
+  youtube: null;
+} | {
+  _id: string;
+  _type: "author";
+  status: "draft" | "published";
+  title: string | "Untitled";
+  slug: string | null;
+  excerpt: string | null;
+  coverImage: CloudinaryAsset | null;
+  date: string;
+  content: Array<{
+    _key: string;
+    markDefs: null;
+  } | {
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+    listItem?: "bullet" | "number";
+    markDefs: Array<{
+      href?: string;
+      blank?: boolean;
+      _type: "link";
+    } | {
+      reference?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "course";
+      } | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "page";
+      } | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "podcast";
+      } | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "post";
+      };
+      _type: "internalLink";
+      href: string | null;
+    }> | null;
+    level?: number;
+    _type: "block";
+  } | {
+    url?: string;
+    _type: "codepen";
+    markDefs: null;
+  } | {
+    url?: string;
+    _type: "codesandbox";
+    markDefs: null;
+  }> | null;
+  author: null;
+  devto: null;
+  hashnode: null;
+  sponsor: null;
+  tags: null;
+  videoCloudinary: null;
+  youtube: null;
+} | {
+  _id: string;
+  _type: "course";
+  status: "draft" | "published";
+  title: string | "Untitled";
+  slug: string | null;
+  excerpt: string | null;
+  coverImage: CloudinaryAsset | null;
+  date: string;
+  content: Array<{
+    _key: string;
+    markDefs: null;
+  } | {
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+    listItem?: "bullet" | "number";
+    markDefs: Array<{
+      href?: string;
+      blank?: boolean;
+      _type: "link";
+    } | {
+      reference?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "course";
+      } | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "page";
+      } | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "podcast";
+      } | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "post";
+      };
+      _type: "internalLink";
+      href: string | null;
+    }> | null;
+    level?: number;
+    _type: "block";
+  } | {
+    url?: string;
+    _type: "codepen";
+    markDefs: null;
+  } | {
+    url?: string;
+    _type: "codesandbox";
+    markDefs: null;
+  }> | null;
+  author: Array<{
+    _id: string;
+    _type: "author";
+    _createdAt: string;
+    _updatedAt: string;
+    _rev: string;
+    coverImage?: CloudinaryAsset;
+    date?: string;
+    title: string | "Anonymous";
+    slug: string | null;
+    excerpt?: string;
+    featured?: boolean;
+    content?: Array<({
+      _key: string;
+    } & CloudinaryAsset) | ({
+      _key: string;
+    } & Code) | {
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: "span";
+        _key: string;
+      }>;
+      style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+      listItem?: "bullet" | "number";
+      markDefs?: Array<{
+        href?: string;
+        blank?: boolean;
+        _type: "link";
+        _key: string;
+      } | {
+        reference?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "course";
+        } | {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "page";
+        } | {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "podcast";
+        } | {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "post";
+        };
+        _type: "internalLink";
+        _key: string;
+      }>;
+      level?: number;
+      _type: "block";
+      _key: string;
+    } | {
+      url?: string;
+      _type: "codepen";
+      _key: string;
+    } | {
+      url?: string;
+      _type: "codesandbox";
+      _key: string;
+    }>;
+    socials?: {
+      codepen?: string;
+      devto?: string;
+      discord?: string;
+      dribble?: string;
+      facebook?: string;
+      github?: string;
+      instagram?: string;
+      lastfm?: string;
+      linkedin?: string;
+      email?: string;
+      mastodon?: string;
+      medium?: string;
+      polywork?: string;
+      stackoverflow?: string;
+      substack?: string;
+      tiktok?: string;
+      twitch?: string;
+      twitter?: string;
+      youtube?: string;
+    };
+    websites?: Array<{
+      site?: string;
+      link?: {
+        href?: string;
+        blank?: boolean;
+      };
+      _type: "site";
+      _key: string;
+    }>;
+  }> | null;
+  devto: string | null;
+  hashnode: string | null;
+  sponsor: Array<{
+    _id: string;
+    _type: "sponsor";
+    _createdAt: string;
+    _updatedAt: string;
+    _rev: string;
+    coverImage?: CloudinaryAsset;
+    date?: string;
+    title: string | "Anonymous";
+    slug: string | null;
+    excerpt?: string;
+    featured?: boolean;
+    content?: Array<({
+      _key: string;
+    } & CloudinaryAsset) | ({
+      _key: string;
+    } & Code) | {
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: "span";
+        _key: string;
+      }>;
+      style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+      listItem?: "bullet" | "number";
+      markDefs?: Array<{
+        href?: string;
+        blank?: boolean;
+        _type: "link";
+        _key: string;
+      } | {
+        reference?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "course";
+        } | {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "page";
+        } | {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "podcast";
+        } | {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "post";
+        };
+        _type: "internalLink";
+        _key: string;
+      }>;
+      level?: number;
+      _type: "block";
+      _key: string;
+    } | {
+      url?: string;
+      _type: "codepen";
+      _key: string;
+    } | {
+      url?: string;
+      _type: "codesandbox";
+      _key: string;
+    }>;
+    url?: string;
+  }> | null;
+  tags: Array<{
+    _key: string;
+  } & Tag> | null;
+  videoCloudinary: CloudinaryAsset | null;
+  youtube: string | null;
+} | {
+  _id: string;
+  _type: "guest";
+  status: "draft" | "published";
+  title: string | "Untitled";
+  slug: string | null;
+  excerpt: string | null;
+  coverImage: CloudinaryAsset | null;
+  date: string;
+  content: Array<{
+    _key: string;
+    markDefs: null;
+  } | {
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+    listItem?: "bullet" | "number";
+    markDefs: Array<{
+      href?: string;
+      blank?: boolean;
+      _type: "link";
+    } | {
+      reference?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "course";
+      } | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "page";
+      } | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "podcast";
+      } | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "post";
+      };
+      _type: "internalLink";
+      href: string | null;
+    }> | null;
+    level?: number;
+    _type: "block";
+  } | {
+    url?: string;
+    _type: "codepen";
+    markDefs: null;
+  } | {
+    url?: string;
+    _type: "codesandbox";
+    markDefs: null;
+  }> | null;
+  author: null;
+  devto: null;
+  hashnode: null;
+  sponsor: null;
+  tags: null;
+  videoCloudinary: null;
+  youtube: null;
+} | {
+  _id: string;
+  _type: "lesson";
+  status: "draft" | "published";
+  title: string | "Untitled";
+  slug: string | null;
+  excerpt: string | null;
+  coverImage: CloudinaryAsset | null;
+  date: string;
+  content: Array<{
+    _key: string;
+    markDefs: null;
+  } | {
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+    listItem?: "bullet" | "number";
+    markDefs: Array<{
+      href?: string;
+      blank?: boolean;
+      _type: "link";
+    } | {
+      reference?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "course";
+      } | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "page";
+      } | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "podcast";
+      } | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "post";
+      };
+      _type: "internalLink";
+      href: string | null;
+    }> | null;
+    level?: number;
+    _type: "block";
+  } | {
+    url?: string;
+    _type: "codepen";
+    markDefs: null;
+  } | {
+    url?: string;
+    _type: "codesandbox";
+    markDefs: null;
+  }> | null;
+  author: Array<{
+    _id: string;
+    _type: "author";
+    _createdAt: string;
+    _updatedAt: string;
+    _rev: string;
+    coverImage?: CloudinaryAsset;
+    date?: string;
+    title: string | "Anonymous";
+    slug: string | null;
+    excerpt?: string;
+    featured?: boolean;
+    content?: Array<({
+      _key: string;
+    } & CloudinaryAsset) | ({
+      _key: string;
+    } & Code) | {
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: "span";
+        _key: string;
+      }>;
+      style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+      listItem?: "bullet" | "number";
+      markDefs?: Array<{
+        href?: string;
+        blank?: boolean;
+        _type: "link";
+        _key: string;
+      } | {
+        reference?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "course";
+        } | {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "page";
+        } | {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "podcast";
+        } | {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "post";
+        };
+        _type: "internalLink";
+        _key: string;
+      }>;
+      level?: number;
+      _type: "block";
+      _key: string;
+    } | {
+      url?: string;
+      _type: "codepen";
+      _key: string;
+    } | {
+      url?: string;
+      _type: "codesandbox";
+      _key: string;
+    }>;
+    socials?: {
+      codepen?: string;
+      devto?: string;
+      discord?: string;
+      dribble?: string;
+      facebook?: string;
+      github?: string;
+      instagram?: string;
+      lastfm?: string;
+      linkedin?: string;
+      email?: string;
+      mastodon?: string;
+      medium?: string;
+      polywork?: string;
+      stackoverflow?: string;
+      substack?: string;
+      tiktok?: string;
+      twitch?: string;
+      twitter?: string;
+      youtube?: string;
+    };
+    websites?: Array<{
+      site?: string;
+      link?: {
+        href?: string;
+        blank?: boolean;
+      };
+      _type: "site";
+      _key: string;
+    }>;
+  }> | null;
+  devto: string | null;
+  hashnode: string | null;
+  sponsor: Array<{
+    _id: string;
+    _type: "sponsor";
+    _createdAt: string;
+    _updatedAt: string;
+    _rev: string;
+    coverImage?: CloudinaryAsset;
+    date?: string;
+    title: string | "Anonymous";
+    slug: string | null;
+    excerpt?: string;
+    featured?: boolean;
+    content?: Array<({
+      _key: string;
+    } & CloudinaryAsset) | ({
+      _key: string;
+    } & Code) | {
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: "span";
+        _key: string;
+      }>;
+      style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+      listItem?: "bullet" | "number";
+      markDefs?: Array<{
+        href?: string;
+        blank?: boolean;
+        _type: "link";
+        _key: string;
+      } | {
+        reference?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "course";
+        } | {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "page";
+        } | {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "podcast";
+        } | {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "post";
+        };
+        _type: "internalLink";
+        _key: string;
+      }>;
+      level?: number;
+      _type: "block";
+      _key: string;
+    } | {
+      url?: string;
+      _type: "codepen";
+      _key: string;
+    } | {
+      url?: string;
+      _type: "codesandbox";
+      _key: string;
+    }>;
+    url?: string;
+  }> | null;
+  tags: Array<{
+    _key: string;
+  } & Tag> | null;
+  videoCloudinary: CloudinaryAsset | null;
+  youtube: string | null;
+} | {
+  _id: string;
+  _type: "page";
+  status: "draft" | "published";
+  title: string | "Untitled";
+  slug: string | null;
+  excerpt: string | null;
+  coverImage: CloudinaryAsset | null;
+  date: string;
+  content: Array<{
+    _key: string;
+    markDefs: null;
+  } | {
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+    listItem?: "bullet" | "number";
+    markDefs: Array<{
+      href?: string;
+      blank?: boolean;
+      _type: "link";
+    } | {
+      reference?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "course";
+      } | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "page";
+      } | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "podcast";
+      } | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "post";
+      };
+      _type: "internalLink";
+      href: string | null;
+    }> | null;
+    level?: number;
+    _type: "block";
+  } | {
+    url?: string;
+    _type: "codepen";
+    markDefs: null;
+  } | {
+    url?: string;
+    _type: "codesandbox";
+    markDefs: null;
+  }> | null;
+  author: Array<{
+    _id: string;
+    _type: "author";
+    _createdAt: string;
+    _updatedAt: string;
+    _rev: string;
+    coverImage?: CloudinaryAsset;
+    date?: string;
+    title: string | "Anonymous";
+    slug: string | null;
+    excerpt?: string;
+    featured?: boolean;
+    content?: Array<({
+      _key: string;
+    } & CloudinaryAsset) | ({
+      _key: string;
+    } & Code) | {
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: "span";
+        _key: string;
+      }>;
+      style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+      listItem?: "bullet" | "number";
+      markDefs?: Array<{
+        href?: string;
+        blank?: boolean;
+        _type: "link";
+        _key: string;
+      } | {
+        reference?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "course";
+        } | {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "page";
+        } | {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "podcast";
+        } | {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "post";
+        };
+        _type: "internalLink";
+        _key: string;
+      }>;
+      level?: number;
+      _type: "block";
+      _key: string;
+    } | {
+      url?: string;
+      _type: "codepen";
+      _key: string;
+    } | {
+      url?: string;
+      _type: "codesandbox";
+      _key: string;
+    }>;
+    socials?: {
+      codepen?: string;
+      devto?: string;
+      discord?: string;
+      dribble?: string;
+      facebook?: string;
+      github?: string;
+      instagram?: string;
+      lastfm?: string;
+      linkedin?: string;
+      email?: string;
+      mastodon?: string;
+      medium?: string;
+      polywork?: string;
+      stackoverflow?: string;
+      substack?: string;
+      tiktok?: string;
+      twitch?: string;
+      twitter?: string;
+      youtube?: string;
+    };
+    websites?: Array<{
+      site?: string;
+      link?: {
+        href?: string;
+        blank?: boolean;
+      };
+      _type: "site";
+      _key: string;
+    }>;
+  }> | null;
+  devto: string | null;
+  hashnode: string | null;
+  sponsor: Array<{
+    _id: string;
+    _type: "sponsor";
+    _createdAt: string;
+    _updatedAt: string;
+    _rev: string;
+    coverImage?: CloudinaryAsset;
+    date?: string;
+    title: string | "Anonymous";
+    slug: string | null;
+    excerpt?: string;
+    featured?: boolean;
+    content?: Array<({
+      _key: string;
+    } & CloudinaryAsset) | ({
+      _key: string;
+    } & Code) | {
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: "span";
+        _key: string;
+      }>;
+      style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+      listItem?: "bullet" | "number";
+      markDefs?: Array<{
+        href?: string;
+        blank?: boolean;
+        _type: "link";
+        _key: string;
+      } | {
+        reference?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "course";
+        } | {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "page";
+        } | {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "podcast";
+        } | {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "post";
+        };
+        _type: "internalLink";
+        _key: string;
+      }>;
+      level?: number;
+      _type: "block";
+      _key: string;
+    } | {
+      url?: string;
+      _type: "codepen";
+      _key: string;
+    } | {
+      url?: string;
+      _type: "codesandbox";
+      _key: string;
+    }>;
+    url?: string;
+  }> | null;
+  tags: Array<{
+    _key: string;
+  } & Tag> | null;
+  videoCloudinary: CloudinaryAsset | null;
+  youtube: string | null;
+} | {
+  _id: string;
+  _type: "podcast";
+  status: "draft" | "published";
+  title: string | "Untitled";
+  slug: string | null;
+  excerpt: string | null;
+  coverImage: CloudinaryAsset | null;
+  date: string;
+  content: Array<{
+    _key: string;
+    markDefs: null;
+  } | {
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+    listItem?: "bullet" | "number";
+    markDefs: Array<{
+      href?: string;
+      blank?: boolean;
+      _type: "link";
+    } | {
+      reference?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "course";
+      } | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "page";
+      } | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "podcast";
+      } | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "post";
+      };
+      _type: "internalLink";
+      href: string | null;
+    }> | null;
+    level?: number;
+    _type: "block";
+  } | {
+    url?: string;
+    _type: "codepen";
+    markDefs: null;
+  } | {
+    url?: string;
+    _type: "codesandbox";
+    markDefs: null;
+  }> | null;
+  author: Array<{
+    _id: string;
+    _type: "author";
+    _createdAt: string;
+    _updatedAt: string;
+    _rev: string;
+    coverImage?: CloudinaryAsset;
+    date?: string;
+    title: string | "Anonymous";
+    slug: string | null;
+    excerpt?: string;
+    featured?: boolean;
+    content?: Array<({
+      _key: string;
+    } & CloudinaryAsset) | ({
+      _key: string;
+    } & Code) | {
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: "span";
+        _key: string;
+      }>;
+      style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+      listItem?: "bullet" | "number";
+      markDefs?: Array<{
+        href?: string;
+        blank?: boolean;
+        _type: "link";
+        _key: string;
+      } | {
+        reference?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "course";
+        } | {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "page";
+        } | {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "podcast";
+        } | {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "post";
+        };
+        _type: "internalLink";
+        _key: string;
+      }>;
+      level?: number;
+      _type: "block";
+      _key: string;
+    } | {
+      url?: string;
+      _type: "codepen";
+      _key: string;
+    } | {
+      url?: string;
+      _type: "codesandbox";
+      _key: string;
+    }>;
+    socials?: {
+      codepen?: string;
+      devto?: string;
+      discord?: string;
+      dribble?: string;
+      facebook?: string;
+      github?: string;
+      instagram?: string;
+      lastfm?: string;
+      linkedin?: string;
+      email?: string;
+      mastodon?: string;
+      medium?: string;
+      polywork?: string;
+      stackoverflow?: string;
+      substack?: string;
+      tiktok?: string;
+      twitch?: string;
+      twitter?: string;
+      youtube?: string;
+    };
+    websites?: Array<{
+      site?: string;
+      link?: {
+        href?: string;
+        blank?: boolean;
+      };
+      _type: "site";
+      _key: string;
+    }>;
+  }> | null;
+  devto: string | null;
+  hashnode: string | null;
+  sponsor: Array<{
+    _id: string;
+    _type: "sponsor";
+    _createdAt: string;
+    _updatedAt: string;
+    _rev: string;
+    coverImage?: CloudinaryAsset;
+    date?: string;
+    title: string | "Anonymous";
+    slug: string | null;
+    excerpt?: string;
+    featured?: boolean;
+    content?: Array<({
+      _key: string;
+    } & CloudinaryAsset) | ({
+      _key: string;
+    } & Code) | {
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: "span";
+        _key: string;
+      }>;
+      style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+      listItem?: "bullet" | "number";
+      markDefs?: Array<{
+        href?: string;
+        blank?: boolean;
+        _type: "link";
+        _key: string;
+      } | {
+        reference?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "course";
+        } | {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "page";
+        } | {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "podcast";
+        } | {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "post";
+        };
+        _type: "internalLink";
+        _key: string;
+      }>;
+      level?: number;
+      _type: "block";
+      _key: string;
+    } | {
+      url?: string;
+      _type: "codepen";
+      _key: string;
+    } | {
+      url?: string;
+      _type: "codesandbox";
+      _key: string;
+    }>;
+    url?: string;
+  }> | null;
+  tags: Array<{
+    _key: string;
+  } & Tag> | null;
+  videoCloudinary: CloudinaryAsset | null;
+  youtube: string | null;
+} | {
+  _id: string;
+  _type: "podcastType";
+  status: "draft" | "published";
+  title: string | "Untitled";
+  slug: string | null;
+  excerpt: string | null;
+  coverImage: CloudinaryAsset | null;
+  date: string;
+  content: Array<{
+    _key: string;
+    markDefs: null;
+  } | {
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+    listItem?: "bullet" | "number";
+    markDefs: Array<{
+      href?: string;
+      blank?: boolean;
+      _type: "link";
+    } | {
+      reference?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "course";
+      } | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "page";
+      } | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "podcast";
+      } | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "post";
+      };
+      _type: "internalLink";
+      href: string | null;
+    }> | null;
+    level?: number;
+    _type: "block";
+  } | {
+    url?: string;
+    _type: "codepen";
+    markDefs: null;
+  } | {
+    url?: string;
+    _type: "codesandbox";
+    markDefs: null;
+  }> | null;
+  author: null;
+  devto: null;
+  hashnode: null;
+  sponsor: null;
+  tags: null;
+  videoCloudinary: null;
+  youtube: null;
+} | {
+  _id: string;
+  _type: "post";
+  status: "draft" | "published";
+  title: string | "Untitled";
+  slug: string | null;
+  excerpt: string | null;
+  coverImage: CloudinaryAsset | null;
+  date: string;
+  content: Array<{
+    _key: string;
+    markDefs: null;
+  } | {
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+    listItem?: "bullet" | "number";
+    markDefs: Array<{
+      href?: string;
+      blank?: boolean;
+      _type: "link";
+    } | {
+      reference?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "course";
+      } | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "page";
+      } | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "podcast";
+      } | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "post";
+      };
+      _type: "internalLink";
+      href: string | null;
+    }> | null;
+    level?: number;
+    _type: "block";
+  } | {
+    url?: string;
+    _type: "codepen";
+    markDefs: null;
+  } | {
+    url?: string;
+    _type: "codesandbox";
+    markDefs: null;
+  }> | null;
+  author: Array<{
+    _id: string;
+    _type: "author";
+    _createdAt: string;
+    _updatedAt: string;
+    _rev: string;
+    coverImage?: CloudinaryAsset;
+    date?: string;
+    title: string | "Anonymous";
+    slug: string | null;
+    excerpt?: string;
+    featured?: boolean;
+    content?: Array<({
+      _key: string;
+    } & CloudinaryAsset) | ({
+      _key: string;
+    } & Code) | {
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: "span";
+        _key: string;
+      }>;
+      style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+      listItem?: "bullet" | "number";
+      markDefs?: Array<{
+        href?: string;
+        blank?: boolean;
+        _type: "link";
+        _key: string;
+      } | {
+        reference?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "course";
+        } | {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "page";
+        } | {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "podcast";
+        } | {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "post";
+        };
+        _type: "internalLink";
+        _key: string;
+      }>;
+      level?: number;
+      _type: "block";
+      _key: string;
+    } | {
+      url?: string;
+      _type: "codepen";
+      _key: string;
+    } | {
+      url?: string;
+      _type: "codesandbox";
+      _key: string;
+    }>;
+    socials?: {
+      codepen?: string;
+      devto?: string;
+      discord?: string;
+      dribble?: string;
+      facebook?: string;
+      github?: string;
+      instagram?: string;
+      lastfm?: string;
+      linkedin?: string;
+      email?: string;
+      mastodon?: string;
+      medium?: string;
+      polywork?: string;
+      stackoverflow?: string;
+      substack?: string;
+      tiktok?: string;
+      twitch?: string;
+      twitter?: string;
+      youtube?: string;
+    };
+    websites?: Array<{
+      site?: string;
+      link?: {
+        href?: string;
+        blank?: boolean;
+      };
+      _type: "site";
+      _key: string;
+    }>;
+  }> | null;
+  devto: string | null;
+  hashnode: string | null;
+  sponsor: Array<{
+    _id: string;
+    _type: "sponsor";
+    _createdAt: string;
+    _updatedAt: string;
+    _rev: string;
+    coverImage?: CloudinaryAsset;
+    date?: string;
+    title: string | "Anonymous";
+    slug: string | null;
+    excerpt?: string;
+    featured?: boolean;
+    content?: Array<({
+      _key: string;
+    } & CloudinaryAsset) | ({
+      _key: string;
+    } & Code) | {
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: "span";
+        _key: string;
+      }>;
+      style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+      listItem?: "bullet" | "number";
+      markDefs?: Array<{
+        href?: string;
+        blank?: boolean;
+        _type: "link";
+        _key: string;
+      } | {
+        reference?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "course";
+        } | {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "page";
+        } | {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "podcast";
+        } | {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "post";
+        };
+        _type: "internalLink";
+        _key: string;
+      }>;
+      level?: number;
+      _type: "block";
+      _key: string;
+    } | {
+      url?: string;
+      _type: "codepen";
+      _key: string;
+    } | {
+      url?: string;
+      _type: "codesandbox";
+      _key: string;
+    }>;
+    url?: string;
+  }> | null;
+  tags: Array<{
+    _key: string;
+  } & Tag> | null;
+  videoCloudinary: CloudinaryAsset | null;
+  youtube: string | null;
+} | {
+  _id: string;
+  _type: "sanity.fileAsset";
+  status: "draft" | "published";
+  title: string | "Untitled";
+  slug: null;
+  excerpt: null;
+  coverImage: null;
+  date: null | string;
+  content: null;
+  author: null;
+  devto: null;
+  hashnode: null;
+  sponsor: null;
+  tags: null;
+  videoCloudinary: null;
+  youtube: null;
+} | {
+  _id: string;
+  _type: "sanity.imageAsset";
+  status: "draft" | "published";
+  title: string | "Untitled";
+  slug: null;
+  excerpt: null;
+  coverImage: null;
+  date: null | string;
+  content: null;
+  author: null;
+  devto: null;
+  hashnode: null;
+  sponsor: null;
+  tags: null;
+  videoCloudinary: null;
+  youtube: null;
+} | {
+  _id: string;
+  _type: "settings";
+  status: "draft" | "published";
+  title: string | "Untitled";
+  slug: null;
+  excerpt: null;
+  coverImage: null;
+  date: null | string;
+  content: null;
+  author: null;
+  devto: null;
+  hashnode: null;
+  sponsor: null;
+  tags: null;
+  videoCloudinary: null;
+  youtube: null;
+} | {
+  _id: string;
+  _type: "sponsor";
+  status: "draft" | "published";
+  title: string | "Untitled";
+  slug: string | null;
+  excerpt: string | null;
+  coverImage: CloudinaryAsset | null;
+  date: string;
+  content: Array<{
+    _key: string;
+    markDefs: null;
+  } | {
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+    listItem?: "bullet" | "number";
+    markDefs: Array<{
+      href?: string;
+      blank?: boolean;
+      _type: "link";
+    } | {
+      reference?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "course";
+      } | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "page";
+      } | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "podcast";
+      } | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "post";
+      };
+      _type: "internalLink";
+      href: string | null;
+    }> | null;
+    level?: number;
+    _type: "block";
+  } | {
+    url?: string;
+    _type: "codepen";
+    markDefs: null;
+  } | {
+    url?: string;
+    _type: "codesandbox";
+    markDefs: null;
+  }> | null;
+  author: null;
+  devto: null;
+  hashnode: null;
+  sponsor: null;
+  tags: null;
+  videoCloudinary: null;
+  youtube: null;
+}>;
+// Variable: sitemapQuery
+// Query: *[_type in ["author", "course", "guest", "page", "podcast", "post", "sponsor"] && defined(slug.current)] | order(_type asc) | order(_updated desc) {  _type,  _updatedAt,  "slug": slug.current,  sections[]{    lesson[]->{      _type,      _updatedAt,      "slug": slug.current,    }  }}
+export type SitemapQueryResult = Array<{
+  _type: "author";
+  _updatedAt: string;
+  slug: string | null;
+  sections: null;
+} | {
+  _type: "course";
+  _updatedAt: string;
+  slug: string | null;
+  sections: Array<{
+    lesson: Array<{
+      _type: "lesson";
+      _updatedAt: string;
+      slug: string | null;
+    }> | null;
+  }> | null;
+} | {
+  _type: "guest";
+  _updatedAt: string;
+  slug: string | null;
+  sections: null;
+} | {
+  _type: "page";
+  _updatedAt: string;
+  slug: string | null;
+  sections: null;
+} | {
+  _type: "podcast";
+  _updatedAt: string;
+  slug: string | null;
+  sections: null;
+} | {
+  _type: "post";
+  _updatedAt: string;
+  slug: string | null;
+  sections: null;
+} | {
+  _type: "sponsor";
+  _updatedAt: string;
+  slug: string | null;
+  sections: null;
+}>;

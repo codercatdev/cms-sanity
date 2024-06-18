@@ -56,6 +56,15 @@ export async function generateMetadata(): Promise<Metadata> {
     openGraph: {
       images: ogImage ? [ogImage] : [],
     },
+    alternates: {
+      types: {
+        "application/rss+xml": [
+          { url: "/blog/rss.xml", title: "Blog" },
+          { url: "/courses/rss.xml", title: "Courses" },
+          { url: "/podcasts/rss.xml", title: "Podcasts" },
+        ],
+      },
+    },
   };
 }
 
