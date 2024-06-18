@@ -13,11 +13,13 @@ import {
   type PortableTextComponents,
   type PortableTextBlock,
 } from "next-sanity";
+import Link from "next/link";
 
 import BlockImage from "@/components/block-image";
 import BlockCode from "@/components/block-code";
-import Link from "next/link";
 import TwitterEmbed from "@/components/twitter-embed";
+import CodePenEmbed from "@/components/codepen-embed";
+import CodeSandboxEmbed from "./codesandbox-embed";
 
 export default function CustomPortableText({
   className,
@@ -31,6 +33,8 @@ export default function CustomPortableText({
     types: {
       "cloudinary.asset": ({ value }) => <BlockImage image={value} />,
       code: ({ value }) => <BlockCode {...value} />,
+      codepen: ({ value }) => <CodePenEmbed {...value} />,
+      codesandbox: ({ value }) => <CodeSandboxEmbed {...value} />,
       twitter: ({ value }) => <TwitterEmbed {...value} />,
     },
     block: {
