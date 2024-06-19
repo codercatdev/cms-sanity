@@ -57,7 +57,7 @@ const baseType = defineType({
     defineField({
       name: "featured",
       title: "Featured",
-      type: "boolean",
+      type: "number",
     }),
     defineField({
       name: "content",

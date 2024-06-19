@@ -737,7 +737,7 @@
       "featured": {
         "type": "objectAttribute",
         "value": {
-          "type": "boolean"
+          "type": "number"
         },
         "optional": true
       },
@@ -1277,7 +1277,7 @@
       "featured": {
         "type": "objectAttribute",
         "value": {
-          "type": "boolean"
+          "type": "number"
         },
         "optional": true
       },
@@ -1733,6 +1733,13 @@
         },
         "optional": true
       },
+      "views": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "number"
+        },
+        "optional": true
+      },
       "videoCloudinary": {
         "type": "objectAttribute",
         "value": {
@@ -1956,7 +1963,7 @@
       "featured": {
         "type": "objectAttribute",
         "value": {
-          "type": "boolean"
+          "type": "number"
         },
         "optional": true
       },
@@ -2691,7 +2698,7 @@
       "featured": {
         "type": "objectAttribute",
         "value": {
-          "type": "boolean"
+          "type": "number"
         },
         "optional": true
       },
@@ -3144,6 +3151,13 @@
               }
             ]
           }
+        },
+        "optional": true
+      },
+      "views": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "number"
         },
         "optional": true
       },
@@ -3363,7 +3377,7 @@
       "featured": {
         "type": "objectAttribute",
         "value": {
-          "type": "boolean"
+          "type": "number"
         },
         "optional": true
       },
@@ -3816,6 +3830,13 @@
               }
             ]
           }
+        },
+        "optional": true
+      },
+      "views": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "number"
         },
         "optional": true
       },
@@ -4236,7 +4257,7 @@
       "featured": {
         "type": "objectAttribute",
         "value": {
-          "type": "boolean"
+          "type": "number"
         },
         "optional": true
       },
@@ -4971,7 +4992,7 @@
       "featured": {
         "type": "objectAttribute",
         "value": {
-          "type": "boolean"
+          "type": "number"
         },
         "optional": true
       },
@@ -5504,7 +5525,7 @@
       "featured": {
         "type": "objectAttribute",
         "value": {
-          "type": "boolean"
+          "type": "number"
         },
         "optional": true
       },
@@ -5957,6 +5978,13 @@
               }
             ]
           }
+        },
+        "optional": true
+      },
+      "views": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "number"
         },
         "optional": true
       },
@@ -6257,7 +6285,7 @@
       "featured": {
         "type": "objectAttribute",
         "value": {
-          "type": "boolean"
+          "type": "number"
         },
         "optional": true
       },
@@ -6710,6 +6738,13 @@
               }
             ]
           }
+        },
+        "optional": true
+      },
+      "views": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "number"
         },
         "optional": true
       },

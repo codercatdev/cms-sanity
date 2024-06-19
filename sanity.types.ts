@@ -136,7 +136,7 @@ export type Sponsor = {
   title?: string;
   slug?: Slug;
   excerpt?: string;
-  featured?: boolean;
+  featured?: number;
   content?: Array<{
     children?: Array<{
       marks?: Array<string>;
@@ -210,7 +210,7 @@ export type Lesson = {
   title?: string;
   slug?: Slug;
   excerpt?: string;
-  featured?: boolean;
+  featured?: number;
   content?: Array<{
     children?: Array<{
       marks?: Array<string>;
@@ -270,6 +270,7 @@ export type Lesson = {
     _type: "twitter";
     _key: string;
   }>;
+  views?: number;
   videoCloudinary?: CloudinaryAsset;
   youtube?: string;
   author?: Array<{
@@ -305,7 +306,7 @@ export type Author = {
   title?: string;
   slug?: Slug;
   excerpt?: string;
-  featured?: boolean;
+  featured?: number;
   content?: Array<{
     children?: Array<{
       marks?: Array<string>;
@@ -408,7 +409,7 @@ export type Post = {
   title?: string;
   slug?: Slug;
   excerpt?: string;
-  featured?: boolean;
+  featured?: number;
   content?: Array<{
     children?: Array<{
       marks?: Array<string>;
@@ -468,6 +469,7 @@ export type Post = {
     _type: "twitter";
     _key: string;
   }>;
+  views?: number;
   videoCloudinary?: CloudinaryAsset;
   youtube?: string;
   author?: Array<{
@@ -502,7 +504,7 @@ export type Podcast = {
   title?: string;
   slug?: Slug;
   excerpt?: string;
-  featured?: boolean;
+  featured?: number;
   content?: Array<{
     children?: Array<{
       marks?: Array<string>;
@@ -562,6 +564,7 @@ export type Podcast = {
     _type: "twitter";
     _key: string;
   }>;
+  views?: number;
   videoCloudinary?: CloudinaryAsset;
   youtube?: string;
   author?: Array<{
@@ -629,7 +632,7 @@ export type Guest = {
   title?: string;
   slug?: Slug;
   excerpt?: string;
-  featured?: boolean;
+  featured?: number;
   content?: Array<{
     children?: Array<{
       marks?: Array<string>;
@@ -732,7 +735,7 @@ export type PodcastType = {
   title?: string;
   slug?: Slug;
   excerpt?: string;
-  featured?: boolean;
+  featured?: number;
   content?: Array<{
     children?: Array<{
       marks?: Array<string>;
@@ -805,7 +808,7 @@ export type Course = {
   title?: string;
   slug?: Slug;
   excerpt?: string;
-  featured?: boolean;
+  featured?: number;
   content?: Array<{
     children?: Array<{
       marks?: Array<string>;
@@ -865,6 +868,7 @@ export type Course = {
     _type: "twitter";
     _key: string;
   }>;
+  views?: number;
   videoCloudinary?: CloudinaryAsset;
   youtube?: string;
   author?: Array<{
@@ -911,7 +915,7 @@ export type Page = {
   title?: string;
   slug?: Slug;
   excerpt?: string;
-  featured?: boolean;
+  featured?: number;
   content?: Array<{
     children?: Array<{
       marks?: Array<string>;
@@ -971,6 +975,7 @@ export type Page = {
     _type: "twitter";
     _key: string;
   }>;
+  views?: number;
   videoCloudinary?: CloudinaryAsset;
   youtube?: string;
   author?: Array<{
@@ -1289,8 +1294,108 @@ export type SettingsQueryResult = {
   }>;
   ogImage?: CloudinaryAsset;
 } | null;
+// Variable: homePageQuery
+// Query: *[_type == "settings" ][0]{  "featuredCourse": *[_type == "course" && featured > 0]|order(featured desc)[0]{        _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage{  public_id,    context{      ...    }  },  "date": coalesce(date, _createdAt),  },  "latestCourses": *[_type == "course"]|order(date desc)[0...4]{        _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage{  public_id,    context{      ...    }  },  "date": coalesce(date, _createdAt),  },  "latestPodcast": *[_type == "podcast"]|order(date desc)[0]{        _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage{  public_id,    context{      ...    }  },  "date": coalesce(date, _createdAt),  },  "topPodcasts": *[_type == "podcast" && views > 0]|order(views desc)[0...4]{        _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage{  public_id,    context{      ...    }  },  "date": coalesce(date, _createdAt),  },  "latestPosts": *[_type == "post"]|order(date desc)[0...4]{       _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage{  public_id,    context{      ...    }  },  "date": coalesce(date, _createdAt),  },  "topPosts": *[_type == "post" && views > 0]|order(views desc)[0...4]{      _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage{  public_id,    context{      ...    }  },  "date": coalesce(date, _createdAt),  },}
+export type HomePageQueryResult = {
+  featuredCourse: {
+    _id: string;
+    _type: "course";
+    status: "draft" | "published";
+    title: string | "Untitled";
+    slug: string | null;
+    excerpt: string | null;
+    coverImage: {
+      public_id: string | null;
+      context: {
+        _type: "cloudinary.assetContext";
+        custom?: CloudinaryAssetContextCustom;
+      } | null;
+    } | null;
+    date: string;
+  } | null;
+  latestCourses: Array<{
+    _id: string;
+    _type: "course";
+    status: "draft" | "published";
+    title: string | "Untitled";
+    slug: string | null;
+    excerpt: string | null;
+    coverImage: {
+      public_id: string | null;
+      context: {
+        _type: "cloudinary.assetContext";
+        custom?: CloudinaryAssetContextCustom;
+      } | null;
+    } | null;
+    date: string;
+  }>;
+  latestPodcast: {
+    _id: string;
+    _type: "podcast";
+    status: "draft" | "published";
+    title: string | "Untitled";
+    slug: string | null;
+    excerpt: string | null;
+    coverImage: {
+      public_id: string | null;
+      context: {
+        _type: "cloudinary.assetContext";
+        custom?: CloudinaryAssetContextCustom;
+      } | null;
+    } | null;
+    date: string;
+  } | null;
+  topPodcasts: Array<{
+    _id: string;
+    _type: "podcast";
+    status: "draft" | "published";
+    title: string | "Untitled";
+    slug: string | null;
+    excerpt: string | null;
+    coverImage: {
+      public_id: string | null;
+      context: {
+        _type: "cloudinary.assetContext";
+        custom?: CloudinaryAssetContextCustom;
+      } | null;
+    } | null;
+    date: string;
+  }>;
+  latestPosts: Array<{
+    _id: string;
+    _type: "post";
+    status: "draft" | "published";
+    title: string | "Untitled";
+    slug: string | null;
+    excerpt: string | null;
+    coverImage: {
+      public_id: string | null;
+      context: {
+        _type: "cloudinary.assetContext";
+        custom?: CloudinaryAssetContextCustom;
+      } | null;
+    } | null;
+    date: string;
+  }>;
+  topPosts: Array<{
+    _id: string;
+    _type: "post";
+    status: "draft" | "published";
+    title: string | "Untitled";
+    slug: string | null;
+    excerpt: string | null;
+    coverImage: {
+      public_id: string | null;
+      context: {
+        _type: "cloudinary.assetContext";
+        custom?: CloudinaryAssetContextCustom;
+      } | null;
+    } | null;
+    date: string;
+  }>;
+} | null;
 // Variable: pageQuery
-// Query: *[_type == "page" && slug.current == $slug] [0] {    _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(date, _createdAt),    content[]{    ...,    markDefs[]{      ...,      _type == "internalLink" => {        @.reference->_type == "page" => {          "href": "/" + @.reference->slug.current        },        @.reference->_type != "page" => {          "href": "/" + @.reference->_type + "/" + @.reference->slug.current        }      },    }  },  author[]->{    ...,    "title": coalesce(title, "Anonymous"),    "slug": slug.current,  },  devto,  hashnode,  sponsor[]->{    ...,    "title": coalesce(title, "Anonymous"),    "slug": slug.current,  },  tags,  videoCloudinary,  youtube}
+// Query: *[_type == "page" && slug.current == $slug] [0] {    _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage{  public_id,    context{      ...    }  },  "date": coalesce(date, _createdAt),    content[]{    ...,    coverImage{      public_id,      context{        ...      }    },    markDefs[]{      ...,      _type == "internalLink" => {        @.reference->_type == "page" => {          "href": "/" + @.reference->slug.current        },        @.reference->_type != "page" => {          "href": "/" + @.reference->_type + "/" + @.reference->slug.current        }      },    }  },  author[]->{    ...,    "title": coalesce(title, "Anonymous"),    "slug": slug.current,  },  devto,  hashnode,  sponsor[]->{    ...,    "title": coalesce(title, "Anonymous"),    "slug": slug.current,  },  tags,  videoCloudinary,  youtube}
 export type PageQueryResult = {
   _id: string;
   _type: "page";
@@ -1298,10 +1403,17 @@ export type PageQueryResult = {
   title: string | "Untitled";
   slug: string | null;
   excerpt: string | null;
-  coverImage: CloudinaryAsset | null;
+  coverImage: {
+    public_id: string | null;
+    context: {
+      _type: "cloudinary.assetContext";
+      custom?: CloudinaryAssetContextCustom;
+    } | null;
+  } | null;
   date: string;
   content: Array<{
     _key: string;
+    coverImage: null;
     markDefs: null;
   } | {
     children?: Array<{
@@ -1343,17 +1455,21 @@ export type PageQueryResult = {
     }> | null;
     level?: number;
     _type: "block";
+    coverImage: null;
   } | {
     id?: string;
     _type: "twitter";
+    coverImage: null;
     markDefs: null;
   } | {
     url?: string;
     _type: "codepen";
+    coverImage: null;
     markDefs: null;
   } | {
     url?: string;
     _type: "codesandbox";
+    coverImage: null;
     markDefs: null;
   }> | null;
   author: Array<{
@@ -1367,7 +1483,7 @@ export type PageQueryResult = {
     title: string | "Anonymous";
     slug: string | null;
     excerpt?: string;
-    featured?: boolean;
+    featured?: number;
     content?: Array<({
       _key: string;
     } & CloudinaryAsset) | ({
@@ -1471,7 +1587,7 @@ export type PageQueryResult = {
     title: string | "Anonymous";
     slug: string | null;
     excerpt?: string;
-    featured?: boolean;
+    featured?: number;
     content?: Array<({
       _key: string;
     } & CloudinaryAsset) | ({
@@ -1540,7 +1656,7 @@ export type PageQueryResult = {
   youtube: string | null;
 } | null;
 // Variable: blogQuery
-// Query: *[_type == "post" && defined(slug.current)] | order(date desc, _updatedAt desc) [0] {    _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(date, _createdAt),  author[]->{    ...,    "title": coalesce(title, "Anonymous"),    "slug": slug.current,  }}
+// Query: *[_type == "post" && defined(slug.current)] | order(date desc, _updatedAt desc) [0] {    _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage{  public_id,    context{      ...    }  },  "date": coalesce(date, _createdAt),  author[]->{    ...,    "title": coalesce(title, "Anonymous"),    "slug": slug.current,  }}
 export type BlogQueryResult = {
   _id: string;
   _type: "post";
@@ -1548,7 +1664,13 @@ export type BlogQueryResult = {
   title: string | "Untitled";
   slug: string | null;
   excerpt: string | null;
-  coverImage: CloudinaryAsset | null;
+  coverImage: {
+    public_id: string | null;
+    context: {
+      _type: "cloudinary.assetContext";
+      custom?: CloudinaryAssetContextCustom;
+    } | null;
+  } | null;
   date: string;
   author: Array<{
     _id: string;
@@ -1561,7 +1683,7 @@ export type BlogQueryResult = {
     title: string | "Anonymous";
     slug: string | null;
     excerpt?: string;
-    featured?: boolean;
+    featured?: number;
     content?: Array<({
       _key: string;
     } & CloudinaryAsset) | ({
@@ -1654,7 +1776,7 @@ export type BlogQueryResult = {
   }> | null;
 } | null;
 // Variable: morePostQuery
-// Query: *[_type == "post" && _id != $skip && defined(slug.current)] | order(date desc, _updatedAt desc) [$offset...$limit] {    _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(date, _createdAt),  author[]->{    ...,    "title": coalesce(title, "Anonymous"),    "slug": slug.current,  }}
+// Query: *[_type == "post" && _id != $skip && defined(slug.current)] | order(date desc, _updatedAt desc) [$offset...$limit] {    _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage{  public_id,    context{      ...    }  },  "date": coalesce(date, _createdAt),  author[]->{    ...,    "title": coalesce(title, "Anonymous"),    "slug": slug.current,  }}
 export type MorePostQueryResult = Array<{
   _id: string;
   _type: "post";
@@ -1662,7 +1784,13 @@ export type MorePostQueryResult = Array<{
   title: string | "Untitled";
   slug: string | null;
   excerpt: string | null;
-  coverImage: CloudinaryAsset | null;
+  coverImage: {
+    public_id: string | null;
+    context: {
+      _type: "cloudinary.assetContext";
+      custom?: CloudinaryAssetContextCustom;
+    } | null;
+  } | null;
   date: string;
   author: Array<{
     _id: string;
@@ -1675,7 +1803,7 @@ export type MorePostQueryResult = Array<{
     title: string | "Anonymous";
     slug: string | null;
     excerpt?: string;
-    featured?: boolean;
+    featured?: number;
     content?: Array<({
       _key: string;
     } & CloudinaryAsset) | ({
@@ -1768,7 +1896,7 @@ export type MorePostQueryResult = Array<{
   }> | null;
 }>;
 // Variable: postQuery
-// Query: *[_type == "post" && slug.current == $slug] [0] {    _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(date, _createdAt),    content[]{    ...,    markDefs[]{      ...,      _type == "internalLink" => {        @.reference->_type == "page" => {          "href": "/" + @.reference->slug.current        },        @.reference->_type != "page" => {          "href": "/" + @.reference->_type + "/" + @.reference->slug.current        }      },    }  },  author[]->{    ...,    "title": coalesce(title, "Anonymous"),    "slug": slug.current,  },  devto,  hashnode,  sponsor[]->{    ...,    "title": coalesce(title, "Anonymous"),    "slug": slug.current,  },  tags,  videoCloudinary,  youtube}
+// Query: *[_type == "post" && slug.current == $slug] [0] {    _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage{  public_id,    context{      ...    }  },  "date": coalesce(date, _createdAt),    content[]{    ...,    coverImage{      public_id,      context{        ...      }    },    markDefs[]{      ...,      _type == "internalLink" => {        @.reference->_type == "page" => {          "href": "/" + @.reference->slug.current        },        @.reference->_type != "page" => {          "href": "/" + @.reference->_type + "/" + @.reference->slug.current        }      },    }  },  author[]->{    ...,    "title": coalesce(title, "Anonymous"),    "slug": slug.current,  },  devto,  hashnode,  sponsor[]->{    ...,    "title": coalesce(title, "Anonymous"),    "slug": slug.current,  },  tags,  videoCloudinary,  youtube}
 export type PostQueryResult = {
   _id: string;
   _type: "post";
@@ -1776,10 +1904,17 @@ export type PostQueryResult = {
   title: string | "Untitled";
   slug: string | null;
   excerpt: string | null;
-  coverImage: CloudinaryAsset | null;
+  coverImage: {
+    public_id: string | null;
+    context: {
+      _type: "cloudinary.assetContext";
+      custom?: CloudinaryAssetContextCustom;
+    } | null;
+  } | null;
   date: string;
   content: Array<{
     _key: string;
+    coverImage: null;
     markDefs: null;
   } | {
     children?: Array<{
@@ -1821,17 +1956,21 @@ export type PostQueryResult = {
     }> | null;
     level?: number;
     _type: "block";
+    coverImage: null;
   } | {
     id?: string;
     _type: "twitter";
+    coverImage: null;
     markDefs: null;
   } | {
     url?: string;
     _type: "codepen";
+    coverImage: null;
     markDefs: null;
   } | {
     url?: string;
     _type: "codesandbox";
+    coverImage: null;
     markDefs: null;
   }> | null;
   author: Array<{
@@ -1845,7 +1984,7 @@ export type PostQueryResult = {
     title: string | "Anonymous";
     slug: string | null;
     excerpt?: string;
-    featured?: boolean;
+    featured?: number;
     content?: Array<({
       _key: string;
     } & CloudinaryAsset) | ({
@@ -1949,7 +2088,7 @@ export type PostQueryResult = {
     title: string | "Anonymous";
     slug: string | null;
     excerpt?: string;
-    featured?: boolean;
+    featured?: number;
     content?: Array<({
       _key: string;
     } & CloudinaryAsset) | ({
@@ -2018,7 +2157,7 @@ export type PostQueryResult = {
   youtube: string | null;
 } | null;
 // Variable: podcastsQuery
-// Query: *[_type == "podcast" && defined(slug.current)] | order(date desc, _updatedAt desc) [0] {    _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(date, _createdAt),  author[]->{    ...,    "title": coalesce(title, "Anonymous"),    "slug": slug.current,  },  guest[]->{    ...,    "title": coalesce(title, "Anonymous"),    "slug": slug.current,  }}
+// Query: *[_type == "podcast" && defined(slug.current)] | order(date desc, _updatedAt desc) [0] {    _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage{  public_id,    context{      ...    }  },  "date": coalesce(date, _createdAt),  author[]->{    ...,    "title": coalesce(title, "Anonymous"),    "slug": slug.current,  },  guest[]->{    ...,    "title": coalesce(title, "Anonymous"),    "slug": slug.current,  }}
 export type PodcastsQueryResult = {
   _id: string;
   _type: "podcast";
@@ -2026,7 +2165,13 @@ export type PodcastsQueryResult = {
   title: string | "Untitled";
   slug: string | null;
   excerpt: string | null;
-  coverImage: CloudinaryAsset | null;
+  coverImage: {
+    public_id: string | null;
+    context: {
+      _type: "cloudinary.assetContext";
+      custom?: CloudinaryAssetContextCustom;
+    } | null;
+  } | null;
   date: string;
   author: Array<{
     _id: string;
@@ -2039,7 +2184,7 @@ export type PodcastsQueryResult = {
     title: string | "Anonymous";
     slug: string | null;
     excerpt?: string;
-    featured?: boolean;
+    featured?: number;
     content?: Array<({
       _key: string;
     } & CloudinaryAsset) | ({
@@ -2141,7 +2286,7 @@ export type PodcastsQueryResult = {
     title: string | "Anonymous";
     slug: string | null;
     excerpt?: string;
-    featured?: boolean;
+    featured?: number;
     content?: Array<({
       _key: string;
     } & CloudinaryAsset) | ({
@@ -2234,7 +2379,7 @@ export type PodcastsQueryResult = {
   }> | null;
 } | null;
 // Variable: morePodcastQuery
-// Query: *[_type == "podcast" && _id != $skip && defined(slug.current)] | order(date desc, _updatedAt desc) [$offset...$limit] {    _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(date, _createdAt),  author[]->{    ...,    "title": coalesce(title, "Anonymous"),    "slug": slug.current,  },  guest[]->{    ...,    "title": coalesce(title, "Anonymous"),    "slug": slug.current,  }}
+// Query: *[_type == "podcast" && _id != $skip && defined(slug.current)] | order(date desc, _updatedAt desc) [$offset...$limit] {    _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage{  public_id,    context{      ...    }  },  "date": coalesce(date, _createdAt),  author[]->{    ...,    "title": coalesce(title, "Anonymous"),    "slug": slug.current,  },  guest[]->{    ...,    "title": coalesce(title, "Anonymous"),    "slug": slug.current,  }}
 export type MorePodcastQueryResult = Array<{
   _id: string;
   _type: "podcast";
@@ -2242,7 +2387,13 @@ export type MorePodcastQueryResult = Array<{
   title: string | "Untitled";
   slug: string | null;
   excerpt: string | null;
-  coverImage: CloudinaryAsset | null;
+  coverImage: {
+    public_id: string | null;
+    context: {
+      _type: "cloudinary.assetContext";
+      custom?: CloudinaryAssetContextCustom;
+    } | null;
+  } | null;
   date: string;
   author: Array<{
     _id: string;
@@ -2255,7 +2406,7 @@ export type MorePodcastQueryResult = Array<{
     title: string | "Anonymous";
     slug: string | null;
     excerpt?: string;
-    featured?: boolean;
+    featured?: number;
     content?: Array<({
       _key: string;
     } & CloudinaryAsset) | ({
@@ -2357,7 +2508,7 @@ export type MorePodcastQueryResult = Array<{
     title: string | "Anonymous";
     slug: string | null;
     excerpt?: string;
-    featured?: boolean;
+    featured?: number;
     content?: Array<({
       _key: string;
     } & CloudinaryAsset) | ({
@@ -2450,7 +2601,7 @@ export type MorePodcastQueryResult = Array<{
   }> | null;
 }>;
 // Variable: podcastQuery
-// Query: *[_type == "podcast" && slug.current == $slug] [0] {    _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(date, _createdAt),    content[]{    ...,    markDefs[]{      ...,      _type == "internalLink" => {        @.reference->_type == "page" => {          "href": "/" + @.reference->slug.current        },        @.reference->_type != "page" => {          "href": "/" + @.reference->_type + "/" + @.reference->slug.current        }      },    }  },  author[]->{    ...,    "title": coalesce(title, "Anonymous"),    "slug": slug.current,  },  devto,  hashnode,  sponsor[]->{    ...,    "title": coalesce(title, "Anonymous"),    "slug": slug.current,  },  tags,  videoCloudinary,  youtube,    podcastType[]->{    ...,    "title": coalesce(title, "Missing Podcast Title"),  },  season,  episode,  recordingDate,  guest[]->{    ...,    "title": coalesce(title, "Anonymous"),    "slug": slug.current,  },  pick[]{    user->,    name,    site  }}
+// Query: *[_type == "podcast" && slug.current == $slug] [0] {    _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage{  public_id,    context{      ...    }  },  "date": coalesce(date, _createdAt),    content[]{    ...,    coverImage{      public_id,      context{        ...      }    },    markDefs[]{      ...,      _type == "internalLink" => {        @.reference->_type == "page" => {          "href": "/" + @.reference->slug.current        },        @.reference->_type != "page" => {          "href": "/" + @.reference->_type + "/" + @.reference->slug.current        }      },    }  },  author[]->{    ...,    "title": coalesce(title, "Anonymous"),    "slug": slug.current,  },  devto,  hashnode,  sponsor[]->{    ...,    "title": coalesce(title, "Anonymous"),    "slug": slug.current,  },  tags,  videoCloudinary,  youtube,    podcastType[]->{    ...,    "title": coalesce(title, "Missing Podcast Title"),  },  season,  episode,  recordingDate,  guest[]->{    ...,    "title": coalesce(title, "Anonymous"),    "slug": slug.current,  },  pick[]{    user->,    name,    site  }}
 export type PodcastQueryResult = {
   _id: string;
   _type: "podcast";
@@ -2458,10 +2609,17 @@ export type PodcastQueryResult = {
   title: string | "Untitled";
   slug: string | null;
   excerpt: string | null;
-  coverImage: CloudinaryAsset | null;
+  coverImage: {
+    public_id: string | null;
+    context: {
+      _type: "cloudinary.assetContext";
+      custom?: CloudinaryAssetContextCustom;
+    } | null;
+  } | null;
   date: string;
   content: Array<{
     _key: string;
+    coverImage: null;
     markDefs: null;
   } | {
     children?: Array<{
@@ -2503,17 +2661,21 @@ export type PodcastQueryResult = {
     }> | null;
     level?: number;
     _type: "block";
+    coverImage: null;
   } | {
     id?: string;
     _type: "twitter";
+    coverImage: null;
     markDefs: null;
   } | {
     url?: string;
     _type: "codepen";
+    coverImage: null;
     markDefs: null;
   } | {
     url?: string;
     _type: "codesandbox";
+    coverImage: null;
     markDefs: null;
   }> | null;
   author: Array<{
@@ -2527,7 +2689,7 @@ export type PodcastQueryResult = {
     title: string | "Anonymous";
     slug: string | null;
     excerpt?: string;
-    featured?: boolean;
+    featured?: number;
     content?: Array<({
       _key: string;
     } & CloudinaryAsset) | ({
@@ -2631,7 +2793,7 @@ export type PodcastQueryResult = {
     title: string | "Anonymous";
     slug: string | null;
     excerpt?: string;
-    featured?: boolean;
+    featured?: number;
     content?: Array<({
       _key: string;
     } & CloudinaryAsset) | ({
@@ -2713,7 +2875,7 @@ export type PodcastQueryResult = {
     title: string | "Anonymous";
     slug: string | null;
     excerpt?: string;
-    featured?: boolean;
+    featured?: number;
     content?: Array<({
       _key: string;
     } & CloudinaryAsset) | ({
@@ -2816,7 +2978,7 @@ export type PodcastQueryResult = {
       title?: string;
       slug?: Slug;
       excerpt?: string;
-      featured?: boolean;
+      featured?: number;
       content?: Array<({
         _key: string;
       } & CloudinaryAsset) | ({
@@ -2917,7 +3079,7 @@ export type PodcastQueryResult = {
       title?: string;
       slug?: Slug;
       excerpt?: string;
-      featured?: boolean;
+      featured?: number;
       content?: Array<({
         _key: string;
       } & CloudinaryAsset) | ({
@@ -3013,7 +3175,7 @@ export type PodcastQueryResult = {
   }> | null;
 } | null;
 // Variable: coursesQuery
-// Query: *[_type == "course" && defined(slug.current)] | order(date desc, _updatedAt desc) [0] {    _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(date, _createdAt),  author[]->{    ...,    "title": coalesce(title, "Anonymous"),    "slug": slug.current,  }}
+// Query: *[_type == "course" && defined(slug.current)] | order(date desc, _updatedAt desc) [0] {    _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage{  public_id,    context{      ...    }  },  "date": coalesce(date, _createdAt),  author[]->{    ...,    "title": coalesce(title, "Anonymous"),    "slug": slug.current,  }}
 export type CoursesQueryResult = {
   _id: string;
   _type: "course";
@@ -3021,7 +3183,13 @@ export type CoursesQueryResult = {
   title: string | "Untitled";
   slug: string | null;
   excerpt: string | null;
-  coverImage: CloudinaryAsset | null;
+  coverImage: {
+    public_id: string | null;
+    context: {
+      _type: "cloudinary.assetContext";
+      custom?: CloudinaryAssetContextCustom;
+    } | null;
+  } | null;
   date: string;
   author: Array<{
     _id: string;
@@ -3034,7 +3202,7 @@ export type CoursesQueryResult = {
     title: string | "Anonymous";
     slug: string | null;
     excerpt?: string;
-    featured?: boolean;
+    featured?: number;
     content?: Array<({
       _key: string;
     } & CloudinaryAsset) | ({
@@ -3127,7 +3295,7 @@ export type CoursesQueryResult = {
   }> | null;
 } | null;
 // Variable: moreCourseQuery
-// Query: *[_type == "course" && _id != $skip && defined(slug.current)] | order(date desc, _updatedAt desc) [$offset...$limit] {    _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(date, _createdAt),  author[]->{    ...,    "title": coalesce(title, "Anonymous"),    "slug": slug.current,  }}
+// Query: *[_type == "course" && _id != $skip && defined(slug.current)] | order(date desc, _updatedAt desc) [$offset...$limit] {    _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage{  public_id,    context{      ...    }  },  "date": coalesce(date, _createdAt),  author[]->{    ...,    "title": coalesce(title, "Anonymous"),    "slug": slug.current,  }}
 export type MoreCourseQueryResult = Array<{
   _id: string;
   _type: "course";
@@ -3135,7 +3303,13 @@ export type MoreCourseQueryResult = Array<{
   title: string | "Untitled";
   slug: string | null;
   excerpt: string | null;
-  coverImage: CloudinaryAsset | null;
+  coverImage: {
+    public_id: string | null;
+    context: {
+      _type: "cloudinary.assetContext";
+      custom?: CloudinaryAssetContextCustom;
+    } | null;
+  } | null;
   date: string;
   author: Array<{
     _id: string;
@@ -3148,7 +3322,7 @@ export type MoreCourseQueryResult = Array<{
     title: string | "Anonymous";
     slug: string | null;
     excerpt?: string;
-    featured?: boolean;
+    featured?: number;
     content?: Array<({
       _key: string;
     } & CloudinaryAsset) | ({
@@ -3241,7 +3415,7 @@ export type MoreCourseQueryResult = Array<{
   }> | null;
 }>;
 // Variable: courseQuery
-// Query: *[_type == "course" && slug.current == $courseSlug] [0] {    _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(date, _createdAt),    content[]{    ...,    markDefs[]{      ...,      _type == "internalLink" => {        @.reference->_type == "page" => {          "href": "/" + @.reference->slug.current        },        @.reference->_type != "page" => {          "href": "/" + @.reference->_type + "/" + @.reference->slug.current        }      },    }  },  author[]->{    ...,    "title": coalesce(title, "Anonymous"),    "slug": slug.current,  },  devto,  hashnode,  sponsor[]->{    ...,    "title": coalesce(title, "Anonymous"),    "slug": slug.current,  },  tags,  videoCloudinary,  youtube,    podcastType[]->{    ...,    "title": coalesce(title, "Missing Podcast Title"),  },  season,  episode,  recordingDate,  guest[]->{    ...,    "title": coalesce(title, "Anonymous"),    "slug": slug.current,  },  pick[]{    user->,    name,    site  }}
+// Query: *[_type == "course" && slug.current == $courseSlug] [0] {    _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage{  public_id,    context{      ...    }  },  "date": coalesce(date, _createdAt),    content[]{    ...,    coverImage{      public_id,      context{        ...      }    },    markDefs[]{      ...,      _type == "internalLink" => {        @.reference->_type == "page" => {          "href": "/" + @.reference->slug.current        },        @.reference->_type != "page" => {          "href": "/" + @.reference->_type + "/" + @.reference->slug.current        }      },    }  },  author[]->{    ...,    "title": coalesce(title, "Anonymous"),    "slug": slug.current,  },  devto,  hashnode,  sponsor[]->{    ...,    "title": coalesce(title, "Anonymous"),    "slug": slug.current,  },  tags,  videoCloudinary,  youtube,    podcastType[]->{    ...,    "title": coalesce(title, "Missing Podcast Title"),  },  season,  episode,  recordingDate,  guest[]->{    ...,    "title": coalesce(title, "Anonymous"),    "slug": slug.current,  },  pick[]{    user->,    name,    site  }}
 export type CourseQueryResult = {
   _id: string;
   _type: "course";
@@ -3249,10 +3423,17 @@ export type CourseQueryResult = {
   title: string | "Untitled";
   slug: string | null;
   excerpt: string | null;
-  coverImage: CloudinaryAsset | null;
+  coverImage: {
+    public_id: string | null;
+    context: {
+      _type: "cloudinary.assetContext";
+      custom?: CloudinaryAssetContextCustom;
+    } | null;
+  } | null;
   date: string;
   content: Array<{
     _key: string;
+    coverImage: null;
     markDefs: null;
   } | {
     children?: Array<{
@@ -3294,17 +3475,21 @@ export type CourseQueryResult = {
     }> | null;
     level?: number;
     _type: "block";
+    coverImage: null;
   } | {
     id?: string;
     _type: "twitter";
+    coverImage: null;
     markDefs: null;
   } | {
     url?: string;
     _type: "codepen";
+    coverImage: null;
     markDefs: null;
   } | {
     url?: string;
     _type: "codesandbox";
+    coverImage: null;
     markDefs: null;
   }> | null;
   author: Array<{
@@ -3318,7 +3503,7 @@ export type CourseQueryResult = {
     title: string | "Anonymous";
     slug: string | null;
     excerpt?: string;
-    featured?: boolean;
+    featured?: number;
     content?: Array<({
       _key: string;
     } & CloudinaryAsset) | ({
@@ -3422,7 +3607,7 @@ export type CourseQueryResult = {
     title: string | "Anonymous";
     slug: string | null;
     excerpt?: string;
-    featured?: boolean;
+    featured?: number;
     content?: Array<({
       _key: string;
     } & CloudinaryAsset) | ({
@@ -3497,7 +3682,7 @@ export type CourseQueryResult = {
   pick: null;
 } | null;
 // Variable: lessonsInCourseQuery
-// Query: *[_type == "course" && slug.current == $courseSlug] [0] {  _id,  "title": coalesce(title, "Untitled"),  "slug": slug.current,  sections[]{    title,    lesson[]->{        _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(date, _createdAt),        locked,  videoCloudinary    }  }}
+// Query: *[_type == "course" && slug.current == $courseSlug] [0] {  _id,  "title": coalesce(title, "Untitled"),  "slug": slug.current,  sections[]{    title,    lesson[]->{        _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage{  public_id,    context{      ...    }  },  "date": coalesce(date, _createdAt),        locked,  videoCloudinary    }  }}
 export type LessonsInCourseQueryResult = {
   _id: string;
   title: string | "Untitled";
@@ -3511,7 +3696,13 @@ export type LessonsInCourseQueryResult = {
       title: string | "Untitled";
       slug: string | null;
       excerpt: string | null;
-      coverImage: CloudinaryAsset | null;
+      coverImage: {
+        public_id: string | null;
+        context: {
+          _type: "cloudinary.assetContext";
+          custom?: CloudinaryAssetContextCustom;
+        } | null;
+      } | null;
       date: string;
       locked: boolean | null;
       videoCloudinary: CloudinaryAsset | null;
@@ -3519,7 +3710,7 @@ export type LessonsInCourseQueryResult = {
   }> | null;
 } | null;
 // Variable: lessonQuery
-// Query: *[_type == "lesson" && slug.current == $lessonSlug] [0] {    _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(date, _createdAt),    content[]{    ...,    markDefs[]{      ...,      _type == "internalLink" => {        @.reference->_type == "page" => {          "href": "/" + @.reference->slug.current        },        @.reference->_type != "page" => {          "href": "/" + @.reference->_type + "/" + @.reference->slug.current        }      },    }  },  author[]->{    ...,    "title": coalesce(title, "Anonymous"),    "slug": slug.current,  },  devto,  hashnode,  sponsor[]->{    ...,    "title": coalesce(title, "Anonymous"),    "slug": slug.current,  },  tags,  videoCloudinary,  youtube,    locked,  videoCloudinary}
+// Query: *[_type == "lesson" && slug.current == $lessonSlug] [0] {    _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage{  public_id,    context{      ...    }  },  "date": coalesce(date, _createdAt),    content[]{    ...,    coverImage{      public_id,      context{        ...      }    },    markDefs[]{      ...,      _type == "internalLink" => {        @.reference->_type == "page" => {          "href": "/" + @.reference->slug.current        },        @.reference->_type != "page" => {          "href": "/" + @.reference->_type + "/" + @.reference->slug.current        }      },    }  },  author[]->{    ...,    "title": coalesce(title, "Anonymous"),    "slug": slug.current,  },  devto,  hashnode,  sponsor[]->{    ...,    "title": coalesce(title, "Anonymous"),    "slug": slug.current,  },  tags,  videoCloudinary,  youtube,    locked,  videoCloudinary}
 export type LessonQueryResult = {
   _id: string;
   _type: "lesson";
@@ -3527,10 +3718,17 @@ export type LessonQueryResult = {
   title: string | "Untitled";
   slug: string | null;
   excerpt: string | null;
-  coverImage: CloudinaryAsset | null;
+  coverImage: {
+    public_id: string | null;
+    context: {
+      _type: "cloudinary.assetContext";
+      custom?: CloudinaryAssetContextCustom;
+    } | null;
+  } | null;
   date: string;
   content: Array<{
     _key: string;
+    coverImage: null;
     markDefs: null;
   } | {
     children?: Array<{
@@ -3572,17 +3770,21 @@ export type LessonQueryResult = {
     }> | null;
     level?: number;
     _type: "block";
+    coverImage: null;
   } | {
     id?: string;
     _type: "twitter";
+    coverImage: null;
     markDefs: null;
   } | {
     url?: string;
     _type: "codepen";
+    coverImage: null;
     markDefs: null;
   } | {
     url?: string;
     _type: "codesandbox";
+    coverImage: null;
     markDefs: null;
   }> | null;
   author: Array<{
@@ -3596,7 +3798,7 @@ export type LessonQueryResult = {
     title: string | "Anonymous";
     slug: string | null;
     excerpt?: string;
-    featured?: boolean;
+    featured?: number;
     content?: Array<({
       _key: string;
     } & CloudinaryAsset) | ({
@@ -3700,7 +3902,7 @@ export type LessonQueryResult = {
     title: string | "Anonymous";
     slug: string | null;
     excerpt?: string;
-    featured?: boolean;
+    featured?: number;
     content?: Array<({
       _key: string;
     } & CloudinaryAsset) | ({
@@ -3770,7 +3972,7 @@ export type LessonQueryResult = {
   locked: boolean | null;
 } | null;
 // Variable: moreAuthorQuery
-// Query: *[_type == "author" && _id != $skip && defined(slug.current)] | order(title) [$offset...$limit] {    _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(date, _createdAt)}
+// Query: *[_type == "author" && _id != $skip && defined(slug.current)] | order(title) [$offset...$limit] {    _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage{  public_id,    context{      ...    }  },  "date": coalesce(date, _createdAt)}
 export type MoreAuthorQueryResult = Array<{
   _id: string;
   _type: "author";
@@ -3778,11 +3980,17 @@ export type MoreAuthorQueryResult = Array<{
   title: string | "Untitled";
   slug: string | null;
   excerpt: string | null;
-  coverImage: CloudinaryAsset | null;
+  coverImage: {
+    public_id: string | null;
+    context: {
+      _type: "cloudinary.assetContext";
+      custom?: CloudinaryAssetContextCustom;
+    } | null;
+  } | null;
   date: string;
 }>;
 // Variable: authorQuery
-// Query: *[_type == "author" && slug.current == $slug] [0] {    _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(date, _createdAt),    content[]{    ...,    markDefs[]{      ...,      _type == "internalLink" => {        @.reference->_type == "page" => {          "href": "/" + @.reference->slug.current        },        @.reference->_type != "page" => {          "href": "/" + @.reference->_type + "/" + @.reference->slug.current        }      },    }  },  author[]->{    ...,    "title": coalesce(title, "Anonymous"),    "slug": slug.current,  },  devto,  hashnode,  sponsor[]->{    ...,    "title": coalesce(title, "Anonymous"),    "slug": slug.current,  },  tags,  videoCloudinary,  youtube,    socials,  websites}
+// Query: *[_type == "author" && slug.current == $slug] [0] {    _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage{  public_id,    context{      ...    }  },  "date": coalesce(date, _createdAt),    content[]{    ...,    coverImage{      public_id,      context{        ...      }    },    markDefs[]{      ...,      _type == "internalLink" => {        @.reference->_type == "page" => {          "href": "/" + @.reference->slug.current        },        @.reference->_type != "page" => {          "href": "/" + @.reference->_type + "/" + @.reference->slug.current        }      },    }  },  author[]->{    ...,    "title": coalesce(title, "Anonymous"),    "slug": slug.current,  },  devto,  hashnode,  sponsor[]->{    ...,    "title": coalesce(title, "Anonymous"),    "slug": slug.current,  },  tags,  videoCloudinary,  youtube,    socials,  websites}
 export type AuthorQueryResult = {
   _id: string;
   _type: "author";
@@ -3790,10 +3998,17 @@ export type AuthorQueryResult = {
   title: string | "Untitled";
   slug: string | null;
   excerpt: string | null;
-  coverImage: CloudinaryAsset | null;
+  coverImage: {
+    public_id: string | null;
+    context: {
+      _type: "cloudinary.assetContext";
+      custom?: CloudinaryAssetContextCustom;
+    } | null;
+  } | null;
   date: string;
   content: Array<{
     _key: string;
+    coverImage: null;
     markDefs: null;
   } | {
     children?: Array<{
@@ -3835,17 +4050,21 @@ export type AuthorQueryResult = {
     }> | null;
     level?: number;
     _type: "block";
+    coverImage: null;
   } | {
     id?: string;
     _type: "twitter";
+    coverImage: null;
     markDefs: null;
   } | {
     url?: string;
     _type: "codepen";
+    coverImage: null;
     markDefs: null;
   } | {
     url?: string;
     _type: "codesandbox";
+    coverImage: null;
     markDefs: null;
   }> | null;
   author: null;
@@ -3887,7 +4106,7 @@ export type AuthorQueryResult = {
   }> | null;
 } | null;
 // Variable: authorQueryWithRelated
-// Query: *[_type == "author" && slug.current == $slug] [0] {    _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(date, _createdAt),    content[]{    ...,    markDefs[]{      ...,      _type == "internalLink" => {        @.reference->_type == "page" => {          "href": "/" + @.reference->slug.current        },        @.reference->_type != "page" => {          "href": "/" + @.reference->_type + "/" + @.reference->slug.current        }      },    }  },  author[]->{    ...,    "title": coalesce(title, "Anonymous"),    "slug": slug.current,  },  devto,  hashnode,  sponsor[]->{    ...,    "title": coalesce(title, "Anonymous"),    "slug": slug.current,  },  tags,  videoCloudinary,  youtube,    socials,  websites,    "related":{    "course": *[_type == "course" && (^._id in author[]._ref || ^._id in guest[]._ref)] | order(date desc) [0...4] {        _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(date, _createdAt)    },    "podcast": *[_type == "podcast" && (^._id in author[]._ref || ^._id in guest[]._ref)] | order(date desc) [0...4] {        _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(date, _createdAt)    },    "post": *[_type == "post" && (^._id in author[]._ref || ^._id in guest[]._ref)] | order(date desc) [0...4] {        _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(date, _createdAt)    },  }}
+// Query: *[_type == "author" && slug.current == $slug] [0] {    _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage{  public_id,    context{      ...    }  },  "date": coalesce(date, _createdAt),    content[]{    ...,    coverImage{      public_id,      context{        ...      }    },    markDefs[]{      ...,      _type == "internalLink" => {        @.reference->_type == "page" => {          "href": "/" + @.reference->slug.current        },        @.reference->_type != "page" => {          "href": "/" + @.reference->_type + "/" + @.reference->slug.current        }      },    }  },  author[]->{    ...,    "title": coalesce(title, "Anonymous"),    "slug": slug.current,  },  devto,  hashnode,  sponsor[]->{    ...,    "title": coalesce(title, "Anonymous"),    "slug": slug.current,  },  tags,  videoCloudinary,  youtube,    socials,  websites,    "related":{    "course": *[_type == "course" && (^._id in author[]._ref || ^._id in guest[]._ref)] | order(date desc) [0...4] {        _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage{  public_id,    context{      ...    }  },  "date": coalesce(date, _createdAt)    },    "podcast": *[_type == "podcast" && (^._id in author[]._ref || ^._id in guest[]._ref)] | order(date desc) [0...4] {        _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage{  public_id,    context{      ...    }  },  "date": coalesce(date, _createdAt)    },    "post": *[_type == "post" && (^._id in author[]._ref || ^._id in guest[]._ref)] | order(date desc) [0...4] {        _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage{  public_id,    context{      ...    }  },  "date": coalesce(date, _createdAt)    },  }}
 export type AuthorQueryWithRelatedResult = {
   _id: string;
   _type: "author";
@@ -3895,10 +4114,17 @@ export type AuthorQueryWithRelatedResult = {
   title: string | "Untitled";
   slug: string | null;
   excerpt: string | null;
-  coverImage: CloudinaryAsset | null;
+  coverImage: {
+    public_id: string | null;
+    context: {
+      _type: "cloudinary.assetContext";
+      custom?: CloudinaryAssetContextCustom;
+    } | null;
+  } | null;
   date: string;
   content: Array<{
     _key: string;
+    coverImage: null;
     markDefs: null;
   } | {
     children?: Array<{
@@ -3940,17 +4166,21 @@ export type AuthorQueryWithRelatedResult = {
     }> | null;
     level?: number;
     _type: "block";
+    coverImage: null;
   } | {
     id?: string;
     _type: "twitter";
+    coverImage: null;
     markDefs: null;
   } | {
     url?: string;
     _type: "codepen";
+    coverImage: null;
     markDefs: null;
   } | {
     url?: string;
     _type: "codesandbox";
+    coverImage: null;
     markDefs: null;
   }> | null;
   author: null;
@@ -3997,7 +4227,7 @@ export type AuthorQueryWithRelatedResult = {
   };
 } | null;
 // Variable: moreGuestQuery
-// Query: *[_type == "guest" && _id != $skip && defined(slug.current)] | order(title) [$offset...$limit] {    _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(date, _createdAt)}
+// Query: *[_type == "guest" && _id != $skip && defined(slug.current)] | order(title) [$offset...$limit] {    _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage{  public_id,    context{      ...    }  },  "date": coalesce(date, _createdAt)}
 export type MoreGuestQueryResult = Array<{
   _id: string;
   _type: "guest";
@@ -4005,11 +4235,17 @@ export type MoreGuestQueryResult = Array<{
   title: string | "Untitled";
   slug: string | null;
   excerpt: string | null;
-  coverImage: CloudinaryAsset | null;
+  coverImage: {
+    public_id: string | null;
+    context: {
+      _type: "cloudinary.assetContext";
+      custom?: CloudinaryAssetContextCustom;
+    } | null;
+  } | null;
   date: string;
 }>;
 // Variable: guestQuery
-// Query: *[_type == "guest" && slug.current == $slug] [0] {    _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(date, _createdAt),    content[]{    ...,    markDefs[]{      ...,      _type == "internalLink" => {        @.reference->_type == "page" => {          "href": "/" + @.reference->slug.current        },        @.reference->_type != "page" => {          "href": "/" + @.reference->_type + "/" + @.reference->slug.current        }      },    }  },  author[]->{    ...,    "title": coalesce(title, "Anonymous"),    "slug": slug.current,  },  devto,  hashnode,  sponsor[]->{    ...,    "title": coalesce(title, "Anonymous"),    "slug": slug.current,  },  tags,  videoCloudinary,  youtube,    socials,  websites}
+// Query: *[_type == "guest" && slug.current == $slug] [0] {    _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage{  public_id,    context{      ...    }  },  "date": coalesce(date, _createdAt),    content[]{    ...,    coverImage{      public_id,      context{        ...      }    },    markDefs[]{      ...,      _type == "internalLink" => {        @.reference->_type == "page" => {          "href": "/" + @.reference->slug.current        },        @.reference->_type != "page" => {          "href": "/" + @.reference->_type + "/" + @.reference->slug.current        }      },    }  },  author[]->{    ...,    "title": coalesce(title, "Anonymous"),    "slug": slug.current,  },  devto,  hashnode,  sponsor[]->{    ...,    "title": coalesce(title, "Anonymous"),    "slug": slug.current,  },  tags,  videoCloudinary,  youtube,    socials,  websites}
 export type GuestQueryResult = {
   _id: string;
   _type: "guest";
@@ -4017,10 +4253,17 @@ export type GuestQueryResult = {
   title: string | "Untitled";
   slug: string | null;
   excerpt: string | null;
-  coverImage: CloudinaryAsset | null;
+  coverImage: {
+    public_id: string | null;
+    context: {
+      _type: "cloudinary.assetContext";
+      custom?: CloudinaryAssetContextCustom;
+    } | null;
+  } | null;
   date: string;
   content: Array<{
     _key: string;
+    coverImage: null;
     markDefs: null;
   } | {
     children?: Array<{
@@ -4062,17 +4305,21 @@ export type GuestQueryResult = {
     }> | null;
     level?: number;
     _type: "block";
+    coverImage: null;
   } | {
     id?: string;
     _type: "twitter";
+    coverImage: null;
     markDefs: null;
   } | {
     url?: string;
     _type: "codepen";
+    coverImage: null;
     markDefs: null;
   } | {
     url?: string;
     _type: "codesandbox";
+    coverImage: null;
     markDefs: null;
   }> | null;
   author: null;
@@ -4114,7 +4361,7 @@ export type GuestQueryResult = {
   }> | null;
 } | null;
 // Variable: guestQueryWithRelated
-// Query: *[_type == "guest" && slug.current == $slug] [0] {    _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(date, _createdAt),    content[]{    ...,    markDefs[]{      ...,      _type == "internalLink" => {        @.reference->_type == "page" => {          "href": "/" + @.reference->slug.current        },        @.reference->_type != "page" => {          "href": "/" + @.reference->_type + "/" + @.reference->slug.current        }      },    }  },  author[]->{    ...,    "title": coalesce(title, "Anonymous"),    "slug": slug.current,  },  devto,  hashnode,  sponsor[]->{    ...,    "title": coalesce(title, "Anonymous"),    "slug": slug.current,  },  tags,  videoCloudinary,  youtube,    socials,  websites,    "related":{    "course": *[_type == "course" && (^._id in author[]._ref || ^._id in guest[]._ref)] | order(date desc) [0...4] {        _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(date, _createdAt)    },    "podcast": *[_type == "podcast" && (^._id in author[]._ref || ^._id in guest[]._ref)] | order(date desc) [0...4] {        _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(date, _createdAt)    },    "post": *[_type == "post" && (^._id in author[]._ref || ^._id in guest[]._ref)] | order(date desc) [0...4] {        _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(date, _createdAt)    },  }}
+// Query: *[_type == "guest" && slug.current == $slug] [0] {    _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage{  public_id,    context{      ...    }  },  "date": coalesce(date, _createdAt),    content[]{    ...,    coverImage{      public_id,      context{        ...      }    },    markDefs[]{      ...,      _type == "internalLink" => {        @.reference->_type == "page" => {          "href": "/" + @.reference->slug.current        },        @.reference->_type != "page" => {          "href": "/" + @.reference->_type + "/" + @.reference->slug.current        }      },    }  },  author[]->{    ...,    "title": coalesce(title, "Anonymous"),    "slug": slug.current,  },  devto,  hashnode,  sponsor[]->{    ...,    "title": coalesce(title, "Anonymous"),    "slug": slug.current,  },  tags,  videoCloudinary,  youtube,    socials,  websites,    "related":{    "course": *[_type == "course" && (^._id in author[]._ref || ^._id in guest[]._ref)] | order(date desc) [0...4] {        _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage{  public_id,    context{      ...    }  },  "date": coalesce(date, _createdAt)    },    "podcast": *[_type == "podcast" && (^._id in author[]._ref || ^._id in guest[]._ref)] | order(date desc) [0...4] {        _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage{  public_id,    context{      ...    }  },  "date": coalesce(date, _createdAt)    },    "post": *[_type == "post" && (^._id in author[]._ref || ^._id in guest[]._ref)] | order(date desc) [0...4] {        _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage{  public_id,    context{      ...    }  },  "date": coalesce(date, _createdAt)    },  }}
 export type GuestQueryWithRelatedResult = {
   _id: string;
   _type: "guest";
@@ -4122,10 +4369,17 @@ export type GuestQueryWithRelatedResult = {
   title: string | "Untitled";
   slug: string | null;
   excerpt: string | null;
-  coverImage: CloudinaryAsset | null;
+  coverImage: {
+    public_id: string | null;
+    context: {
+      _type: "cloudinary.assetContext";
+      custom?: CloudinaryAssetContextCustom;
+    } | null;
+  } | null;
   date: string;
   content: Array<{
     _key: string;
+    coverImage: null;
     markDefs: null;
   } | {
     children?: Array<{
@@ -4167,17 +4421,21 @@ export type GuestQueryWithRelatedResult = {
     }> | null;
     level?: number;
     _type: "block";
+    coverImage: null;
   } | {
     id?: string;
     _type: "twitter";
+    coverImage: null;
     markDefs: null;
   } | {
     url?: string;
     _type: "codepen";
+    coverImage: null;
     markDefs: null;
   } | {
     url?: string;
     _type: "codesandbox";
+    coverImage: null;
     markDefs: null;
   }> | null;
   author: null;
@@ -4224,7 +4482,7 @@ export type GuestQueryWithRelatedResult = {
   };
 } | null;
 // Variable: moreSponsorQuery
-// Query: *[_type == "sponsor" && _id != $skip && defined(slug.current)] | order(date desc) [$offset...$limit] {    _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(date, _createdAt)}
+// Query: *[_type == "sponsor" && _id != $skip && defined(slug.current)] | order(date desc) [$offset...$limit] {    _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage{  public_id,    context{      ...    }  },  "date": coalesce(date, _createdAt)}
 export type MoreSponsorQueryResult = Array<{
   _id: string;
   _type: "sponsor";
@@ -4232,11 +4490,17 @@ export type MoreSponsorQueryResult = Array<{
   title: string | "Untitled";
   slug: string | null;
   excerpt: string | null;
-  coverImage: CloudinaryAsset | null;
+  coverImage: {
+    public_id: string | null;
+    context: {
+      _type: "cloudinary.assetContext";
+      custom?: CloudinaryAssetContextCustom;
+    } | null;
+  } | null;
   date: string;
 }>;
 // Variable: sponsorQuery
-// Query: *[_type == "sponsor" && slug.current == $slug] [0] {    _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(date, _createdAt),    content[]{    ...,    markDefs[]{      ...,      _type == "internalLink" => {        @.reference->_type == "page" => {          "href": "/" + @.reference->slug.current        },        @.reference->_type != "page" => {          "href": "/" + @.reference->_type + "/" + @.reference->slug.current        }      },    }  },  author[]->{    ...,    "title": coalesce(title, "Anonymous"),    "slug": slug.current,  },  devto,  hashnode,  sponsor[]->{    ...,    "title": coalesce(title, "Anonymous"),    "slug": slug.current,  },  tags,  videoCloudinary,  youtube,    socials,  websites}
+// Query: *[_type == "sponsor" && slug.current == $slug] [0] {    _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage{  public_id,    context{      ...    }  },  "date": coalesce(date, _createdAt),    content[]{    ...,    coverImage{      public_id,      context{        ...      }    },    markDefs[]{      ...,      _type == "internalLink" => {        @.reference->_type == "page" => {          "href": "/" + @.reference->slug.current        },        @.reference->_type != "page" => {          "href": "/" + @.reference->_type + "/" + @.reference->slug.current        }      },    }  },  author[]->{    ...,    "title": coalesce(title, "Anonymous"),    "slug": slug.current,  },  devto,  hashnode,  sponsor[]->{    ...,    "title": coalesce(title, "Anonymous"),    "slug": slug.current,  },  tags,  videoCloudinary,  youtube,    socials,  websites}
 export type SponsorQueryResult = {
   _id: string;
   _type: "sponsor";
@@ -4244,10 +4508,17 @@ export type SponsorQueryResult = {
   title: string | "Untitled";
   slug: string | null;
   excerpt: string | null;
-  coverImage: CloudinaryAsset | null;
+  coverImage: {
+    public_id: string | null;
+    context: {
+      _type: "cloudinary.assetContext";
+      custom?: CloudinaryAssetContextCustom;
+    } | null;
+  } | null;
   date: string;
   content: Array<{
     _key: string;
+    coverImage: null;
     markDefs: null;
   } | {
     children?: Array<{
@@ -4289,17 +4560,21 @@ export type SponsorQueryResult = {
     }> | null;
     level?: number;
     _type: "block";
+    coverImage: null;
   } | {
     id?: string;
     _type: "twitter";
+    coverImage: null;
     markDefs: null;
   } | {
     url?: string;
     _type: "codepen";
+    coverImage: null;
     markDefs: null;
   } | {
     url?: string;
     _type: "codesandbox";
+    coverImage: null;
     markDefs: null;
   }> | null;
   author: null;
@@ -4313,7 +4588,7 @@ export type SponsorQueryResult = {
   websites: null;
 } | null;
 // Variable: sponsorQueryWithRelated
-// Query: *[_type == "sponsor" && slug.current == $slug] [0] {    _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(date, _createdAt),    content[]{    ...,    markDefs[]{      ...,      _type == "internalLink" => {        @.reference->_type == "page" => {          "href": "/" + @.reference->slug.current        },        @.reference->_type != "page" => {          "href": "/" + @.reference->_type + "/" + @.reference->slug.current        }      },    }  },  author[]->{    ...,    "title": coalesce(title, "Anonymous"),    "slug": slug.current,  },  devto,  hashnode,  sponsor[]->{    ...,    "title": coalesce(title, "Anonymous"),    "slug": slug.current,  },  tags,  videoCloudinary,  youtube,    socials,  websites,    "related":{    "course": *[_type == "course" && ^._id in sponsor[]._ref] | order(date desc) [] {        _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(date, _createdAt)    },    "podcast": *[_type == "podcast" && ^._id in sponsor[]._ref] | order(date desc) [] {        _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(date, _createdAt)    },    "post": *[_type == "post" && ^._id in sponsor[]._ref] | order(date desc) [] {        _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(date, _createdAt)    },  }}
+// Query: *[_type == "sponsor" && slug.current == $slug] [0] {    _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage{  public_id,    context{      ...    }  },  "date": coalesce(date, _createdAt),    content[]{    ...,    coverImage{      public_id,      context{        ...      }    },    markDefs[]{      ...,      _type == "internalLink" => {        @.reference->_type == "page" => {          "href": "/" + @.reference->slug.current        },        @.reference->_type != "page" => {          "href": "/" + @.reference->_type + "/" + @.reference->slug.current        }      },    }  },  author[]->{    ...,    "title": coalesce(title, "Anonymous"),    "slug": slug.current,  },  devto,  hashnode,  sponsor[]->{    ...,    "title": coalesce(title, "Anonymous"),    "slug": slug.current,  },  tags,  videoCloudinary,  youtube,    socials,  websites,    "related":{    "course": *[_type == "course" && ^._id in sponsor[]._ref] | order(date desc) [] {        _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage{  public_id,    context{      ...    }  },  "date": coalesce(date, _createdAt)    },    "podcast": *[_type == "podcast" && ^._id in sponsor[]._ref] | order(date desc) [] {        _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage{  public_id,    context{      ...    }  },  "date": coalesce(date, _createdAt)    },    "post": *[_type == "post" && ^._id in sponsor[]._ref] | order(date desc) [] {        _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage{  public_id,    context{      ...    }  },  "date": coalesce(date, _createdAt)    },  }}
 export type SponsorQueryWithRelatedResult = {
   _id: string;
   _type: "sponsor";
@@ -4321,10 +4596,17 @@ export type SponsorQueryWithRelatedResult = {
   title: string | "Untitled";
   slug: string | null;
   excerpt: string | null;
-  coverImage: CloudinaryAsset | null;
+  coverImage: {
+    public_id: string | null;
+    context: {
+      _type: "cloudinary.assetContext";
+      custom?: CloudinaryAssetContextCustom;
+    } | null;
+  } | null;
   date: string;
   content: Array<{
     _key: string;
+    coverImage: null;
     markDefs: null;
   } | {
     children?: Array<{
@@ -4366,17 +4648,21 @@ export type SponsorQueryWithRelatedResult = {
     }> | null;
     level?: number;
     _type: "block";
+    coverImage: null;
   } | {
     id?: string;
     _type: "twitter";
+    coverImage: null;
     markDefs: null;
   } | {
     url?: string;
     _type: "codepen";
+    coverImage: null;
     markDefs: null;
   } | {
     url?: string;
     _type: "codesandbox";
+    coverImage: null;
     markDefs: null;
   }> | null;
   author: null;
@@ -4395,7 +4681,7 @@ export type SponsorQueryWithRelatedResult = {
   };
 } | null;
 // Variable: rssQuery
-// Query: *[_type == $type && _id != $skip && defined(slug.current)] | order(date desc) [$offset...$limit] {    _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(date, _createdAt),    content[]{    ...,    markDefs[]{      ...,      _type == "internalLink" => {        @.reference->_type == "page" => {          "href": "/" + @.reference->slug.current        },        @.reference->_type != "page" => {          "href": "/" + @.reference->_type + "/" + @.reference->slug.current        }      },    }  },  author[]->{    ...,    "title": coalesce(title, "Anonymous"),    "slug": slug.current,  },  devto,  hashnode,  sponsor[]->{    ...,    "title": coalesce(title, "Anonymous"),    "slug": slug.current,  },  tags,  videoCloudinary,  youtube,}
+// Query: *[_type == $type && _id != $skip && defined(slug.current)] | order(date desc) [$offset...$limit] {    _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage{  public_id,    context{      ...    }  },  "date": coalesce(date, _createdAt),    content[]{    ...,    coverImage{      public_id,      context{        ...      }    },    markDefs[]{      ...,      _type == "internalLink" => {        @.reference->_type == "page" => {          "href": "/" + @.reference->slug.current        },        @.reference->_type != "page" => {          "href": "/" + @.reference->_type + "/" + @.reference->slug.current        }      },    }  },  author[]->{    ...,    "title": coalesce(title, "Anonymous"),    "slug": slug.current,  },  devto,  hashnode,  sponsor[]->{    ...,    "title": coalesce(title, "Anonymous"),    "slug": slug.current,  },  tags,  videoCloudinary,  youtube,}
 export type RssQueryResult = Array<{
   _id: string;
   _type: "assist.instruction.context";
@@ -4420,10 +4706,17 @@ export type RssQueryResult = Array<{
   title: string | "Untitled";
   slug: string | null;
   excerpt: string | null;
-  coverImage: CloudinaryAsset | null;
+  coverImage: {
+    public_id: string | null;
+    context: {
+      _type: "cloudinary.assetContext";
+      custom?: CloudinaryAssetContextCustom;
+    } | null;
+  } | null;
   date: string;
   content: Array<{
     _key: string;
+    coverImage: null;
     markDefs: null;
   } | {
     children?: Array<{
@@ -4465,17 +4758,21 @@ export type RssQueryResult = Array<{
     }> | null;
     level?: number;
     _type: "block";
+    coverImage: null;
   } | {
     id?: string;
     _type: "twitter";
+    coverImage: null;
     markDefs: null;
   } | {
     url?: string;
     _type: "codepen";
+    coverImage: null;
     markDefs: null;
   } | {
     url?: string;
     _type: "codesandbox";
+    coverImage: null;
     markDefs: null;
   }> | null;
   author: null;
@@ -4492,10 +4789,17 @@ export type RssQueryResult = Array<{
   title: string | "Untitled";
   slug: string | null;
   excerpt: string | null;
-  coverImage: CloudinaryAsset | null;
+  coverImage: {
+    public_id: string | null;
+    context: {
+      _type: "cloudinary.assetContext";
+      custom?: CloudinaryAssetContextCustom;
+    } | null;
+  } | null;
   date: string;
   content: Array<{
     _key: string;
+    coverImage: null;
     markDefs: null;
   } | {
     children?: Array<{
@@ -4537,17 +4841,21 @@ export type RssQueryResult = Array<{
     }> | null;
     level?: number;
     _type: "block";
+    coverImage: null;
   } | {
     id?: string;
     _type: "twitter";
+    coverImage: null;
     markDefs: null;
   } | {
     url?: string;
     _type: "codepen";
+    coverImage: null;
     markDefs: null;
   } | {
     url?: string;
     _type: "codesandbox";
+    coverImage: null;
     markDefs: null;
   }> | null;
   author: Array<{
@@ -4561,7 +4869,7 @@ export type RssQueryResult = Array<{
     title: string | "Anonymous";
     slug: string | null;
     excerpt?: string;
-    featured?: boolean;
+    featured?: number;
     content?: Array<({
       _key: string;
     } & CloudinaryAsset) | ({
@@ -4665,7 +4973,7 @@ export type RssQueryResult = Array<{
     title: string | "Anonymous";
     slug: string | null;
     excerpt?: string;
-    featured?: boolean;
+    featured?: number;
     content?: Array<({
       _key: string;
     } & CloudinaryAsset) | ({
@@ -4739,10 +5047,17 @@ export type RssQueryResult = Array<{
   title: string | "Untitled";
   slug: string | null;
   excerpt: string | null;
-  coverImage: CloudinaryAsset | null;
+  coverImage: {
+    public_id: string | null;
+    context: {
+      _type: "cloudinary.assetContext";
+      custom?: CloudinaryAssetContextCustom;
+    } | null;
+  } | null;
   date: string;
   content: Array<{
     _key: string;
+    coverImage: null;
     markDefs: null;
   } | {
     children?: Array<{
@@ -4784,17 +5099,21 @@ export type RssQueryResult = Array<{
     }> | null;
     level?: number;
     _type: "block";
+    coverImage: null;
   } | {
     id?: string;
     _type: "twitter";
+    coverImage: null;
     markDefs: null;
   } | {
     url?: string;
     _type: "codepen";
+    coverImage: null;
     markDefs: null;
   } | {
     url?: string;
     _type: "codesandbox";
+    coverImage: null;
     markDefs: null;
   }> | null;
   author: null;
@@ -4811,10 +5130,17 @@ export type RssQueryResult = Array<{
   title: string | "Untitled";
   slug: string | null;
   excerpt: string | null;
-  coverImage: CloudinaryAsset | null;
+  coverImage: {
+    public_id: string | null;
+    context: {
+      _type: "cloudinary.assetContext";
+      custom?: CloudinaryAssetContextCustom;
+    } | null;
+  } | null;
   date: string;
   content: Array<{
     _key: string;
+    coverImage: null;
     markDefs: null;
   } | {
     children?: Array<{
@@ -4856,17 +5182,21 @@ export type RssQueryResult = Array<{
     }> | null;
     level?: number;
     _type: "block";
+    coverImage: null;
   } | {
     id?: string;
     _type: "twitter";
+    coverImage: null;
     markDefs: null;
   } | {
     url?: string;
     _type: "codepen";
+    coverImage: null;
     markDefs: null;
   } | {
     url?: string;
     _type: "codesandbox";
+    coverImage: null;
     markDefs: null;
   }> | null;
   author: Array<{
@@ -4880,7 +5210,7 @@ export type RssQueryResult = Array<{
     title: string | "Anonymous";
     slug: string | null;
     excerpt?: string;
-    featured?: boolean;
+    featured?: number;
     content?: Array<({
       _key: string;
     } & CloudinaryAsset) | ({
@@ -4984,7 +5314,7 @@ export type RssQueryResult = Array<{
     title: string | "Anonymous";
     slug: string | null;
     excerpt?: string;
-    featured?: boolean;
+    featured?: number;
     content?: Array<({
       _key: string;
     } & CloudinaryAsset) | ({
@@ -5058,10 +5388,17 @@ export type RssQueryResult = Array<{
   title: string | "Untitled";
   slug: string | null;
   excerpt: string | null;
-  coverImage: CloudinaryAsset | null;
+  coverImage: {
+    public_id: string | null;
+    context: {
+      _type: "cloudinary.assetContext";
+      custom?: CloudinaryAssetContextCustom;
+    } | null;
+  } | null;
   date: string;
   content: Array<{
     _key: string;
+    coverImage: null;
     markDefs: null;
   } | {
     children?: Array<{
@@ -5103,17 +5440,21 @@ export type RssQueryResult = Array<{
     }> | null;
     level?: number;
     _type: "block";
+    coverImage: null;
   } | {
     id?: string;
     _type: "twitter";
+    coverImage: null;
     markDefs: null;
   } | {
     url?: string;
     _type: "codepen";
+    coverImage: null;
     markDefs: null;
   } | {
     url?: string;
     _type: "codesandbox";
+    coverImage: null;
     markDefs: null;
   }> | null;
   author: Array<{
@@ -5127,7 +5468,7 @@ export type RssQueryResult = Array<{
     title: string | "Anonymous";
     slug: string | null;
     excerpt?: string;
-    featured?: boolean;
+    featured?: number;
     content?: Array<({
       _key: string;
     } & CloudinaryAsset) | ({
@@ -5231,7 +5572,7 @@ export type RssQueryResult = Array<{
     title: string | "Anonymous";
     slug: string | null;
     excerpt?: string;
-    featured?: boolean;
+    featured?: number;
     content?: Array<({
       _key: string;
     } & CloudinaryAsset) | ({
@@ -5305,10 +5646,17 @@ export type RssQueryResult = Array<{
   title: string | "Untitled";
   slug: string | null;
   excerpt: string | null;
-  coverImage: CloudinaryAsset | null;
+  coverImage: {
+    public_id: string | null;
+    context: {
+      _type: "cloudinary.assetContext";
+      custom?: CloudinaryAssetContextCustom;
+    } | null;
+  } | null;
   date: string;
   content: Array<{
     _key: string;
+    coverImage: null;
     markDefs: null;
   } | {
     children?: Array<{
@@ -5350,17 +5698,21 @@ export type RssQueryResult = Array<{
     }> | null;
     level?: number;
     _type: "block";
+    coverImage: null;
   } | {
     id?: string;
     _type: "twitter";
+    coverImage: null;
     markDefs: null;
   } | {
     url?: string;
     _type: "codepen";
+    coverImage: null;
     markDefs: null;
   } | {
     url?: string;
     _type: "codesandbox";
+    coverImage: null;
     markDefs: null;
   }> | null;
   author: Array<{
@@ -5374,7 +5726,7 @@ export type RssQueryResult = Array<{
     title: string | "Anonymous";
     slug: string | null;
     excerpt?: string;
-    featured?: boolean;
+    featured?: number;
     content?: Array<({
       _key: string;
     } & CloudinaryAsset) | ({
@@ -5478,7 +5830,7 @@ export type RssQueryResult = Array<{
     title: string | "Anonymous";
     slug: string | null;
     excerpt?: string;
-    featured?: boolean;
+    featured?: number;
     content?: Array<({
       _key: string;
     } & CloudinaryAsset) | ({
@@ -5552,10 +5904,17 @@ export type RssQueryResult = Array<{
   title: string | "Untitled";
   slug: string | null;
   excerpt: string | null;
-  coverImage: CloudinaryAsset | null;
+  coverImage: {
+    public_id: string | null;
+    context: {
+      _type: "cloudinary.assetContext";
+      custom?: CloudinaryAssetContextCustom;
+    } | null;
+  } | null;
   date: string;
   content: Array<{
     _key: string;
+    coverImage: null;
     markDefs: null;
   } | {
     children?: Array<{
@@ -5597,17 +5956,21 @@ export type RssQueryResult = Array<{
     }> | null;
     level?: number;
     _type: "block";
+    coverImage: null;
   } | {
     id?: string;
     _type: "twitter";
+    coverImage: null;
     markDefs: null;
   } | {
     url?: string;
     _type: "codepen";
+    coverImage: null;
     markDefs: null;
   } | {
     url?: string;
     _type: "codesandbox";
+    coverImage: null;
     markDefs: null;
   }> | null;
   author: null;
@@ -5624,10 +5987,17 @@ export type RssQueryResult = Array<{
   title: string | "Untitled";
   slug: string | null;
   excerpt: string | null;
-  coverImage: CloudinaryAsset | null;
+  coverImage: {
+    public_id: string | null;
+    context: {
+      _type: "cloudinary.assetContext";
+      custom?: CloudinaryAssetContextCustom;
+    } | null;
+  } | null;
   date: string;
   content: Array<{
     _key: string;
+    coverImage: null;
     markDefs: null;
   } | {
     children?: Array<{
@@ -5669,17 +6039,21 @@ export type RssQueryResult = Array<{
     }> | null;
     level?: number;
     _type: "block";
+    coverImage: null;
   } | {
     id?: string;
     _type: "twitter";
+    coverImage: null;
     markDefs: null;
   } | {
     url?: string;
     _type: "codepen";
+    coverImage: null;
     markDefs: null;
   } | {
     url?: string;
     _type: "codesandbox";
+    coverImage: null;
     markDefs: null;
   }> | null;
   author: Array<{
@@ -5693,7 +6067,7 @@ export type RssQueryResult = Array<{
     title: string | "Anonymous";
     slug: string | null;
     excerpt?: string;
-    featured?: boolean;
+    featured?: number;
     content?: Array<({
       _key: string;
     } & CloudinaryAsset) | ({
@@ -5797,7 +6171,7 @@ export type RssQueryResult = Array<{
     title: string | "Anonymous";
     slug: string | null;
     excerpt?: string;
-    featured?: boolean;
+    featured?: number;
     content?: Array<({
       _key: string;
     } & CloudinaryAsset) | ({
@@ -5922,10 +6296,17 @@ export type RssQueryResult = Array<{
   title: string | "Untitled";
   slug: string | null;
   excerpt: string | null;
-  coverImage: CloudinaryAsset | null;
+  coverImage: {
+    public_id: string | null;
+    context: {
+      _type: "cloudinary.assetContext";
+      custom?: CloudinaryAssetContextCustom;
+    } | null;
+  } | null;
   date: string;
   content: Array<{
     _key: string;
+    coverImage: null;
     markDefs: null;
   } | {
     children?: Array<{
@@ -5967,17 +6348,21 @@ export type RssQueryResult = Array<{
     }> | null;
     level?: number;
     _type: "block";
+    coverImage: null;
   } | {
     id?: string;
     _type: "twitter";
+    coverImage: null;
     markDefs: null;
   } | {
     url?: string;
     _type: "codepen";
+    coverImage: null;
     markDefs: null;
   } | {
     url?: string;
     _type: "codesandbox";
+    coverImage: null;
     markDefs: null;
   }> | null;
   author: null;

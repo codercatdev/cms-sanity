@@ -107,6 +107,27 @@ const sponsorRelated = `
   }
 `;
 
+export const homePageQuery = groq`*[_type == "settings" ][0]{
+  "featuredCourse": *[_type == "course" && featured > 0]|order(featured desc)[0]{
+      ${baseFieldsNoContent},
+  },
+  "latestCourses": *[_type == "course"]|order(date desc)[0...4]{
+      ${baseFieldsNoContent},
+  },
+  "latestPodcast": *[_type == "podcast"]|order(date desc)[0]{
+      ${baseFieldsNoContent},
+  },
+  "topPodcasts": *[_type == "podcast" && views > 0]|order(views desc)[0...4]{
+      ${baseFieldsNoContent},
+  },
+  "latestPosts": *[_type == "post"]|order(date desc)[0...4]{
+     ${baseFieldsNoContent},
+  },
+  "topPosts": *[_type == "post" && views > 0]|order(views desc)[0...4]{
+    ${baseFieldsNoContent},
+  },
+}`;
+
 // Pages
 export const pageQuery = groq`*[_type == "page" && slug.current == $slug] [0] {
   ${baseFieldsNoContent},
