@@ -12,6 +12,7 @@ import internalLink from "../custom/internalLink";
 // Custom schemas (need imported in sanity.config.ts)
 import codepen from "../custom/codepen";
 import codesandbox from "../custom/codesandbox";
+import twitter from "../custom/twitter-embed";
 
 const baseType = defineType({
   name: "base",
@@ -92,6 +93,7 @@ const baseType = defineType({
         //Custom Schemas
         defineArrayMember(codepen),
         defineArrayMember(codesandbox),
+        defineArrayMember(twitter),
       ],
     }),
   ],

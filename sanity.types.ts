@@ -191,6 +191,10 @@ export type Sponsor = {
     url?: string;
     _type: "codesandbox";
     _key: string;
+  } | {
+    id?: string;
+    _type: "twitter";
+    _key: string;
   }>;
   url?: string;
 };
@@ -260,6 +264,10 @@ export type Lesson = {
   } | {
     url?: string;
     _type: "codesandbox";
+    _key: string;
+  } | {
+    id?: string;
+    _type: "twitter";
     _key: string;
   }>;
   videoCloudinary?: CloudinaryAsset;
@@ -351,6 +359,10 @@ export type Author = {
   } | {
     url?: string;
     _type: "codesandbox";
+    _key: string;
+  } | {
+    id?: string;
+    _type: "twitter";
     _key: string;
   }>;
   socials?: {
@@ -451,6 +463,10 @@ export type Post = {
     url?: string;
     _type: "codesandbox";
     _key: string;
+  } | {
+    id?: string;
+    _type: "twitter";
+    _key: string;
   }>;
   videoCloudinary?: CloudinaryAsset;
   youtube?: string;
@@ -540,6 +556,10 @@ export type Podcast = {
   } | {
     url?: string;
     _type: "codesandbox";
+    _key: string;
+  } | {
+    id?: string;
+    _type: "twitter";
     _key: string;
   }>;
   videoCloudinary?: CloudinaryAsset;
@@ -664,6 +684,10 @@ export type Guest = {
     url?: string;
     _type: "codesandbox";
     _key: string;
+  } | {
+    id?: string;
+    _type: "twitter";
+    _key: string;
   }>;
   socials?: {
     codepen?: string;
@@ -763,6 +787,10 @@ export type PodcastType = {
     url?: string;
     _type: "codesandbox";
     _key: string;
+  } | {
+    id?: string;
+    _type: "twitter";
+    _key: string;
   }>;
 };
 
@@ -831,6 +859,10 @@ export type Course = {
   } | {
     url?: string;
     _type: "codesandbox";
+    _key: string;
+  } | {
+    id?: string;
+    _type: "twitter";
     _key: string;
   }>;
   videoCloudinary?: CloudinaryAsset;
@@ -933,6 +965,10 @@ export type Page = {
   } | {
     url?: string;
     _type: "codesandbox";
+    _key: string;
+  } | {
+    id?: string;
+    _type: "twitter";
     _key: string;
   }>;
   videoCloudinary?: CloudinaryAsset;
@@ -1308,6 +1344,10 @@ export type PageQueryResult = {
     level?: number;
     _type: "block";
   } | {
+    id?: string;
+    _type: "twitter";
+    markDefs: null;
+  } | {
     url?: string;
     _type: "codepen";
     markDefs: null;
@@ -1373,6 +1413,10 @@ export type PageQueryResult = {
       }>;
       level?: number;
       _type: "block";
+      _key: string;
+    } | {
+      id?: string;
+      _type: "twitter";
       _key: string;
     } | {
       url?: string;
@@ -1475,6 +1519,10 @@ export type PageQueryResult = {
       _type: "block";
       _key: string;
     } | {
+      id?: string;
+      _type: "twitter";
+      _key: string;
+    } | {
       url?: string;
       _type: "codepen";
       _key: string;
@@ -1559,6 +1607,10 @@ export type BlogQueryResult = {
       }>;
       level?: number;
       _type: "block";
+      _key: string;
+    } | {
+      id?: string;
+      _type: "twitter";
       _key: string;
     } | {
       url?: string;
@@ -1671,6 +1723,10 @@ export type MorePostQueryResult = Array<{
       _type: "block";
       _key: string;
     } | {
+      id?: string;
+      _type: "twitter";
+      _key: string;
+    } | {
       url?: string;
       _type: "codepen";
       _key: string;
@@ -1766,6 +1822,10 @@ export type PostQueryResult = {
     level?: number;
     _type: "block";
   } | {
+    id?: string;
+    _type: "twitter";
+    markDefs: null;
+  } | {
     url?: string;
     _type: "codepen";
     markDefs: null;
@@ -1831,6 +1891,10 @@ export type PostQueryResult = {
       }>;
       level?: number;
       _type: "block";
+      _key: string;
+    } | {
+      id?: string;
+      _type: "twitter";
       _key: string;
     } | {
       url?: string;
@@ -1933,6 +1997,10 @@ export type PostQueryResult = {
       _type: "block";
       _key: string;
     } | {
+      id?: string;
+      _type: "twitter";
+      _key: string;
+    } | {
       url?: string;
       _type: "codepen";
       _key: string;
@@ -2017,6 +2085,10 @@ export type PodcastsQueryResult = {
       }>;
       level?: number;
       _type: "block";
+      _key: string;
+    } | {
+      id?: string;
+      _type: "twitter";
       _key: string;
     } | {
       url?: string;
@@ -2115,6 +2187,10 @@ export type PodcastsQueryResult = {
       }>;
       level?: number;
       _type: "block";
+      _key: string;
+    } | {
+      id?: string;
+      _type: "twitter";
       _key: string;
     } | {
       url?: string;
@@ -2227,6 +2303,10 @@ export type MorePodcastQueryResult = Array<{
       _type: "block";
       _key: string;
     } | {
+      id?: string;
+      _type: "twitter";
+      _key: string;
+    } | {
       url?: string;
       _type: "codepen";
       _key: string;
@@ -2325,6 +2405,10 @@ export type MorePodcastQueryResult = Array<{
       _type: "block";
       _key: string;
     } | {
+      id?: string;
+      _type: "twitter";
+      _key: string;
+    } | {
       url?: string;
       _type: "codepen";
       _key: string;
@@ -2420,6 +2504,10 @@ export type PodcastQueryResult = {
     level?: number;
     _type: "block";
   } | {
+    id?: string;
+    _type: "twitter";
+    markDefs: null;
+  } | {
     url?: string;
     _type: "codepen";
     markDefs: null;
@@ -2485,6 +2573,10 @@ export type PodcastQueryResult = {
       }>;
       level?: number;
       _type: "block";
+      _key: string;
+    } | {
+      id?: string;
+      _type: "twitter";
       _key: string;
     } | {
       url?: string;
@@ -2587,6 +2679,10 @@ export type PodcastQueryResult = {
       _type: "block";
       _key: string;
     } | {
+      id?: string;
+      _type: "twitter";
+      _key: string;
+    } | {
       url?: string;
       _type: "codepen";
       _key: string;
@@ -2663,6 +2759,10 @@ export type PodcastQueryResult = {
       }>;
       level?: number;
       _type: "block";
+      _key: string;
+    } | {
+      id?: string;
+      _type: "twitter";
       _key: string;
     } | {
       url?: string;
@@ -2764,6 +2864,10 @@ export type PodcastQueryResult = {
         _type: "block";
         _key: string;
       } | {
+        id?: string;
+        _type: "twitter";
+        _key: string;
+      } | {
         url?: string;
         _type: "codepen";
         _key: string;
@@ -2859,6 +2963,10 @@ export type PodcastQueryResult = {
         }>;
         level?: number;
         _type: "block";
+        _key: string;
+      } | {
+        id?: string;
+        _type: "twitter";
         _key: string;
       } | {
         url?: string;
@@ -2974,6 +3082,10 @@ export type CoursesQueryResult = {
       _type: "block";
       _key: string;
     } | {
+      id?: string;
+      _type: "twitter";
+      _key: string;
+    } | {
       url?: string;
       _type: "codepen";
       _key: string;
@@ -3084,6 +3196,10 @@ export type MoreCourseQueryResult = Array<{
       _type: "block";
       _key: string;
     } | {
+      id?: string;
+      _type: "twitter";
+      _key: string;
+    } | {
       url?: string;
       _type: "codepen";
       _key: string;
@@ -3179,6 +3295,10 @@ export type CourseQueryResult = {
     level?: number;
     _type: "block";
   } | {
+    id?: string;
+    _type: "twitter";
+    markDefs: null;
+  } | {
     url?: string;
     _type: "codepen";
     markDefs: null;
@@ -3244,6 +3364,10 @@ export type CourseQueryResult = {
       }>;
       level?: number;
       _type: "block";
+      _key: string;
+    } | {
+      id?: string;
+      _type: "twitter";
       _key: string;
     } | {
       url?: string;
@@ -3344,6 +3468,10 @@ export type CourseQueryResult = {
       }>;
       level?: number;
       _type: "block";
+      _key: string;
+    } | {
+      id?: string;
+      _type: "twitter";
       _key: string;
     } | {
       url?: string;
@@ -3445,6 +3573,10 @@ export type LessonQueryResult = {
     level?: number;
     _type: "block";
   } | {
+    id?: string;
+    _type: "twitter";
+    markDefs: null;
+  } | {
     url?: string;
     _type: "codepen";
     markDefs: null;
@@ -3510,6 +3642,10 @@ export type LessonQueryResult = {
       }>;
       level?: number;
       _type: "block";
+      _key: string;
+    } | {
+      id?: string;
+      _type: "twitter";
       _key: string;
     } | {
       url?: string;
@@ -3612,6 +3748,10 @@ export type LessonQueryResult = {
       _type: "block";
       _key: string;
     } | {
+      id?: string;
+      _type: "twitter";
+      _key: string;
+    } | {
       url?: string;
       _type: "codepen";
       _key: string;
@@ -3695,6 +3835,10 @@ export type AuthorQueryResult = {
     }> | null;
     level?: number;
     _type: "block";
+  } | {
+    id?: string;
+    _type: "twitter";
+    markDefs: null;
   } | {
     url?: string;
     _type: "codepen";
@@ -3796,6 +3940,10 @@ export type AuthorQueryWithRelatedResult = {
     }> | null;
     level?: number;
     _type: "block";
+  } | {
+    id?: string;
+    _type: "twitter";
+    markDefs: null;
   } | {
     url?: string;
     _type: "codepen";
@@ -3915,6 +4063,10 @@ export type GuestQueryResult = {
     level?: number;
     _type: "block";
   } | {
+    id?: string;
+    _type: "twitter";
+    markDefs: null;
+  } | {
     url?: string;
     _type: "codepen";
     markDefs: null;
@@ -4015,6 +4167,10 @@ export type GuestQueryWithRelatedResult = {
     }> | null;
     level?: number;
     _type: "block";
+  } | {
+    id?: string;
+    _type: "twitter";
+    markDefs: null;
   } | {
     url?: string;
     _type: "codepen";
@@ -4134,6 +4290,10 @@ export type SponsorQueryResult = {
     level?: number;
     _type: "block";
   } | {
+    id?: string;
+    _type: "twitter";
+    markDefs: null;
+  } | {
     url?: string;
     _type: "codepen";
     markDefs: null;
@@ -4206,6 +4366,10 @@ export type SponsorQueryWithRelatedResult = {
     }> | null;
     level?: number;
     _type: "block";
+  } | {
+    id?: string;
+    _type: "twitter";
+    markDefs: null;
   } | {
     url?: string;
     _type: "codepen";
@@ -4302,6 +4466,10 @@ export type RssQueryResult = Array<{
     level?: number;
     _type: "block";
   } | {
+    id?: string;
+    _type: "twitter";
+    markDefs: null;
+  } | {
     url?: string;
     _type: "codepen";
     markDefs: null;
@@ -4370,6 +4538,10 @@ export type RssQueryResult = Array<{
     level?: number;
     _type: "block";
   } | {
+    id?: string;
+    _type: "twitter";
+    markDefs: null;
+  } | {
     url?: string;
     _type: "codepen";
     markDefs: null;
@@ -4435,6 +4607,10 @@ export type RssQueryResult = Array<{
       }>;
       level?: number;
       _type: "block";
+      _key: string;
+    } | {
+      id?: string;
+      _type: "twitter";
       _key: string;
     } | {
       url?: string;
@@ -4535,6 +4711,10 @@ export type RssQueryResult = Array<{
       }>;
       level?: number;
       _type: "block";
+      _key: string;
+    } | {
+      id?: string;
+      _type: "twitter";
       _key: string;
     } | {
       url?: string;
@@ -4605,6 +4785,10 @@ export type RssQueryResult = Array<{
     level?: number;
     _type: "block";
   } | {
+    id?: string;
+    _type: "twitter";
+    markDefs: null;
+  } | {
     url?: string;
     _type: "codepen";
     markDefs: null;
@@ -4673,6 +4857,10 @@ export type RssQueryResult = Array<{
     level?: number;
     _type: "block";
   } | {
+    id?: string;
+    _type: "twitter";
+    markDefs: null;
+  } | {
     url?: string;
     _type: "codepen";
     markDefs: null;
@@ -4738,6 +4926,10 @@ export type RssQueryResult = Array<{
       }>;
       level?: number;
       _type: "block";
+      _key: string;
+    } | {
+      id?: string;
+      _type: "twitter";
       _key: string;
     } | {
       url?: string;
@@ -4838,6 +5030,10 @@ export type RssQueryResult = Array<{
       }>;
       level?: number;
       _type: "block";
+      _key: string;
+    } | {
+      id?: string;
+      _type: "twitter";
       _key: string;
     } | {
       url?: string;
@@ -4908,6 +5104,10 @@ export type RssQueryResult = Array<{
     level?: number;
     _type: "block";
   } | {
+    id?: string;
+    _type: "twitter";
+    markDefs: null;
+  } | {
     url?: string;
     _type: "codepen";
     markDefs: null;
@@ -4973,6 +5173,10 @@ export type RssQueryResult = Array<{
       }>;
       level?: number;
       _type: "block";
+      _key: string;
+    } | {
+      id?: string;
+      _type: "twitter";
       _key: string;
     } | {
       url?: string;
@@ -5073,6 +5277,10 @@ export type RssQueryResult = Array<{
       }>;
       level?: number;
       _type: "block";
+      _key: string;
+    } | {
+      id?: string;
+      _type: "twitter";
       _key: string;
     } | {
       url?: string;
@@ -5143,6 +5351,10 @@ export type RssQueryResult = Array<{
     level?: number;
     _type: "block";
   } | {
+    id?: string;
+    _type: "twitter";
+    markDefs: null;
+  } | {
     url?: string;
     _type: "codepen";
     markDefs: null;
@@ -5208,6 +5420,10 @@ export type RssQueryResult = Array<{
       }>;
       level?: number;
       _type: "block";
+      _key: string;
+    } | {
+      id?: string;
+      _type: "twitter";
       _key: string;
     } | {
       url?: string;
@@ -5308,6 +5524,10 @@ export type RssQueryResult = Array<{
       }>;
       level?: number;
       _type: "block";
+      _key: string;
+    } | {
+      id?: string;
+      _type: "twitter";
       _key: string;
     } | {
       url?: string;
@@ -5378,6 +5598,10 @@ export type RssQueryResult = Array<{
     level?: number;
     _type: "block";
   } | {
+    id?: string;
+    _type: "twitter";
+    markDefs: null;
+  } | {
     url?: string;
     _type: "codepen";
     markDefs: null;
@@ -5446,6 +5670,10 @@ export type RssQueryResult = Array<{
     level?: number;
     _type: "block";
   } | {
+    id?: string;
+    _type: "twitter";
+    markDefs: null;
+  } | {
     url?: string;
     _type: "codepen";
     markDefs: null;
@@ -5511,6 +5739,10 @@ export type RssQueryResult = Array<{
       }>;
       level?: number;
       _type: "block";
+      _key: string;
+    } | {
+      id?: string;
+      _type: "twitter";
       _key: string;
     } | {
       url?: string;
@@ -5611,6 +5843,10 @@ export type RssQueryResult = Array<{
       }>;
       level?: number;
       _type: "block";
+      _key: string;
+    } | {
+      id?: string;
+      _type: "twitter";
       _key: string;
     } | {
       url?: string;
@@ -5731,6 +5967,10 @@ export type RssQueryResult = Array<{
     }> | null;
     level?: number;
     _type: "block";
+  } | {
+    id?: string;
+    _type: "twitter";
+    markDefs: null;
   } | {
     url?: string;
     _type: "codepen";
