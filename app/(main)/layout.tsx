@@ -55,6 +55,8 @@ export async function generateMetadata(): Promise<Metadata> {
     description: toPlainText(description),
     openGraph: {
       images: ogImage ? [ogImage] : [],
+      siteName: "CodingCat.dev",
+      url: "https://codingcat.dev",
     },
     alternates: {
       types: {

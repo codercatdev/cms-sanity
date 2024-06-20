@@ -20,7 +20,12 @@ export function resolveOpenGraphImage(image: any, width = 1920, height = 1080) {
   if (!image || !image?.secure_url) return;
   const url = image?.secure_url;
   if (!url) return;
-  return { url, alt: image?.context?.custom?.alt as string, width, height };
+  return {
+    url,
+    alt: image?.context?.custom?.alt || "CodingCat.dev Image",
+    width,
+    height,
+  };
 }
 
 export function resolveHref(

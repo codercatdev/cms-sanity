@@ -47,8 +47,8 @@ export default async function PodcastPage({
         <Card className="xl:col-span-2" key={author}>
           <CardHeader className="flex flex-row items-center">
             <div className="grid gap-2">
-              <CardTitle>
-                <h2>{author}</h2>
+              <CardTitle className="text-xl sm:text-2xl font-bold">
+                {author}
               </CardTitle>
             </div>
           </CardHeader>
