@@ -8,12 +8,14 @@ import {
 import { Card } from "@/components/ui/card";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { useToast } from "@/components/ui/use-toast";
 import { addSubscription } from "@/lib/firebase";
 import { onSnapshot } from "firebase/firestore";
 import { useFirestoreUser } from "@/lib/firebase.hooks";
 import Link from "next/link";
+import { useCookies } from "react-cookie";
+import { jwtDecode } from "jwt-decode";
 
 export default function GoPro({
   setShowGoPro,
@@ -24,6 +26,18 @@ export default function GoPro({
   const [subType, setSubType] = useState("yearly");
   const [redirecting, setRedirecting] = useState(false);
   const { toast } = useToast();
+  const [cookies] = useCookies(["app.idt"]);
+  const [jwt, setJwt] = useState<any | null>(null);
+
+  useEffect(() => {
+    const session = cookies?.["app.idt"];
+    if (session) {
+      const jwtPalyoad = jwtDecode(session);
+      setJwt(jwtPalyoad);
+    } else {
+      setJwt(null);
+    }
+  }, [cookies]);
 
   const onSubscribe = async () => {
     setRedirecting(true);
@@ -121,7 +135,7 @@ export default function GoPro({
       <div className="mt-4 grid gap-2 sm:gap-4">
         <p>First you will need to login.</p>
         <Link
-          href="/login?"
+          href="/login?redirectTo=/pro"
           className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-8 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
         >
           Login
@@ -130,10 +144,12 @@ export default function GoPro({
     </>
   );
 
+  const hooray = <>You are a Pro 🎉</>;
+
   return (
     <Dialog defaultOpen onOpenChange={(open) => setShowGoPro(open)}>
       <DialogContent className="rounded-lg  p-6">
-        {currentUser?.uid ? subscribe : login}
+        {currentUser?.uid ? (jwt?.stripeRole ? hooray : subscribe) : login}
       </DialogContent>
     </Dialog>
   );

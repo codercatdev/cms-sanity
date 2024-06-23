@@ -111,7 +111,7 @@ export const homePageQuery = groq`*[_type == "settings" ][0]{
   "featuredCourse": *[_type == "course" && featured > 0]|order(featured desc)[0]{
       ${baseFieldsNoContent},
   },
-  "latestCourses": *[_type == "course"]|order(date desc)[0...4]{
+  "featuredCourses": *[_type == "course" && featured > 0]|order(featured desc)[0...4]{
       ${baseFieldsNoContent},
   },
   "latestPodcast": *[_type == "podcast"]|order(date desc)[0]{

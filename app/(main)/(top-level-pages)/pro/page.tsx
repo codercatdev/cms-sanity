@@ -8,8 +8,6 @@ import type { PageQueryResult } from "@/sanity.types";
 import { sanityFetch } from "@/sanity/lib/fetch";
 import { pageQuery } from "@/sanity/lib/queries";
 import { resolveOpenGraphImage } from "@/sanity/lib/utils";
-import { BreadcrumbLinks } from "@/components/breadrumb-links";
-import CoverImage from "@/components/cover-image";
 import ProBenefits from "@/components/pro-benefits";
 
 type Props = {
@@ -39,7 +37,7 @@ export async function generateMetadata(
   } satisfies Metadata;
 }
 
-export default async function SponsorshipsPage() {
+export default async function ProPage() {
   const [page] = await Promise.all([
     sanityFetch<PageQueryResult>({
       query: pageQuery,

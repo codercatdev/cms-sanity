@@ -1,10 +1,11 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import GoPro from "./user-go-pro";
 import Link from "next/link";
 import CoverImage from "./cover-image";
 import { CloudinaryAsset } from "@/sanity.types";
 import { Button } from "./ui/button";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export default function ProBenefits({
   coverImage,
@@ -12,6 +13,17 @@ export default function ProBenefits({
   coverImage: CloudinaryAsset;
 }) {
   const [showGoPro, setShowGoPro] = useState(false);
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const showSubscribe = searchParams.get("showSubscribe");
+
+  useEffect(() => {
+    if (showSubscribe) {
+      router.replace("/pro");
+      setShowGoPro(true);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const proButton = (
     <Button

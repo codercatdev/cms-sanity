@@ -10,16 +10,22 @@ import { FirebaseError } from "firebase/app";
 import { useToast } from "@/components/ui/use-toast";
 import { Button } from "@/components/ui/button";
 import { FaGithub } from "react-icons/fa";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export default function GitHubAuth() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const redirect = searchParams.get("redirectTo");
   const { toast } = useToast();
 
   const login = async () => {
     try {
       await ccdSignInWithPopUp(provider);
-      router.replace("/dashboard");
+      redirect
+        ? router.replace(
+            redirect === "/pro" ? `${redirect}?showSubscribe=true` : redirect
+          )
+        : router.replace("/dashboard");
     } catch (err: any) {
       if (err instanceof FirebaseError) {
         if (err.code === "auth/account-exists-with-different-credential") {

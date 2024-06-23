@@ -27,7 +27,6 @@ export default function AvatarDropdown() {
   const [cookies] = useCookies(["app.idt"]);
   const [jwt, setJwt] = useState<any | null>(null);
   const [showGoPro, setShowGoPro] = useState(false);
-  const [showStripePortal, setShowStripePortal] = useState(false);
   const router = useRouter();
 
   // Firebase

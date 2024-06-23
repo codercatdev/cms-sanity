@@ -10,6 +10,7 @@ export async function middleware(request: NextRequest) {
   const sessionCookie = request.cookies.get("app.at");
   const sessionExpireCookie = request.cookies.get("app.at_exp");
   const tokenCookie = request.cookies.get("app.idt");
+  const redirectTo = request.nextUrl.searchParams.get("redirectTo");
 
   const clearCookies = () => {
     // If sending to login, it could mean that cookies are off
@@ -48,8 +49,12 @@ export async function middleware(request: NextRequest) {
 
   //Return to specified route
   if (responseAPI.status === 200 && login) {
-    return NextResponse.redirect(new URL("/dashboard", request.url));
+    return redirectTo
+      ? NextResponse.redirect(new URL(redirectTo, request.url))
+      : NextResponse.redirect(new URL("/dashboard", request.url));
   }
 
-  return NextResponse.next();
+  return redirectTo
+    ? NextResponse.redirect(new URL(redirectTo, request.url))
+    : NextResponse.next();
 }
