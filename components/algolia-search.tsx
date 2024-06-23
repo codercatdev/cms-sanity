@@ -4,7 +4,15 @@ import algoliasearch from "algoliasearch/lite";
 import { Hit as AlgoliaHit, SearchClient } from "instantsearch.js";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { FaCat } from "react-icons/fa";
+import { FaX } from "react-icons/fa6";
+
+import { GiTeacher } from "react-icons/gi"; // Course
+import { PiStudentBold } from "react-icons/pi"; // Lesson
+import { FaPodcast } from "react-icons/fa"; // Podcast
+import { HiOutlinePencilAlt } from "react-icons/hi"; //Post
+import { FaCat } from "react-icons/fa"; // Author
+import { FaRegUser } from "react-icons/fa"; //Guest
+
 import {
   Hits,
   Highlight,
@@ -23,6 +31,8 @@ import {
 } from "@/sanity.types";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
+import { iconPicker } from "sanity-plugin-icon-picker";
+import { ContentType } from "@/lib/types";
 
 const appId = process.env.NEXT_PUBLIC_ALGOLIA_APP_ID;
 const searchApiKey = process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_API_KEY;
@@ -62,11 +72,28 @@ export default function AlgoliaSearch({
     setOpen && setOpen(false);
   };
 
+  const iconPicker = (type: string) => {
+    switch (type) {
+      case ContentType.author:
+        return <FaCat />;
+      case ContentType.course:
+        return <GiTeacher />;
+      case ContentType.guest:
+        return <FaRegUser />;
+      case ContentType.lesson:
+        return <PiStudentBold />;
+      case ContentType.podcast:
+        return <FaPodcast />;
+      case ContentType.post:
+        return <HiOutlinePencilAlt />;
+    }
+  };
+
   const hitComponent = ({ hit }: HitProps) => {
     return (
       <>
         <li className="flex items-center space-x-2 border rounded-lg py-1 px-4">
-          <FaCat className="h-5 w-5 text-gray-400" />
+          <div className="w-12">{iconPicker(hit._type)}</div>
           <Link
             href={`/${hit._type}/${hit.slug}`}
             className="hover:underline flex-1"
@@ -105,7 +132,7 @@ export default function AlgoliaSearch({
   return (
     <>
       {client && indexName ? (
-        <div className="px-0 sm:px-4 h-screen sm:h-[80vh] overflow-auto">
+        <div className="px-0 sm:px-4 h-screen sm:h-[70dvh] overflow-auto">
           <InstantSearchNext
             searchClient={client}
             indexName={indexName}
@@ -127,15 +154,20 @@ export default function AlgoliaSearch({
                   <CustomDynamicWidgets />
                 </div>
               )}
-              <div className="flex-1">
+              <div className="flex-1 flex flex-col gap-2">
                 <div className=" flex flex-col gap-2">
                   Search
                   <SearchBox
                     placeholder="Search for your purr-fect thing!"
                     classNames={{
+                      root: "relative",
                       input:
                         "flex h-full w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 flex-1",
+                      submit: "absolute right-8 top-2",
+                      reset: "absolute right-2 top-2",
                     }}
+                    submitIconComponent={() => null}
+                    resetIconComponent={() => <FaX />}
                   />
                 </div>
                 <div className="flex-1 overflow-y-auto">
@@ -146,7 +178,7 @@ export default function AlgoliaSearch({
                     hitComponent={hitComponent}
                     classNames={{
                       list: "flex flex-col gap-2",
-                      root: "h-full sm:h-[60vh] overflow-y-auto",
+                      root: "h-full sm:h-[60dvh] overflow-y-auto",
                     }}
                   />
                 </div>

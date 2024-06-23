@@ -66,3 +66,7 @@
     font-family: var(--font-nunito), sans-serif;
   }
 }
+
+.ais-SearchBox-input[type="search"]::-webkit-search-cancel-button {
+  display: none;
+}
