@@ -22,6 +22,11 @@ export default defineType({
   fields: [
     ...contentType.fields,
     defineField({
+      name: "stripeProduct",
+      title: "Stripe Product Id",
+      type: "string",
+    }),
+    defineField({
       name: "sections",
       title: "Sections",
       type: "array",

@@ -69,6 +69,10 @@ const podcastFields = `
   }
 `;
 
+const courseFields = `
+  stripeProduct
+`;
+
 const lessonFields = `
   locked,
   videoCloudinary
@@ -110,9 +114,11 @@ const sponsorRelated = `
 export const homePageQuery = groq`*[_type == "settings" ][0]{
   "featuredCourse": *[_type == "course" && featured > 0]|order(featured desc)[0]{
       ${baseFieldsNoContent},
+      ${courseFields},
   },
   "featuredCourses": *[_type == "course" && featured > 0]|order(featured desc)[0...4]{
       ${baseFieldsNoContent},
+      ${courseFields},
   },
   "latestPodcast": *[_type == "podcast"]|order(date desc)[0]{
       ${baseFieldsNoContent},
@@ -199,6 +205,7 @@ export const podcastQuery = groq`*[_type == "podcast" && slug.current == $slug] 
 
 export const coursesQuery = groq`*[_type == "course" && defined(slug.current)] | order(date desc, _updatedAt desc) [0] {
   ${baseFieldsNoContent},
+  ${courseFields},
   author[]->{
     ...,
     "title": coalesce(title, "Anonymous"),
@@ -208,6 +215,7 @@ export const coursesQuery = groq`*[_type == "course" && defined(slug.current)] |
 
 export const moreCourseQuery = groq`*[_type == "course" && _id != $skip && defined(slug.current)] | order(date desc, _updatedAt desc) [$offset...$limit] {
   ${baseFieldsNoContent},
+  ${courseFields},
   author[]->{
     ...,
     "title": coalesce(title, "Anonymous"),
@@ -217,6 +225,7 @@ export const moreCourseQuery = groq`*[_type == "course" && _id != $skip && defin
 
 export const courseQuery = groq`*[_type == "course" && slug.current == $courseSlug] [0] {
   ${baseFieldsNoContent},
+  ${courseFields},
   ${contentFields},
   ${podcastFields}
 }`;

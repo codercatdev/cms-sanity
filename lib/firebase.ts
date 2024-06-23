@@ -19,6 +19,7 @@ import {
   where,
   query,
   getDocs,
+  getDoc,
 } from "firebase/firestore";
 import { httpsCallable, getFunctions } from "firebase/functions";
 import {
@@ -142,40 +143,60 @@ export const ccdSignOut = async () => {
 };
 
 /* STRIPE */
-export const addSubscription = async (productRole: string) => {
-  //Get app.idt cookie
-  const uid = getUidFromIdtCookie();
-  if (!uid) throw "Missing User ID";
-
+export const getStripePrice = async ({
+  productRole,
+  productId,
+}: {
+  productRole?: string | null;
+  productId?: string | null;
+}) => {
   // Get Product
-  const productsQuery = await query(
-    collection(getFirestore(), "stripe-products"),
-    where("active", "==", true),
-    where("role", "==", productRole)
-  );
-  const productsSnapshot = await getDocs(productsQuery);
-  const productId = productsSnapshot.docs[0].id;
+  let id = productId || "";
 
-  if (!productId) throw "Missing Product ID";
+  if (productRole) {
+    const productsQuery = await query(
+      collection(getFirestore(), "stripe-products"),
+      where("active", "==", true),
+      where("role", "==", productRole)
+    );
+    const productsSnapshot = await getDocs(productsQuery);
+    id = productsSnapshot.docs[0].id;
+  }
 
   // Get Price
   const pricesQuery = await query(
     collection(
-      doc(collection(getFirestore(), "stripe-products"), productId),
+      doc(collection(getFirestore(), "stripe-products"), id),
       "prices"
     ),
     where("active", "==", true)
   );
   const pricesSnapshot = await getDocs(pricesQuery);
-  const price = pricesSnapshot.docs[0].id;
+  const price = pricesSnapshot.docs[0];
 
   if (!price) throw "Missing Price ID";
+  return price;
+};
+
+export const addSubscription = async ({
+  productRole,
+  productId,
+}: {
+  productRole?: string;
+  productId?: string | null;
+}) => {
+  //Get app.idt cookie
+  const uid = getUidFromIdtCookie();
+  if (!uid) throw "Missing User ID";
+
+  // Get Price
+  const price = await getStripePrice({ productId, productRole });
 
   // Create Checkout Session
 
   const userDoc = doc(collection(getFirestore(), "stripe-customers"), uid);
   return await addDoc(collection(userDoc, "checkout_sessions"), {
-    price,
+    price: price.id,
     success_url: window.location.href,
     cancel_url: window.location.href,
   });

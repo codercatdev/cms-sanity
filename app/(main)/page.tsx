@@ -1,4 +1,5 @@
 import CoverImage from "@/components/cover-image";
+import Buy from "@/components/user-buy";
 import { HomePageQueryResult } from "@/sanity.types";
 import { sanityFetch } from "@/sanity/lib/fetch";
 import { homePageQuery } from "@/sanity/lib/queries";
@@ -31,13 +32,7 @@ export default async function HomePage() {
                   {homePage?.featuredCourse?.excerpt}
                 </p>
                 <div className="flex flex-col gap-2 min-[400px]:flex-row">
-                  <Link
-                    href={`${homePage?.featuredCourse?._type}/${homePage?.featuredCourse?.slug}`}
-                    className="inline-flex h-10 items-center justify-center rounded-md border border-input bg-background px-8 text-sm font-medium shadow-sm transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
-                    prefetch={false}
-                  >
-                    Buy Course
-                  </Link>
+                  <Buy course={homePage?.featuredCourse} />
                   <Link
                     href="/pro"
                     className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-8 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
@@ -97,13 +92,7 @@ export default async function HomePage() {
                     {fc?.excerpt}
                   </p>
                   <div className="flex flex-col gap-2 min-[400px]:flex-row">
-                    <Link
-                      href={`${fc?._type}/${fc?.slug}`}
-                      className="inline-flex h-10 items-center justify-center rounded-md border border-input bg-background px-8 text-sm font-medium shadow-sm transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
-                      prefetch={false}
-                    >
-                      Buy Course
-                    </Link>
+                    <Buy course={fc} />
                     <Link
                       href="/pro"
                       className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-8 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"

@@ -6127,6 +6127,13 @@
         },
         "optional": true
       },
+      "stripeProduct": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": true
+      },
       "sections": {
         "type": "objectAttribute",
         "value": {

@@ -41,7 +41,7 @@ export default function GoPro({
 
   const onSubscribe = async () => {
     setRedirecting(true);
-    const docRef = await addSubscription(subType);
+    const docRef = await addSubscription({ productRole: subType });
 
     onSnapshot(docRef, (snap) => {
       const { error, url } = snap.data() as { error: Error; url: string };
