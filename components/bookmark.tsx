@@ -2,7 +2,6 @@
 import { useBookmarked, useFirestoreUser } from "@/lib/firebase.hooks";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/components/ui/use-toast";
-import { CheckedState } from "@radix-ui/react-checkbox";
 import { BaseBookmarkContent } from "@/lib/types";
 
 export default function Bookmark({
@@ -16,7 +15,7 @@ export default function Bookmark({
   });
   const { toast } = useToast();
 
-  const makeComplete = async (isChecked: CheckedState) => {
+  const makeComplete = async (isChecked: boolean) => {
     if (!currentUser?.uid) {
       toast({
         variant: "destructive",

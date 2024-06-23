@@ -4,7 +4,6 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
 import { Card } from "@/components/ui/card";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
@@ -13,12 +12,15 @@ import { Dispatch, SetStateAction, useState } from "react";
 import { useToast } from "@/components/ui/use-toast";
 import { addSubscription } from "@/lib/firebase";
 import { onSnapshot } from "firebase/firestore";
+import { useFirestoreUser } from "@/lib/firebase.hooks";
+import Link from "next/link";
 
 export default function GoPro({
   setShowGoPro,
 }: {
   setShowGoPro: Dispatch<SetStateAction<boolean>>;
 }) {
+  const { currentUser } = useFirestoreUser();
   const [subType, setSubType] = useState("yearly");
   const [redirecting, setRedirecting] = useState(false);
   const { toast } = useToast();
@@ -42,73 +44,96 @@ export default function GoPro({
     });
   };
 
+  const subscribe = (
+    <>
+      <DialogHeader>
+        <DialogTitle>Select Subscription Type</DialogTitle>
+      </DialogHeader>
+      <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <Card
+          className={`rounded-lg p-4 hover:cursor-pointer ${subType === "monthly" && "bg-primary"}`}
+          onClick={() => setSubType("monthly")}
+        >
+          <div className="flex justify-between">
+            <div>
+              <div className="text-sm">Monthly</div>
+              <div className="text-3xl font-bold">$29</div>
+              <div className="text-sm">Just $0.79 per day</div>
+            </div>
+            {subType === "monthly" && <CheckIcon className="" />}
+          </div>
+          <Avatar className="mt-4">
+            <AvatarImage src="/placeholder-user.jpg" />
+          </Avatar>
+        </Card>
+        <Card
+          className={`rounded-lg p-4 hover:cursor-pointer ${subType === "yearly" && "bg-primary"}`}
+          onClick={() => setSubType("yearly")}
+        >
+          <div className="flex justify-between">
+            <div>
+              <div className="text-sm">yearly</div>
+              <div className="text-3xl font-bold">$199</div>
+              <div className="text-sm">Save $149 compared to monthly</div>
+            </div>
+            {subType === "yearly" && <CheckIcon className="" />}
+          </div>
+          <Avatar className="mt-4">
+            <AvatarImage src="/placeholder-user.jpg" />
+          </Avatar>
+        </Card>
+      </div>
+      <div className="mt-4 rounded-lg  p-4 ">
+        <div className="text-xl font-bold">Pro</div>
+        <ul className="mt-4 space-y-2">
+          <li className="flex items-center">
+            <RocketIcon className="mr-2 " />
+            Watch all PRO courses
+          </li>
+          <li className="flex items-center">
+            <ClockIcon className="mr-2 " />
+            Join PRO office hours
+          </li>
+          <li className="flex items-center">
+            <BookIcon className="mr-2 " />
+            Read all PRO posts
+          </li>
+          <li className="flex items-center">
+            <PaletteIcon className="mr-2 " />
+            Pro Picked Custom Theme
+          </li>
+        </ul>
+      </div>
+      <div className="mt-6 flex justify-end">
+        <Button onClick={onSubscribe} disabled={redirecting}>
+          {redirecting ? "Redirecting..." : "Continue to Stripe"}
+          {!redirecting && <ArrowRightIcon className="ml-2" />}
+        </Button>
+      </div>
+    </>
+  );
+
+  const login = (
+    <>
+      <DialogHeader>
+        <DialogTitle>Login First</DialogTitle>
+      </DialogHeader>
+      <div className="mt-4 grid gap-2 sm:gap-4">
+        <p>First you will need to login.</p>
+        <Link
+          href="/login?"
+          className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-8 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
+        >
+          Login
+        </Link>
+      </div>
+    </>
+  );
+
   return (
     <Dialog defaultOpen onOpenChange={(open) => setShowGoPro(open)}>
       <DialogContent className="rounded-lg  p-6">
-        <DialogHeader>
-          <DialogTitle>Select Subscription Type</DialogTitle>
-        </DialogHeader>
-        <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <Card
-            className={`rounded-lg p-4 hover:cursor-pointer ${subType === "monthly" && "bg-primary"}`}
-            onClick={() => setSubType("monthly")}
-          >
-            <div className="flex justify-between">
-              <div>
-                <div className="text-sm">Monthly</div>
-                <div className="text-3xl font-bold">$29</div>
-                <div className="text-sm">Just $0.79 per day</div>
-              </div>
-              {subType === "monthly" && <CheckIcon className="" />}
-            </div>
-            <Avatar className="mt-4">
-              <AvatarImage src="/placeholder-user.jpg" />
-            </Avatar>
-          </Card>
-          <Card
-            className={`rounded-lg p-4 hover:cursor-pointer ${subType === "yearly" && "bg-primary"}`}
-            onClick={() => setSubType("yearly")}
-          >
-            <div className="flex justify-between">
-              <div>
-                <div className="text-sm">yearly</div>
-                <div className="text-3xl font-bold">$199</div>
-                <div className="text-sm">Save $149 compared to monthly</div>
-              </div>
-              {subType === "yearly" && <CheckIcon className="" />}
-            </div>
-            <Avatar className="mt-4">
-              <AvatarImage src="/placeholder-user.jpg" />
-            </Avatar>
-          </Card>
-        </div>
-        <div className="mt-4 rounded-lg  p-4 ">
-          <div className="text-xl font-bold">Pro</div>
-          <ul className="mt-4 space-y-2">
-            <li className="flex items-center">
-              <RocketIcon className="mr-2 " />
-              Watch all PRO courses
-            </li>
-            <li className="flex items-center">
-              <ClockIcon className="mr-2 " />
-              Join PRO office hours
-            </li>
-            <li className="flex items-center">
-              <BookIcon className="mr-2 " />
-              Read all PRO posts
-            </li>
-            <li className="flex items-center">
-              <PaletteIcon className="mr-2 " />
-              Pro Picked Custom Theme
-            </li>
-          </ul>
-        </div>
-        <div className="mt-6 flex justify-end">
-          <Button onClick={onSubscribe} disabled={redirecting}>
-            {redirecting ? "Redirecting..." : "Continue to Stripe"}
-            {!redirecting && <ArrowRightIcon className="ml-2" />}
-          </Button>
-        </div>
+        {currentUser?.uid ? subscribe : login}
       </DialogContent>
     </Dialog>
   );

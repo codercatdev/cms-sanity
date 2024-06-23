@@ -8,7 +8,7 @@ interface CoverImageProps {
   image: CloudinaryAsset;
 }
 
-export default async function CoverImage(props: CoverImageProps) {
+export default async function BlockImage(props: CoverImageProps) {
   const { image: originalImage } = props;
 
   const source = stegaClean(originalImage);
