@@ -15,10 +15,10 @@ export default async function HomePage() {
   return (
     <div className="flex flex-col min-h-[100dvh]">
       <main className="flex-1">
-        <section className="w-full py-12 md:py-24 lg:py-32">
+        <section className="w-full pb-12 md:py-24 lg:py-32">
           <div className="container px-4 md:px-6 grid gap-8 md:grid-cols-2 lg:gap-16">
             {homePage?.featuredCourse && (
-              <div className="space-y-4">
+              <div className="space-y-4 flex flex-col items-start gap-2">
                 <div className="inline-block rounded-lg bg-muted px-3 py-1 text-sm">
                   Featured Course
                 </div>
@@ -46,7 +46,7 @@ export default async function HomePage() {
             )}
 
             {homePage?.latestPodcast && (
-              <div className="space-y-4">
+              <div className="space-y-4 flex flex-col items-start gap-2">
                 <div className="inline-block rounded-lg bg-muted px-3 py-1 text-sm">
                   Latest Podcast
                 </div>
