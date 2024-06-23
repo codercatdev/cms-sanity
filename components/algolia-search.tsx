@@ -19,6 +19,7 @@ import {
   SearchBox,
   RefinementList,
   UseDynamicWidgetsProps,
+  PoweredBy,
 } from "react-instantsearch";
 import { InstantSearchNext } from "react-instantsearch-nextjs";
 import { useDynamicWidgets } from "react-instantsearch";
@@ -155,8 +156,10 @@ export default function AlgoliaSearch({
                 </div>
               )}
               <div className="flex-1 flex flex-col gap-2">
-                <div className=" flex flex-col gap-2">
-                  Search
+                <div className="flex flex-col gap-2 w-">
+                  <div className="flex">
+                    <PoweredBy className="w-32 sm:w-1/5" classNames={{}} />
+                  </div>
                   <SearchBox
                     placeholder="Search for your purr-fect thing!"
                     classNames={{

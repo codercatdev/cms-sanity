@@ -97,12 +97,19 @@ export default async function Footer() {
       </div>
       <div className="flex items-center gap-4">
         <div className="flex-1 max-w-[300px]">
-          <form className="flex space-x-2">
+          <form
+            className="flex space-x-2"
+            action="https://buttondown.email/api/emails/embed-subscribe/codingcatdev"
+            method="post"
+            target="popupwindow"
+          >
             <Input
               type="email"
               placeholder="Enter your email"
               className="max-w-lg flex-1"
             />
+            <input type="hidden" value="1" name="embed" />
+
             <Button type="submit">Subscribe</Button>
           </form>
         </div>
