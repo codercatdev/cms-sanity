@@ -17,9 +17,11 @@ import { jwtDecode } from "jwt-decode";
 import { CourseQueryResult, HomePageQueryResult } from "@/sanity.types";
 
 export default function Buy({
-  course,
+  title,
+  stripeProduct,
 }: {
-  course: NonNullable<HomePageQueryResult>["featuredCourses"][0];
+  title: NonNullable<HomePageQueryResult>["featuredCourses"][0]["title"];
+  stripeProduct: NonNullable<HomePageQueryResult>["featuredCourses"][0]["stripeProduct"];
 }) {
   const { currentUser } = useFirestoreUser();
   const [redirecting, setRedirecting] = useState(false);
@@ -33,6 +35,10 @@ export default function Buy({
   const [jwt, setJwt] = useState<any | null>(null);
 
   useEffect(() => {
+    if (showBuy) setRedirecting(false);
+  }, [showBuy]);
+
+  useEffect(() => {
     const session = cookies?.["app.idt"];
     if (session) {
       const jwtPalyoad = jwtDecode(session);
@@ -43,22 +49,23 @@ export default function Buy({
   }, [cookies]);
 
   const getPrice = async () => {
-    const price = await getStripePrice({ productId: course.stripeProduct });
+    const price = await getStripePrice({ stripeProduct });
     setPrice(price.data() as any);
   };
 
   useEffect(() => {
-    if (course.stripeProduct) getPrice();
+    if (stripeProduct) getPrice();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [course]);
+  }, [stripeProduct]);
 
   const onSubscribe = async () => {
     setRedirecting(true);
-    const docRef = await addSubscription({ productId: course.stripeProduct });
+    const docRef = await addSubscription({ stripeProduct });
 
     onSnapshot(docRef, (snap) => {
       const { error, url } = snap.data() as { error: Error; url: string };
       if (error) {
+        console.error(error);
         toast({
           variant: "destructive",
           description: error.message,
@@ -74,7 +81,7 @@ export default function Buy({
   const subscribe = (
     <>
       <DialogHeader>
-        <DialogTitle>Purchase {course.title}</DialogTitle>
+        <DialogTitle>Purchase {title}</DialogTitle>
       </DialogHeader>
       <Button onClick={onSubscribe} disabled={redirecting}>
         {redirecting ? "Redirecting..." : "Continue to Stripe"}
@@ -92,7 +99,7 @@ export default function Buy({
         <p>First you will need to login.</p>
         <Link
           href="/login?redirectTo=/pro"
-          className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-8 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
+          className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-2 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
         >
           Login
         </Link>
@@ -110,7 +117,7 @@ export default function Buy({
         </DialogContent>
       </Dialog>
       <Button
-        className="inline-flex h-10 items-center justify-center rounded-md border border-input bg-background px-8 text-sm font-medium shadow-sm transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
+        className="inline-flex h-10 items-center justify-center rounded-md border border-input bg-background px-2 text-sm font-medium shadow-sm transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 text-foreground"
         onClick={() => setShowBuy(true)}
       >
         Buy Course

@@ -3572,11 +3572,17 @@ export type CourseQueryResult = {
   pick: null;
 } | null;
 // Variable: lessonsInCourseQuery
-// Query: *[_type == "course" && slug.current == $courseSlug] [0] {  _id,  "title": coalesce(title, "Untitled"),  "slug": slug.current,  sections[]{    title,    lesson[]->{        _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(date, _createdAt),        locked,  videoCloudinary    }  }}
+// Query: *[_type == "course" && slug.current == $courseSlug] [0] {    _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(date, _createdAt),    stripeProduct,  sections[]{    title,    lesson[]->{        _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(date, _createdAt),        locked,  videoCloudinary    }  }}
 export type LessonsInCourseQueryResult = {
   _id: string;
+  _type: "course";
+  status: "draft" | "published";
   title: string | "Untitled";
   slug: string | null;
+  excerpt: string | null;
+  coverImage: CloudinaryAsset | null;
+  date: string;
+  stripeProduct: string | null;
   sections: Array<{
     title: string | null;
     lesson: Array<{

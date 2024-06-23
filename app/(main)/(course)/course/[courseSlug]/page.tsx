@@ -16,6 +16,8 @@ import { resolveOpenGraphImage } from "@/sanity/lib/utils";
 import Lessons from "./lessons";
 import MoreHeader from "@/components/more-header";
 import { BreadcrumbLinks } from "@/components/breadrumb-links";
+import Buy from "@/components/user-buy";
+import Link from "next/link";
 
 type Props = {
   params: { courseSlug: string };
@@ -89,12 +91,24 @@ export default async function CoursePage({ params }: Props) {
             </div>
           </div>
         </div>
-        <div className="mb-8 sm:mx-0 md:mb-16">
+        <div className="mb-8 sm:mx-0 md:mb-16 flex flex-col gap-2 md:gap-8">
           <CoverMedia
             cloudinaryImage={course.coverImage}
             cloudinaryVideo={course.videoCloudinary}
             youtube={course.youtube}
           />
+          {course?.stripeProduct && course?.title && (
+            <section className="flex gap-2">
+              <Buy stripeProduct={course.stripeProduct} title={course.title} />
+              <Link
+                href="/pro"
+                className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-2 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
+                prefetch={false}
+              >
+                Go Pro
+              </Link>
+            </section>
+          )}
         </div>
         <div className="block md:hidden">
           <div className="max-w-2xl mx-auto">

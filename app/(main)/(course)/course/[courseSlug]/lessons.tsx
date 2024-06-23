@@ -12,21 +12,22 @@ import {
 } from "@/components/ui/card";
 
 import BadgePro from "@/components/badge-pro";
+import Buy from "@/components/user-buy";
 
 export default async function Lessons(params: { courseSlug: string }) {
-  const data = await sanityFetch<LessonsInCourseQueryResult>({
+  const course = await sanityFetch<LessonsInCourseQueryResult>({
     query: lessonsInCourseQuery,
     params,
   });
   return (
     <>
-      {data?.sections && (
+      {course?.sections && (
         <div className="flex flex-col">
           <hr className="mb-24 border-accent-2 mt-28" />
           <h2 className="mb-8 text-6xl font-bold leading-tight tracking-tighter md:text-7xl">
             Lessons
           </h2>
-          {data?.sections?.map((section, i) => (
+          {course?.sections?.map((section, i) => (
             <div key={i} className="flex flex-col">
               <div className="text-xl">
                 <h3 className="mb-3 text-3xl leading-snug">{section?.title}</h3>
@@ -71,8 +72,22 @@ export default async function Lessons(params: { courseSlug: string }) {
                           </p>
                         )}
                       </CardContent>
-                      <CardFooter>
-                        <BadgePro locked={locked} />
+                      <CardFooter className="flex flex-col items-start gap-2">
+                        {locked && course?.stripeProduct && course?.title && (
+                          <section className="flex flex-wrap gap-2">
+                            <Buy
+                              stripeProduct={course?.stripeProduct}
+                              title={title}
+                            />
+                            <Link
+                              href="/pro"
+                              className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-2 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
+                              prefetch={false}
+                            >
+                              Go Pro
+                            </Link>
+                          </section>
+                        )}
                       </CardFooter>
                     </Card>
                   );

@@ -145,13 +145,13 @@ export const ccdSignOut = async () => {
 /* STRIPE */
 export const getStripePrice = async ({
   productRole,
-  productId,
+  stripeProduct,
 }: {
   productRole?: string | null;
-  productId?: string | null;
+  stripeProduct?: string | null;
 }) => {
   // Get Product
-  let id = productId || "";
+  let id = stripeProduct || "";
 
   if (productRole) {
     const productsQuery = await query(
@@ -180,26 +180,45 @@ export const getStripePrice = async ({
 
 export const addSubscription = async ({
   productRole,
-  productId,
+  stripeProduct,
 }: {
   productRole?: string;
-  productId?: string | null;
+  stripeProduct?: string | null;
 }) => {
   //Get app.idt cookie
   const uid = getUidFromIdtCookie();
   if (!uid) throw "Missing User ID";
 
   // Get Price
-  const price = await getStripePrice({ productId, productRole });
+  const price = await getStripePrice({ stripeProduct, productRole });
 
   // Create Checkout Session
 
   const userDoc = doc(collection(getFirestore(), "stripe-customers"), uid);
-  return await addDoc(collection(userDoc, "checkout_sessions"), {
-    price: price.id,
-    success_url: window.location.href,
-    cancel_url: window.location.href,
-  });
+
+  return await addDoc(
+    collection(userDoc, "checkout_sessions"),
+    stripeProduct
+      ? {
+          line_items: [
+            {
+              price: price.id,
+              quantity: 1,
+            },
+          ],
+          mode: "payment",
+          allow_promotion_codes: true,
+          success_url: window.location.href,
+          cancel_url: window.location.href,
+        }
+      : {
+          mode: "subscription",
+          allow_promotion_codes: true,
+          price: price.id,
+          success_url: window.location.href,
+          cancel_url: window.location.href,
+        }
+  );
 };
 
 /* Analytics */

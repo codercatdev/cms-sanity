@@ -46,6 +46,7 @@ export default function GoPro({
     onSnapshot(docRef, (snap) => {
       const { error, url } = snap.data() as { error: Error; url: string };
       if (error) {
+        console.error(error);
         toast({
           variant: "destructive",
           description: error.message,
@@ -136,7 +137,7 @@ export default function GoPro({
         <p>First you will need to login.</p>
         <Link
           href="/login?redirectTo=/pro"
-          className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-8 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
+          className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-2 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
         >
           Login
         </Link>

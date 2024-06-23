@@ -11,10 +11,9 @@ import { lessonQuery, lessonsInCourseQuery } from "@/sanity/lib/queries";
 import { resolveOpenGraphImage } from "@/sanity/lib/utils";
 import LessonPanel from "./lesson-panel";
 import MoreContent from "@/components/more-content";
-import { cookies } from "next/headers";
 import MoreHeader from "@/components/more-header";
 import PortableText from "@/components/portable-text";
-import { groq, type PortableTextBlock } from "next-sanity";
+import { type PortableTextBlock } from "next-sanity";
 
 type Props = {
   params: { lessonSlug: string; courseSlug: string };
@@ -61,11 +60,15 @@ export default async function LessonPage({ params }: Props) {
     return notFound();
   }
 
+  // Check if user is either a pro or paid for lesson
+
   return (
     <>
       {lesson?._id && course?._id && (
         <div className="container px-5 mx-auto grid gap-2">
-          <LessonPanel lesson={lesson} course={course} />
+          <Suspense>
+            <LessonPanel lesson={lesson} course={course} />
+          </Suspense>
           {lesson?.content?.length && (
             <PortableText
               className="mx-auto prose-violet lg:prose-xl dark:prose-invert"

@@ -22,20 +22,27 @@ export default async function HomePage() {
                 <div className="inline-block rounded-lg bg-muted px-3 py-1 text-sm">
                   Featured Course
                 </div>
-                {homePage?.featuredCourse?.coverImage && (
-                  <CoverImage image={homePage?.featuredCourse?.coverImage} />
-                )}
-                <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
-                  {homePage?.featuredCourse?.title}
-                </h2>
-                <p className="max-w-[600px] text-muted-foreground md:text-xl/relaxed">
-                  {homePage?.featuredCourse?.excerpt}
-                </p>
+                <Link
+                  href={`/${homePage?.featuredCourse?._type}/${homePage?.featuredCourse?.slug}`}
+                >
+                  {homePage?.featuredCourse?.coverImage && (
+                    <CoverImage image={homePage?.featuredCourse?.coverImage} />
+                  )}
+                  <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
+                    {homePage?.featuredCourse?.title}
+                  </h2>
+                  <p className="max-w-[600px] text-muted-foreground md:text-xl/relaxed">
+                    {homePage?.featuredCourse?.excerpt}
+                  </p>
+                </Link>
                 <div className="flex flex-col gap-2 min-[400px]:flex-row">
-                  <Buy course={homePage?.featuredCourse} />
+                  <Buy
+                    stripeProduct={homePage?.featuredCourse?.stripeProduct}
+                    title={homePage?.featuredCourse?.title}
+                  />
                   <Link
                     href="/pro"
-                    className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-8 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
+                    className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-2 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
                     prefetch={false}
                   >
                     Go Pro
@@ -49,15 +56,19 @@ export default async function HomePage() {
                 <div className="inline-block rounded-lg bg-muted px-3 py-1 text-sm">
                   Latest Podcast
                 </div>
-                {homePage?.latestPodcast?.coverImage && (
-                  <CoverImage image={homePage?.latestPodcast?.coverImage} />
-                )}
-                <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
-                  {homePage?.latestPodcast?.title}
-                </h2>
-                <p className="max-w-[600px] text-muted-foreground md:text-xl/relaxed">
-                  {homePage?.latestPodcast?.excerpt}
-                </p>
+                <Link
+                  href={`/${homePage?.latestPodcast?._type}/${homePage?.latestPodcast?.slug}`}
+                >
+                  {homePage?.latestPodcast?.coverImage && (
+                    <CoverImage image={homePage?.latestPodcast?.coverImage} />
+                  )}
+                  <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
+                    {homePage?.latestPodcast?.title}
+                  </h2>
+                  <p className="max-w-[600px] text-muted-foreground md:text-xl/relaxed">
+                    {homePage?.latestPodcast?.excerpt}
+                  </p>
+                </Link>
               </div>
             )}
           </div>
@@ -91,16 +102,24 @@ export default async function HomePage() {
                   <p className="max-w-[600px] text-muted-foreground md:text-xl/relaxed">
                     {fc?.excerpt}
                   </p>
-                  <div className="flex flex-col gap-2 min-[400px]:flex-row">
-                    <Buy course={fc} />
-                    <Link
-                      href="/pro"
-                      className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-8 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
-                      prefetch={false}
-                    >
-                      Go Pro
-                    </Link>
-                  </div>
+                  {homePage?.featuredCourse?.stripeProduct &&
+                    homePage?.featuredCourse?.title && (
+                      <div className="flex flex-col gap-2 min-[400px]:flex-row">
+                        <Buy
+                          stripeProduct={
+                            homePage?.featuredCourse?.stripeProduct
+                          }
+                          title={homePage?.featuredCourse?.title}
+                        />
+                        <Link
+                          href="/pro"
+                          className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-2 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
+                          prefetch={false}
+                        >
+                          Go Pro
+                        </Link>
+                      </div>
+                    )}
                 </div>
               ))}
             </div>
