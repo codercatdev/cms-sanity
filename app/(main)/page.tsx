@@ -1,10 +1,10 @@
 import CoverImage from "@/components/cover-image";
 import Buy from "@/components/user-buy";
+import UserGoProButton from "@/components/user-go-pro-button";
 import { HomePageQueryResult } from "@/sanity.types";
 import { sanityFetch } from "@/sanity/lib/fetch";
 import { homePageQuery } from "@/sanity/lib/queries";
 import Link from "next/link";
-import { Suspense } from "react";
 
 export default async function HomePage() {
   const [homePage] = await Promise.all([
@@ -40,13 +40,7 @@ export default async function HomePage() {
                     stripeProduct={homePage?.featuredCourse?.stripeProduct}
                     title={homePage?.featuredCourse?.title}
                   />
-                  <Link
-                    href="/pro"
-                    className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-2 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
-                    prefetch={false}
-                  >
-                    Go Pro
-                  </Link>
+                  <UserGoProButton />
                 </div>
               </div>
             )}
@@ -111,13 +105,7 @@ export default async function HomePage() {
                           }
                           title={homePage?.featuredCourse?.title}
                         />
-                        <Link
-                          href="/pro"
-                          className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-2 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
-                          prefetch={false}
-                        >
-                          Go Pro
-                        </Link>
+                        <UserGoProButton />
                       </div>
                     )}
                 </div>

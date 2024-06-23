@@ -18,6 +18,8 @@ import MoreHeader from "@/components/more-header";
 import { BreadcrumbLinks } from "@/components/breadrumb-links";
 import Buy from "@/components/user-buy";
 import Link from "next/link";
+import ShowPro from "./show-pro";
+import UserGoProButton from "@/components/user-go-pro-button";
 
 type Props = {
   params: { courseSlug: string };
@@ -62,6 +64,7 @@ export default async function CoursePage({ params }: Props) {
 
   return (
     <div className="container px-5 mx-auto">
+      <ShowPro />
       <BreadcrumbLinks
         links={[
           { title: "Courses", href: "/courses/page/1" },
@@ -100,13 +103,7 @@ export default async function CoursePage({ params }: Props) {
           {course?.stripeProduct && course?.title && (
             <section className="flex gap-2">
               <Buy stripeProduct={course.stripeProduct} title={course.title} />
-              <Link
-                href="/pro"
-                className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-2 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
-                prefetch={false}
-              >
-                Go Pro
-              </Link>
+              <UserGoProButton />
             </section>
           )}
         </div>

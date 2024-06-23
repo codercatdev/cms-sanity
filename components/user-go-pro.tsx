@@ -16,6 +16,7 @@ import { useFirestoreUser } from "@/lib/firebase.hooks";
 import Link from "next/link";
 import { useCookies } from "react-cookie";
 import { jwtDecode } from "jwt-decode";
+import { usePathname } from "next/navigation";
 
 export default function GoPro({
   setShowGoPro,
@@ -28,6 +29,7 @@ export default function GoPro({
   const { toast } = useToast();
   const [cookies] = useCookies(["app.idt"]);
   const [jwt, setJwt] = useState<any | null>(null);
+  const pathname = usePathname();
 
   useEffect(() => {
     const session = cookies?.["app.idt"];
@@ -77,9 +79,6 @@ export default function GoPro({
             </div>
             {subType === "monthly" && <CheckIcon className="" />}
           </div>
-          <Avatar className="mt-4">
-            <AvatarImage src="/placeholder-user.jpg" />
-          </Avatar>
         </Card>
         <Card
           className={`rounded-lg p-4 hover:cursor-pointer ${subType === "yearly" && "bg-primary"}`}
@@ -93,9 +92,6 @@ export default function GoPro({
             </div>
             {subType === "yearly" && <CheckIcon className="" />}
           </div>
-          <Avatar className="mt-4">
-            <AvatarImage src="/placeholder-user.jpg" />
-          </Avatar>
         </Card>
       </div>
       <div className="mt-4 rounded-lg  p-4 ">
@@ -136,7 +132,7 @@ export default function GoPro({
       <div className="mt-4 grid gap-2 sm:gap-4">
         <p>First you will need to login.</p>
         <Link
-          href="/login?redirectTo=/pro"
+          href={`/login?redirectTo=${pathname}`}
           className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-2 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
         >
           Login

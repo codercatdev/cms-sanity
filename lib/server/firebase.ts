@@ -104,7 +104,7 @@ export const getStripeProducts = async () => {
   return products;
 };
 
-export const didUserPurchase = async (slug: string, uid?: string) => {
+export const didUserPurchase = async (stripeId: string, uid?: string) => {
   if (!uid) return false;
 
   // User
@@ -117,22 +117,8 @@ export const didUserPurchase = async (slug: string, uid?: string) => {
 
   const snapshot = await db
     .collection(`stripe-customers/${user.uid}/payments`)
-    .where("canceled_at", "==", null)
+    .where("items.price.product", "==", stripeId)
     .get();
 
-  if (snapshot.empty) return false;
-
-  for (const doc of snapshot.docs) {
-    const payment = doc.data();
-    for (const item of payment?.items) {
-      const productSnapshot = await db
-        .doc(`stripe-products/${item?.price?.product}`)
-        .get();
-      if (!productSnapshot) return false;
-
-      const product = productSnapshot.data();
-      if (product?.metadata?.slug === slug) return true;
-    }
-  }
-  return false;
+  return !snapshot.empty;
 };

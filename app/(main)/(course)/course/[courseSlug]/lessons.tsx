@@ -11,8 +11,8 @@ import {
   CardHeader,
 } from "@/components/ui/card";
 
-import BadgePro from "@/components/badge-pro";
 import Buy from "@/components/user-buy";
+import UserGoProButton from "@/components/user-go-pro-button";
 
 export default async function Lessons(params: { courseSlug: string }) {
   const course = await sanityFetch<LessonsInCourseQueryResult>({
@@ -77,15 +77,9 @@ export default async function Lessons(params: { courseSlug: string }) {
                           <section className="flex flex-wrap gap-2">
                             <Buy
                               stripeProduct={course?.stripeProduct}
-                              title={title}
+                              title={course.title}
                             />
-                            <Link
-                              href="/pro"
-                              className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-2 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
-                              prefetch={false}
-                            >
-                              Go Pro
-                            </Link>
+                            <UserGoProButton />
                           </section>
                         )}
                       </CardFooter>
